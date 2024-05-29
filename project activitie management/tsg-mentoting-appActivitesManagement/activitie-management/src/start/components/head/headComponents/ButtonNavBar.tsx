@@ -2,7 +2,7 @@ import { Drawer, Button } from '@mui/material';
 import { useState } from "react"
 
 import { ReceiptRounded } from '@mui/icons-material';
-import { OptionsNavBar } from './buttonNavBarComponents/OptionsNavBar';
+import { OptionsNavBar } from './NavBarButtonComponents/OptionsNavBar';
 
 
 export const ButtonNavBar = () => {
