@@ -1,0 +1,14 @@
+https://www.udemy.com/course/aprende-sql-desde-cero-hasta-avanzado-como-un-profesional/learn/lecture/15852162#overview
+
+QUE ES  ?:
+	
+	SQL: structure query language... lenguaje de consulta estructurado.
+		
+		Esta focalizado a los gestores de base de datos.
+		
+		MYSQL (GESTOR DE BD)
+			Sirve para administrar bd gracias a sus componentes visuales.
+
+		instalacion ----------------------------------- ok.
+		
+		

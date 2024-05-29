@@ -1,0 +1,62 @@
+/* Estilos para la calculadora */
+.calculator {
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+    min-width: 400px;
+    padding: 20px;
+    background-color: #f35925;
+    border-radius: 25px;
+    align-items: center;
+    gap: 10px; 
+  }
+  
+  .operations{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px; 
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .numbers
+  {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px; 
+    min-height: 100px;
+    min-width: 285px;
+    border-radius: 25px;
+    justify-content: center;
+    align-items: center;
+}
+  
+  #operation {
+    border-radius: 25px;
+    min-height: 80px;
+    min-width: 300px;
+    background-color: black;
+    color: white;
+    text-align: center;
+  }
+  #result {
+    border-radius: 25px;
+    min-height: 50px;
+    min-width: 300px;
+    background-color: rgb(92, 77, 77);
+    color: white;text-align: center;
+  }
+
+  button {
+    border-radius: 25px;
+  }
+  
+  /* #creditos {
+    display: block;
+    padding-top: 20px;
+    color: #fff;
+    text-align: center;
+    width: 300px;
+  } */
+  

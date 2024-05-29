@@ -1,0 +1,39 @@
+
+curso :  https://www.udemy.com/course/git-y-github-100-practico/learn/lecture/25294608#overview
+--------------------------------------------------------------------------------------------------------
+
+Estrutura con tsg ...
+
+	ramas: 
+	
+		master/main (produccion)
+
+		qa (pruebas antes de produccion ambiente lo mas cercano posible)
+
+		dev (entorno de desarrollo)
+
+		--------------------------
+	
+		feature ( nuevas funcionalidades )
+			- siempre se crea con base a master.g
+		hotFix ( rama ya en produccion mantenimiengto)
+			- tambien sale de master
+	
+		bugFix () (errores encontrados en qa o calidad )
+			-sale de release o versionamiento
+		
+	------------------versionamiento-------------------
+
+	release/#.#.# (manejo versionado)(sale de master)
+
+		PRIMER # (CAMBIA SI ES UN CAMBIO GRANDE (NUEVA F O REFACTORIZACION))
+		SEGUNDO # (CAMBIOS PEQUEÑOS)
+		TERCERO # (CUANDO HAY UN HOTFIX) 
+	
+		Si el primero cambia los otros siguientes se reinician.
+	
+		como se nombra:
+			-feature/sprin-##/codigo-H.U-[DESCRIPCION BREVE EN INGLES]
+
+
+

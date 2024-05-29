@@ -1,0 +1,263 @@
+<html>
+
+<head>
+    <title>Formularo de contacto Tsg 2024</title>
+    <link rel="icon" href="descarga.jpg" type="image/x-icon">
+    <style>
+        body {
+            background-color: orange;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+
+
+
+        }
+
+        .fatherContainer {
+            background-color: rgb(255, 255, 255);
+            height: auto;
+            width: auto;
+            min-width: 350px;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+
+        }
+
+        .formContainer {
+            display: none;
+            flex-direction: column;
+
+        }
+
+
+        h2 {
+            font-size: 15px;
+        }
+
+        button {
+            position: relative;
+
+            background-color: orange;
+            border-radius: 13%;
+        }
+
+        input {
+            border-radius: 13%;
+            border-color: orange;
+
+        }
+
+        .message {
+            border-radius: 13%;
+            border-color: orange;
+            position: relative;
+            height: 100px;
+
+        }
+
+        span {
+            color: red;
+        }
+
+        table {
+            display: felx;
+            flex-direction: column;
+            align-items: center;
+
+            position: relative;
+
+            table-layout: fixed;
+            width: 100%;
+            border-collapse: collapse;
+            border: 3px solid rgb(0, 0, 0);
+            padding: 20px;
+        }
+
+        /* Estilo para las celdas de la tabla */
+        td,
+        th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        /* Estilo para la cabecera de la tabla */
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: rgb(0, 0, 0);
+            color: white;
+            transition: 0.5s;
+        }
+
+        td:hover {
+            background-color: orange;
+
+        }
+
+        .btBackToForm {
+
+            display: flex;
+            background-color: orange;
+            border-radius: 13%;
+            position: relative;
+            width: 150px;
+            height: 30px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <form id="contactForm">
+        <div class="fatherContainer">
+
+
+            <h1>Formulario de contacto</h1>
+
+            <p>Escribenos y en breve nos pondremos en contacto.</p>
+            <div id="formContainer" class="formContainer">
+                <h2>Nombre<span>*</span></h2>
+                <input id="mandatoryInputName" required="" class="">
+                <p></p>
+
+                <h2>Email<span>*</span></h2>
+                <input id="mandatoryInputEmail" required="">
+                <p></p>
+
+                <h2>Telefono</h2>
+                <input id=inputNumberPhone>
+                <p></p>
+
+                <h2>Sitio Web</h2>
+                <input id="inputWebSite">
+                <p></p>
+
+                <h2>Asunto<span>*</span></h2>
+                <input id="mandatoryInputAffair" required="">
+                <p></p>
+
+                <h2>Mensaje<span>*</span></h2>
+                <textarea id="message" class="message" placeholder="Escribe aquí tu mensaje..." required></textarea>
+                <p></p>
+
+                <button type="submit" id="sendMessage" onclick="enviar()">Enviar</button>
+                <p>Los datos con <span>*</span> son obligatorios</p>
+
+            </div>
+
+            <table id="table">
+                <caption>
+                    Personas en contacto.
+                </caption>
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Sitio Web</th>
+                        <th scope="col">Asunto</th>
+                        <th scope="col">Mensaje</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+
+            <div>
+                <button id="btBackToForm" class="btBackToForm" onclick="hiddenView()">Volver al formulario</button>
+            </div>
+
+        </div>
+        <script>
+
+            hiddenView();
+
+            let position = 1;
+
+            const addRow = (name, email, phone, webSite, affair, message) => {
+                document.getElementById('table').insertRow(-1).innerHTML = '<td>' + position + '</td><td>' + name + '</td><td>' + email + '</td><td>' + phone + '</td><td>' + webSite + '</td><td>' + affair + '</td><td>' + message + '</td>'
+                position++;
+            }
+
+            function hiddenView() {
+
+                var tableToHidden = document.getElementById("table");
+                var formToHidden = document.getElementById("formContainer");
+                var btBackToForm = document.getElementById("btBackToForm");
+
+                if (tableToHidden.style.display === "none") {
+
+                    tableToHidden.style.display = "flex";
+                    formToHidden.style.display = "none";
+                    btBackToForm.style.display = "flex";
+
+
+                } else {
+                    tableToHidden.style.display = "none";
+                    formToHidden.style.display = "flex";
+                    btBackToForm.style.display = "none";
+                }
+
+
+            }
+
+            function setInitialAction() {
+                document.getElementById("contactForm").addEventListener("submit", function (event) {
+                    event.preventDefault();
+                })
+
+            };
+
+            function cleanInputs() {
+
+                document.getElementById("mandatoryInputName").value = "";
+                document.getElementById("mandatoryInputEmail").value = "";
+                document.getElementById("inputNumberPhone").value = "";
+                document.getElementById("inputWebSite").value = "";
+                document.getElementById("mandatoryInputAffair").value = "";
+                document.getElementById("message").value = "";
+            }
+
+
+
+            function enviar() {
+
+                setInitialAction();
+
+                let name = document.getElementById("mandatoryInputName").value
+                let email = document.getElementById("mandatoryInputEmail").value
+                let phone = document.getElementById("inputNumberPhone").value
+                let webSite = document.getElementById("inputWebSite").value
+                let affair = document.getElementById("mandatoryInputAffair").value
+                let message = document.getElementById("message").value;
+                //alert(name + "," + email + "," + affair + "," + message);
+
+                if (name != "" & email != "" & affair != "" & message != "") {
+                    //alert(message);
+                    addRow(name, email, phone, webSite, affair, message);
+                    hiddenView();
+                    cleanInputs();
+                }
+
+
+            }
+
+
+        </script>
+
+
+    </form>
+</body>
+
+</html>
