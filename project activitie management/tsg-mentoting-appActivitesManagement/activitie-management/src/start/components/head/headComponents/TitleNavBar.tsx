@@ -1,12 +1,12 @@
 import { TaskAlt } from '@mui/icons-material';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 export const TitleNavBar = () => {
 
     return (
-        <Box>
+        <Box display="flex" alignItems="center">
             <TaskAlt/>
-            TASK MANAGEMENT
+            <Typography textAlign={'center'}>TASK MANAGEMENT</Typography>
         </Box>
     )
 }

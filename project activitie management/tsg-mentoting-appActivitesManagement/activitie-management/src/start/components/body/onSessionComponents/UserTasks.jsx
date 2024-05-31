@@ -8,12 +8,12 @@ export const UserTasks = () => {
 
     return (
 
-        <Box align='center' padding={5}>
+        <Box align='center' padding={5} >
             <Options />
             <Title />
-            <Grid container columnGap={5} rowGap={5} marginTop={5} maxWidth={'85%'} alignContent='center'>
-                {[1,2,3,4,5].map(()=>{
-                    return (<CardTask/>)
+            <Grid container columnGap={5} rowGap={5}  justifyContent={'center'} >
+                {[1,2,3,4,5,6,7,8,9,10].map((item,i)=>{
+                    return (<CardTask key={i}/>)
                 })}
             </Grid>
         </Box>

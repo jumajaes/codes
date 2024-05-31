@@ -10,8 +10,8 @@ export default function HeadApp() {
   
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar >
-        <Toolbar sx={{display: 'inline-flex', justifyContent:'space-between'}} >
+      <AppBar position='static' >
+        <Toolbar sx={{display: 'flex', justifyContent:'space-between'}}  >
 
           <ButtonNavBar/>
 

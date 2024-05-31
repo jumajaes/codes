@@ -1,25 +1,25 @@
-import AddTaskIcon from '@mui/icons-material/AddTask';
-
-import ScreenSearchDesktopIcon from '@mui/icons-material/ScreenSearchDesktop';
 import { Box, Button } from '@mui/material';
+import { FilterComponent } from './optionsComponents/FilterComponent';
+import { SearchTaskComponent } from './optionsComponents/SearchTaskComponent';
+import { CreateTaskComponent } from './optionsComponents/CreateTaskComponent';
 
-const options = [[< AddTaskIcon fontSize='large'/>, 'New task', 'contained'], [< ScreenSearchDesktopIcon fontSize='large' />, 'Search tasks', '']]
+const options = [[< CreateTaskComponent />,"contained"], [<SearchTaskComponent />,"text"], [<FilterComponent />,""]]
 
 export const Options = () => {
 
     return (
 
-        <Box component={"div"} justifyContent={"center"} display={"flex"} gap={5}  >
+        <Box justifyContent='space-between' display='flex-box'>
 
-            {options.map((option) => {
-                return(
-                <Button variant={option[2]}>
-                    {option[0]}
-                    {option[1]}
-                </Button>)
+            {options.map((option, i) => {
 
+                return (
+                    <Button key={i} variant={option[1]}  onClick={() => { }} >
+                        {option[0]}
+                    </Button>
+
+                )
             })}
-
         </Box >
     )
 }

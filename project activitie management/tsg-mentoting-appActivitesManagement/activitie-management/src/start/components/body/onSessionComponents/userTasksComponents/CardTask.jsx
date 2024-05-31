@@ -1,13 +1,13 @@
 
 import { TaskAlt, Cancel, BorderColor, DeleteForever, Assignment } from '@mui/icons-material';
 import { Avatar, Box, Card, CardActions, CardContent, CardHeader, IconButton, Typography } from '@mui/material';
-import {grey} from '@mui/material/colors'
+import grey from '@mui/material/colors/grey'
 
 
 export const CardTask = ({ title, descriptión, expirationDate, priority, state }) => {
 
     return (
-        <Card sx={{ maxWidth: 400, minWidth: 290}}>
+        <Card sx={{ maxWidth: 420, minWidth: 230 }} justifyContent='center'>
             <Typography variant="h5" backgroundColor='gray' align='center' color='white'>
                 Estado
             </Typography>
@@ -18,10 +18,10 @@ export const CardTask = ({ title, descriptión, expirationDate, priority, state 
                         <Assignment />
                     </Avatar>
                 }
-                title=<Typography variant='h5'>
+                title={<Typography variant='h5'>
                     NOMBRE TAREA
-                </Typography>
-                subheader="fecha vencimiento"
+                </Typography>}
+                subheader={` ID Task: ${12544} / Expiration date: ${1}`}
             />
             <Typography variant="h5" backgroundColor='blue' align='center' color='white'>
                 PRIORITY:
@@ -38,26 +38,26 @@ export const CardTask = ({ title, descriptión, expirationDate, priority, state 
             </CardContent>
 
             <CardActions >
-                <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between'}}>
-                    <Box>
-                        <Typography backgroundColor= {grey[100]}> MARK AS:</Typography>
-                        <IconButton aria-label="COMPLETED">
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} >
+                    <Box >
+                        <Typography backgroundColor={grey[200]}> MARK AS:</Typography>
+                        <IconButton aria-label="COMPLETED" color='success' >
                             <Typography>Completed</Typography>
                             <TaskAlt />
                         </IconButton>
-                        <IconButton aria-label="CANCELED">
+                        <IconButton aria-label="CANCELED" color='error' >
                             <Typography>Canceled</Typography>
                             <Cancel />
                         </IconButton>
                     </Box>
-                    <Box > 
-                        <Typography backgroundColor= {grey[50]}> MAKE:</Typography>
-                        <IconButton aria-label="EDIT">
-                            <Typography> EDIT</Typography>
+                    <Box maxWidth={'50%'} >
+                        <Typography backgroundColor={grey[100]} > MAKE:</Typography>
+                        <IconButton aria-label="EDIT" color='secondary'>
+                            <Typography > EDIT</Typography>
                             <BorderColor />
                         </IconButton>
-                        <IconButton aria-label="DELETE">
-                            <Typography> DELETE</Typography>
+                        <IconButton aria-label="DELETE" color='warning'>
+                            <Typography > DELETE</Typography>
                             <DeleteForever />
                         </IconButton>
                     </Box>
