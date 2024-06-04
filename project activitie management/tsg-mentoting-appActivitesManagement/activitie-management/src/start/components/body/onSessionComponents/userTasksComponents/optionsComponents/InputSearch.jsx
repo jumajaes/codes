@@ -5,7 +5,7 @@ export const InputSearch = () => {
 
     return (
         <Box padding={2}>
-            <TextField label="Name or id" variant="standard" sx={{ maxWidth: 600, minWidth:400 }}/>
+            <TextField label="Name or id" variant="standard" sx={{  minWidth:400 }}/>
             <Button variant='contained' onClick={() => {
                 console.log('Clic d')
             }}>

@@ -1,24 +1,33 @@
-import { Assignment, ExpandLess, ExpandMore, SearchSharp } from "@mui/icons-material";
-import { Box, Button, CardContent, CardHeader, Collapse, ListItemButton, ListItemText, TextField, Typography } from "@mui/material";
+import { Assignment, ExpandLess, ExpandMore } from "@mui/icons-material";
+import { Box, Button, CardContent, Collapse, ListItemButton, ListItemText, TextField, Typography } from "@mui/material";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export const CardCreateTask = () => {
     const [open, setOpen] = useState(false);
-    const [priority, setPriority] = useState('Medium')
+    const [priority, setPriority] = useState('MEDIUM')
     const handleClick = () => {
         setOpen(!open);
     };
+    const [backGroundColor, setBackGroundColor] = useState('#2196f3')
+
+    useEffect(() => {
+
+        priority === 'MEDIUM' ? setBackGroundColor('#2196f3') : priority === 'HIGH' ? setBackGroundColor('#ffc107') : setBackGroundColor('#9E9E9E')
+
+    }, [priority])
+
+
     return (
         <Box sx={{ maxWidth: 420, minWidth: 230, backgroundColor: 'white' }} justifyContent='center' border={5} padding={2}>
 
-            <Typography variant="contained" backgroundColor='#1976d2' align='center' color='white' component={'div'} >
-                New
+            <Typography variant="contained" align='center' color='#1976d2' component={'div'} >
+                New TASK
             </Typography>
             <Box>
                 <Typography margin={1} backgroundColor='#1976d2' align='center' color='white'>
-                    name
+                    NAME NEW TASK
                 </Typography>
                 <TextField label="name task" variant="standard" sx={{ minWidth: '250PX' }} />
             </Box>
@@ -37,26 +46,26 @@ export const CardCreateTask = () => {
 
                     />
                 </Box>
-                <Box padding={2} sx={{ backgroundColor: '#1976d2', margin: 2, minWidth: 250 }} >
+                <Box padding={2} sx={{ backgroundColor: '#1976d2', margin: 2 }} >
                     <Typography variant="contained" backgroundColor='#1976d2' align='center' color='white' component={'div'} >
                         Priority:
                     </Typography>
                     <ListItemButton onClick={handleClick}>
-                        <ListItemText primary={priority} />
+                        <ListItemText primary={priority} sx={{ backgroundColor: backGroundColor, padding: 1 }} />
                         {open ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
-                    <Collapse in={open} unmountOnExit sx={{backgroundColor:'#2196f3', padding:1}}>
-                        <Button variant="contained" onClick={() => {
+                    <Collapse in={open} sx={{ padding: 1, backgroundColor: '#00ACC1' }}>
+                        <Button variant={priority === 'HIGH' ? 'contained' : ''} onClick={() => {
                             setPriority('HIGH')
                         }}>
                             HIGH
                         </Button>
-                        <Button variant="contained" onClick={() => {
+                        <Button variant={priority === 'MEDIUM' ? 'contained' : ''} onClick={() => {
                             setPriority('MEDIUM')
                         }}>
                             MEDIUM
                         </Button>
-                        <Button variant="contained" onClick={() => {
+                        <Button variant={priority === 'LOW' ? 'contained' : ''} onClick={() => {
                             setPriority('LOW')
                         }}>
                             LOW

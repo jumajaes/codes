@@ -7,7 +7,7 @@ import grey from '@mui/material/colors/grey'
 export const CardTask = ({ title, descriptión, expirationDate, priority, state }) => {
 
     return (
-        <Card sx={{ maxWidth: 420, minWidth: 230 }} justifyContent='center'>
+        <Card sx={{ maxWidth: 350, minWidth: 230 }}>
             <Typography variant="h5" backgroundColor='gray' align='center' color='white'>
                 Estado
             </Typography>

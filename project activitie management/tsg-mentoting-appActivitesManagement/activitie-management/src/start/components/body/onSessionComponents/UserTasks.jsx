@@ -11,7 +11,7 @@ export const UserTasks = () => {
         <Box align='center' padding={5} >
             <Options />
             <Title />
-            <Grid container columnGap={5} rowGap={5}  justifyContent={'center'} >
+            <Grid container columnGap={5} rowGap={5}  justifycontent='center' >
                 {[1,2,3,4,5,6,7,8,9,10].map((item,i)=>{
                     return (<CardTask key={i}/>)
                 })}

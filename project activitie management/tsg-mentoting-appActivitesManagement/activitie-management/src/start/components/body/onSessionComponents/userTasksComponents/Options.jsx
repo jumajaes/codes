@@ -6,7 +6,7 @@ import { CreateTaskComponent } from './optionsComponents/CreateTaskComponent';
 const options = [[< CreateTaskComponent />,"contained"], [<SearchTaskComponent />,"text"], [<FilterComponent />,""]]
 
 export const Options = () => {
-
+    
     return (
 
         <Box justifyContent='space-between' display='flex-box'>
