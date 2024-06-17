@@ -23,7 +23,7 @@ public class BillItems {
         return false;
     }
     public int[] getItem(int item_id){
-        return Arrays.stream(this.items).filter( element-> element  === item_id);
+        return new int[5];
 
     }
 
