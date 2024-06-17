@@ -9,25 +9,25 @@ app.use(cors())
 const x = 'hola'
 const xy = [
     {
-        categoria: 'O',
-        descatego: 'ORO',
-        monto: '$4,420,302.68',
-        texto: 'Te faltan $4,420,302.68 para aplicar a Vip ORO',
-        mensajes: "(¡Estás cada vez más cerca de ser una Experta Vip!) Continua creciendo tu negocio para disfrutar los beneficios del plan.(¡No te dentengas!) Sigue aumentando las ventas"
+        category: 'O',
+        descriptionCategory: 'ORO',
+        amount: '$4,420,302.68',
+        text: 'Te faltan $4,420,302.68 para aplicar a Vip ORO',
+        messages: "(¡Estás cada vez más cerca de ser una Experta Vip!) Continua creciendo tu negocio para disfrutar los beneficios del plan.(¡No te dentengas!) Sigue aumentando las ventas"
     },
     {
-        categoria: 'D',
-        descatego: 'DIAMANTE',
-        monto: '$20,420,302.68',
-        texto: 'Te faltan $20,420,302.68 para aplicar a Vip DIAMANTE',
-        mensajes: '(¡Estás cada vez más cerca de ser una Experta Vip!) Continua creciendo tu negocio para disfrutar los beneficios del plan.¡No te dentengas! Sigue aumentando las ventas'
+        category: 'D',
+        descriptionCategory: 'DIAMANTE',
+        amount: '$20,420,302.68',
+        text: 'Te faltan $20,420,302.68 para aplicar a Vip DIAMANTE',
+        messages: '(¡Estás cada vez más cerca de ser una Experta Vip!) Continua creciendo tu negocio para disfrutar los beneficios del plan.¡No te dentengas! Sigue aumentando las ventas'
     },
     {
-        categoria: 'A',
-        descatego: 'DIAMANTE AZUL',
-        monto: '$40,420,302.68',
-        texto: 'Te faltan $40,420,302.68 para aplicar a Vip DIAMANTE AZUL',
-        mensajes: '¡No te dentengas! Sigue aumentando las ventas'
+        category: 'A',
+        descriptionCategory: 'DIAMANTE AZUL',
+        amount: '$40,420,302.68',
+        text: 'Te faltan $40,420,302.68 para aplicar a Vip DIAMANTE AZUL',
+        messages: '¡No te dentengas! Sigue aumentando las ventas'
     }
 ]
 

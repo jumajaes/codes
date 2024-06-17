@@ -3,34 +3,22 @@ import fetch from 'node-fetch';
 const getMessage = async() => {
     const response = await fetch("http://localhost:3000/");
     // const data = await response.json();
-    const data = await response.stringify();
+    const data = await response.json();
     return data
 }
 
 const arrayData = await getMessage()
 
-console.log(" mensaje :",arrayData[0].mensajes)
+//console.log(" mensaje :",arrayData[0].messages)
+//const replacedatatext = arrayData[2].text.replace(arrayData[2].amount,`<span>${arrayData[2].amount}</span>`).replace(arrayData[2].descriptionCategory,`<span>${arrayData[2].descriptionCategory}</span>`)
 
-const arraySplit = arrayData[0].mensajes.split(/(\(|\))/)
+// const messagereplace = arrayData[0].messages.replace("(","<span>").replace(")","</span>").replace("(","<span>").replace(")","</span>")
 
-console.log(arraySplit)
+const messagereplace = arrayData[0].messages.replaceAll("(","<span>").replaceAll(")","</span>")
 
-// const dataGoalsForVip = ref([])
-// let store
+console.log(arrayData[0])
 
-// //servicio
-// async function getGoalsToBeVipService({commit}){
-//     let urlService = 'https://leonisavirtualtest.leonisa.com/dev/order-power-service/service/'
-//     // return await axios.get(`${urlService}metasParaserVip/${codCia}/${cedula}/${campaing}`)
-//     return await axios.get(`${urlService}metasParaserVip/${window.userSessionData?.codigoCompania}/${window.userSessionData?.cedula}/${window.userSessionData?.campana}`)
-// }
-
-
-// const requestGoalSToBeVip = async ()=>{
-//     const response = await  store.dispatch('getGoalsToBeVipService')
-//     dataGoalsForVip.value = response.data.desStatus
-
-// }
+console.log(messagereplace)
 
 
 

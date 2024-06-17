@@ -1,18 +1,28 @@
 package com.backendmentor.app.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 /**
  * model
  */
+@Entity
+@Table(schema = "firtsmodel")
 public class Firtsmodel {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column
     private String name;
 
     //--------------------------------
-    public Firtsmodel(String name) {
-        setName(name);
-    }
-
-    
+       
     public String getName() {
         return name;
     }
@@ -21,5 +31,12 @@ public class Firtsmodel {
         this.name = name;
     }
 
-    
+    public Long getId() {
+        return id;
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
