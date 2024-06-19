@@ -1,12 +1,8 @@
 package com.backendmentor.app.controller;
 
-// import org.springframework.stereotype.Controller;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RequestMethod;
-// import org.springframework.web.bind.annotation.RequestParam;
-// import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,6 +58,12 @@ public class IndexController {
     public java.util.List<Firtsmodel> getfirst() {
 
         return repository.findAll();
+    }
+
+    @GetMapping("/first/{id}")
+    public Firtsmodel getOnefirst(@PathVariable long id) {
+        Firtsmodel fmodel = repository.findById(id).get();
+        return fmodel;
     }
     
 

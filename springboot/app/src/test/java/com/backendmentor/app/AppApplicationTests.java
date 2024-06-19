@@ -1,13 +1,14 @@
 package com.backendmentor.app;
 
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AppApplicationTests {
+class ApplicationTest {
 
-	@Test
-	void contextLoads() {
-	}
-
+    @Test
+    void main() {
+        AppApplication.main(new String[] {});
+    }
 }
