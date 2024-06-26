@@ -26,12 +26,11 @@ export const SearchTaskComponent = () => {
       <List component="nav">
         <ListItemButton onClick={handleClick}>
           <SearchSharp />
-
           <ListItemText primary="Search to tasks" />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
-        <Collapse in={open} unmountOnExit>
-          {<InputSearch />}
+        <Collapse in={open} >
+          <InputSearch />
         </Collapse>
       </List>
     </ClickAwayListener>

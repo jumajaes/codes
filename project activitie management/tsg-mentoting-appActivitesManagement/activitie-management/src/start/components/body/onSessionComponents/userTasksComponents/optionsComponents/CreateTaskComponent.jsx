@@ -25,13 +25,13 @@ export const CreateTaskComponent = () => {
 
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
-            <List component="nav" >
+            <List component="nav">
                 <ListItemButton onClick={handleClick}>
                     <TaskAlt />
                     <ListItemText primary="Create New Task" />
                     {open ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
-                <Collapse in={open} unmountOnExit>
+                <Collapse in={open} sx={{position:"absolute", top:"120%", left:"-7%", zIndex: 1}}>
                     <Box
                         autoComplete="true"
                     >

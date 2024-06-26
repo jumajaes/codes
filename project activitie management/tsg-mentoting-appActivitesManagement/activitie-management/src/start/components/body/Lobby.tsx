@@ -23,9 +23,9 @@ export const Lobby = () => {
         >
           Welcome to our Task Manager
         </Typography>
-        <TaskAlt style={{ fontSize: 100 }} />
+        <TaskAlt  style={{ fontSize: 200, color:"#1976d2" }} />
 
-        <Typography>Your ally in productivity</Typography>
+        <Typography color={"#1976d2"} >Your ally in productivity</Typography>
         <br />
         <hr />
         <br />
@@ -47,23 +47,23 @@ export const Lobby = () => {
 
         <br />
         <hr />
-        <Typography variant="h3" color={"#1976d2"} padding={2}>
+        <Typography variant="h2" color={"#1976d2"} padding={2}>
           You’ve come to the right place.
           <hr style={{ width: "50%" }} />
         </Typography>
-        <Box>
+        <Box  marginBottom={6}>
           {items.map((item, index) => (
             <Box
               border={2}
               borderRadius={25}
               margin={2}
-              padding={1}
+              padding={2}
               key={index}
+              borderColor={"#1976d2"}
             >
               <ListItem
-                alignItems="flex-start"
                 disableGutters
-                secondaryAction={<Task />}
+                secondaryAction={<Task style={{color:"#1976d2"}} />}
               >
                 <ListItemText primary={`*${item}`} />
               </ListItem>
@@ -72,7 +72,7 @@ export const Lobby = () => {
         </Box>
         <hr></hr>
         <br></br>
-        <Typography color={"blue"}>
+        <Typography color={"#1976d2"} marginBottom={3}>
           Start taking control of your tasks and projects today. Register and
           discover how our Task Manager can transform your productivity!
         </Typography>

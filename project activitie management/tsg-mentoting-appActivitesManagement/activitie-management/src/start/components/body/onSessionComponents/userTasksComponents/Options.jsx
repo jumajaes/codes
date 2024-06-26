@@ -14,7 +14,7 @@ export const Options = () => {
             {options.map((option, i) => {
 
                 return (
-                    <Button key={i} variant={option[1]}  onClick={() => { }} >
+                    <Button key={i} variant={option[1]} onClick={() => { }} >
                         {option[0]}
                     </Button>
 
