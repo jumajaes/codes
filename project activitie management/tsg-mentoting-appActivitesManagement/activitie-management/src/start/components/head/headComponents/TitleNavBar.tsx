@@ -6,7 +6,8 @@ export const TitleNavBar = () => {
     return (
         <Box display="flex" alignItems="center">
             <TaskAlt/>
-            <Typography textAlign={'center'}>TASK MANAGEMENT</Typography>
+
+            <Typography textAlign={'center'} paddingLeft={1}>TASK MANAGEMENT</Typography>
         </Box>
     )
 }

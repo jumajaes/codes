@@ -1,65 +1,76 @@
-import { useState } from 'react';
-import Button from '@mui/material/Button';
-import BadgeSharpIcon from '@mui/icons-material/BadgeSharp';
-import { Box, Drawer, Link } from '@mui/material';
-import { Login } from './loginButtonComponents/Login';
-import { Regist } from './loginButtonComponents/Regist';
+import { Button, Typography } from '@mui/material';
+// import { useState } from 'react';
+import { Link } from 'react-router-dom';
+// import Button from '@mui/material/Button';
+//import BadgeSharpIcon from '@mui/icons-material/BadgeSharp';
+// import { Box, Drawer, Link } from '@mui/material';
+// import { Login } from './loginButtonComponents/Login';
+// import { Regist } from './loginButtonComponents/Regist';
 
 
 
 
 export const LoginButton = () => {
 
-  const [isShow, setIsShow] = useState(false)
-  const [loginORregister, setloginORregister] = useState(<></>)
-  const [textRegist, setTextRegist] = useState("")
+  // const [isShow, setIsShow] = useState(false)
+  // const [loginORregister, setloginORregister] = useState(<></>)
+  // const [textRegist, setTextRegist] = useState("")
 
-  const onClickQuestion = () => {
+  // const onClickQuestion = () => {
 
-    textRegist === "Don't have an account? Sign Up" ? setTextRegist("have an account? Sign In") : setTextRegist("Don't have an account? Sign Up")
+  //   textRegist === "Don't have an account? Sign Up" ? setTextRegist("have an account? Sign In") : setTextRegist("Don't have an account? Sign Up")
 
-    textRegist === "have an account? Sign In" && setloginORregister(<Login />)
-    textRegist === "Don't have an account? Sign Up" && setloginORregister(<Regist />)
-  }
+  //   textRegist === "have an account? Sign In" && setloginORregister(<Login />)
+  //   textRegist === "Don't have an account? Sign Up" && setloginORregister(<Regist />)
+  // }
 
   return (
-    <Box display="flex" alignItems="center">
-      <Button
+    <Button
         variant='contained'
-        sx={{ overflow: "hidden" }}
-        onClick={() => {
-          setTextRegist("Don't have an account? Sign Up")
-          setloginORregister(<Login />)
-          setIsShow(true)
-        }}
+        sx={{ overflow: "hidden", boxShadow:10}}
       >
-        LOGIN
-        <BadgeSharpIcon />
+        <Link to="/user:" style={{textDecoration:"none"}}><Typography color="white">START</Typography></Link>
       </Button>
 
-      <Drawer
-        open={isShow}
-        onClose={() => {
-          setIsShow(false)
+    
 
-        }}
-        anchor='right'
-      >
-        {loginORregister}
+    // <Box display="flex" alignItems="center">
+    //   <Button
+    //     variant='contained'
+    //     sx={{ overflow: "hidden" }}
+    //     onClick={() => {
+    //       setTextRegist("Don't have an account? Sign Up")
+    //       setloginORregister(<Login />)
+    //       setIsShow(true)
+    //     }}
+    //   >
+    //     LOGIN
+    //     <BadgeSharpIcon />
+    //   </Button>
+
+    //   <Drawer
+    //     open={isShow}
+    //     onClose={() => {
+    //       setIsShow(false)
+
+    //     }}
+    //     anchor='right'
+    //   >
+    //     {loginORregister}
 
 
-        <Button
-          variant='text'
-          onClick={onClickQuestion}
-        >
-          <Link href="#" variant="body2" >
-            {textRegist}
-          </Link>
+    //     <Button
+    //       variant='text'
+    //       onClick={onClickQuestion}
+    //     >
+    //       <Link href="#" variant="body2" >
+    //         {textRegist}
+    //       </Link>
 
-        </Button>
+    //     </Button>
 
 
-      </Drawer>
-    </Box>
+    //   </Drawer>
+    // </Box>
   )
 }

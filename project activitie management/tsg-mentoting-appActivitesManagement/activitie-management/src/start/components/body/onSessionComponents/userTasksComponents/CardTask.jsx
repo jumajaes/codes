@@ -1,68 +1,167 @@
+import {
+  TaskAlt,
+  Cancel,
+  BorderColor,
+  DeleteForever,
+  //   Assignment,
+} from "@mui/icons-material";
+import {
+  // Avatar,
+  Box,
+  Button,
+  Card,
+  CardHeader,
+  ClickAwayListener,
+  IconButton,
+  Typography,
+} from "@mui/material";
 
-import { TaskAlt, Cancel, BorderColor, DeleteForever, Assignment } from '@mui/icons-material';
-import { Avatar, Box, Card, CardActions, CardContent, CardHeader, IconButton, Typography } from '@mui/material';
-import grey from '@mui/material/colors/grey'
+import { useState } from "react";
 
+export const CardTask = ({
+  title,
+  descriptión,
+  expirationDate,
+  priority,
+  state,
+}) => {
+  const [open, setOpen] = useState(false);
 
-export const CardTask = ({ title, descriptión, expirationDate, priority, state }) => {
+  const handleClickAway = () => {
+    setOpen(false);
+  };
+  return (
+    <Card
+      sx={{
+        maxWidth: 300,
+        minWidth: 250,
+        boxShadow: 15,
+        borderRadius: "25px",
+        padding: 2,
+      }}
+    >
+      <Box display={"flex-box"} justifyContent="center">
+        <Typography
+          width={"90%"}
+          alignSelf="center"
+          padding="2px"
+          margin="5px"
+          backgroundColor="#1976d2"
+          borderRadius={"25px"}
+          color="white"
+        >
+          ACTIVE
+        </Typography>
+        <hr/>
+      </Box>
 
-    return (
-        <Card sx={{ maxWidth: 350, minWidth: 230 }}>
-            <Typography variant="h5" backgroundColor='gray' align='center' color='white'>
-                Estado
+      <CardHeader
+        align="center"
+        title={
+          <Typography variant="h6" color="text.secondary">
+            Firts Task
+          </Typography>
+        }
+        subheader={
+          <Box>
+            <Typography variant="h6" fontSize={"14px"}>
+              Expiration: {"25/06/2024"}
             </Typography>
-            <CardHeader
-                align='center'
-                avatar={
-                    <Avatar sx={{ bgcolor: "gray" }} aria-label="recipe" align='center'>
-                        <Assignment />
-                    </Avatar>
-                }
-                title={<Typography variant='h5'>
-                    NOMBRE TAREA
-                </Typography>}
-                subheader={` ID Task: ${12544} / Expiration date: ${1}`}
-            />
-            <Typography variant="h5" backgroundColor='blue' align='center' color='white'>
-                PRIORITY:
+            <Typography variant="h6" fontSize={"11px"}>
+              ID Task:{12544}
             </Typography>
-            <CardContent>
-                <Typography variant="h5" color="text.secondary" align='center'>
-                    Description:
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    This impressive paella is a perfect party dish and a fun meal to cook
-                    together with your guests. Add 1 cup of frozen peas along with the mussels,
-                    if you like.
-                </Typography>
-            </CardContent>
+          </Box>
+        }
+      />
+      <Box
+        margin={1}
+        border={2}
+        color="text.secondary"
+        borderRadius={"25px"}
+        padding={1}
+      >
+        <Typography
+          variant="h6"
+          align="left"
+          fontSize={15}
+          borderRadius={"25px"}
+        >
+          Priority...
+        </Typography>
 
-            <CardActions >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} >
-                    <Box >
-                        <Typography backgroundColor={grey[200]}> MARK AS:</Typography>
-                        <IconButton aria-label="COMPLETED" color='success' >
-                            <Typography>Completed</Typography>
-                            <TaskAlt />
-                        </IconButton>
-                        <IconButton aria-label="CANCELED" color='error' >
-                            <Typography>Canceled</Typography>
-                            <Cancel />
-                        </IconButton>
-                    </Box>
-                    <Box maxWidth={'50%'} >
-                        <Typography backgroundColor={grey[100]} > MAKE:</Typography>
-                        <IconButton aria-label="EDIT" color='secondary'>
-                            <Typography > EDIT</Typography>
-                            <BorderColor />
-                        </IconButton>
-                        <IconButton aria-label="DELETE" color='warning'>
-                            <Typography > DELETE</Typography>
-                            <DeleteForever />
-                        </IconButton>
-                    </Box>
-                </Box>
-            </CardActions>
-        </Card>
-    );
-}
+        <Typography
+          variant="h6"
+          backgroundColor="#1976d2"
+          align="center"
+          color="white"
+          fontSize={20}
+          borderRadius={"25px"}
+        >
+          MEDIUM
+        </Typography>
+      </Box>
+
+      <Box color="text.secondary" padding={2} margin={1}>
+        <Typography
+          variant="h6"
+          fontSize={"12px"}
+          color="text.secondary"
+          align="left"
+        >
+          Description...
+        </Typography>
+        <Typography variant="body2" align="center" padding={1}>
+          This impressive paella is a perfect party dish and a fun meal to cook
+          together with your guests. Add 1 cup of frozen peas along with the
+          mussels, if you like.
+        </Typography>
+      </Box>
+
+      <ClickAwayListener onClickAway={handleClickAway}>
+        <Box
+          display="felx"
+          borderColor="gray"
+          borderRadius={"25px"}
+          border={open ? 2 : 0}
+          padding="5px"
+        >
+          <Button
+            variant={open ? "text" : "contained"}
+            onClick={() => {
+              setOpen(!open);
+            }}
+          >
+            ACTIONS ↓
+          </Button>
+          <Box display={open ? "flex-box" : "none"}>
+            <IconButton aria-label="COMPLETE" color="success">
+              <Box border={1} borderRadius={"25px"} display="flex" padding={1}>
+                <Typography>Complete</Typography>
+                <TaskAlt />
+              </Box>
+            </IconButton>
+            <IconButton aria-label="CANCEL" color="error">
+              <Box border={1} borderRadius={"25px"} display="flex" padding={1}>
+                <Typography>Cancel</Typography>
+                <Cancel />
+              </Box>
+            </IconButton>
+            <hr />
+            <IconButton aria-label="DELETE" color="warning">
+              <Box border={1} borderRadius={"25px"} display="flex" padding={1}>
+                <Typography>Delete</Typography>
+                <DeleteForever />
+              </Box>
+            </IconButton>
+            <IconButton aria-label="EDIT" color="secondary">
+              <Box border={1} borderRadius={"25px"} display="flex" padding={1}>
+                <Typography fontSize={"15px"}> Edit </Typography>
+                <BorderColor />
+              </Box>
+            </IconButton>
+          </Box>
+        </Box>
+      </ClickAwayListener>
+    </Card>
+  );
+};

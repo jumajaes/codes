@@ -4,8 +4,8 @@ import { Box, Button, TextField } from "@mui/material"
 export const InputSearch = () => {
 
     return (
-        <Box padding={2}>
-            <TextField label="Name or id" variant="standard" sx={{  minWidth:400 }}/>
+        <Box padding={2} autoComplete="true" >
+            <TextField label="Name or id" variant="standard" sx={{  maxWidth:400, marginBottom:5 }}/>
             <Button variant='contained' onClick={() => {
                 console.log('Clic d')
             }}>
