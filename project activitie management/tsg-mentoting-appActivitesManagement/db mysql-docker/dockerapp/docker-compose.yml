@@ -1,0 +1,16 @@
+#version: '3' (es opcional segun la documentacion. funciona ok sin especificar la version, al subirla decia version 3 is obsolete)
+services:
+  db:
+    container_name : container
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    volumes:
+      - bdactivitie:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_CHARACTER_SET_SERVER: utf8
+
+volumes:
+  bdactivitie:
+    external: true

@@ -1,0 +1,71 @@
+--crear contenedor con MySQL con volumen para que la información sea persintente
+
+docker run -p 3307:3306 --volume [NAME VOLUME]:/var/lib/mysql --name container -e MYSQL_ROOT_PASSWORD=[password] mysql:latest --character-set-server=utf8
+
+-- crear contenedor con Docker compose archivo .yml
+
+	en la ruta que tengas el archivo de con figuración .yml abres la teminal y ejecutas docker-compose up y si el archivo esta en el directorio empezara a correr y todo funcionara igual. 
+	-- docker-compose up (para iniciar el compose)
+	--docker-compose down (para detener el compose)
+
+(:/var/lib/MySQL esta es la dirección donde MySQL guarda los datos dentro del contenedor entonces le estamos diciendo que en el contenedor llamado [NAME VOLUME]: vamos a guardar la información de /var/lib/MySQL {[NAME VOLUME]:/var/lib/mysql} lo cual lo que se procese de datos en sql del contenedor será persistente asi se elmine el contenedor )
+ (instalen en el contenedor phpmyadmin(este para poder usarse se deben ingresar donde de una misma red en el contenedor con Docker network, Docker network create [name red], Docker network inspect [ID RED OR NAME RED], Docker network connect [NAME RED] [ID CONTENEDOR] (esto agrega el contenedor a la red)........
+
+También si la red ya esta creada solo es indicar en el comando d creación la red que van a usar para ese contenedor docker run -p 3307:3306 --volume [NAME VOLUME]:/var/lib/mysql --name container -e MYSQL_ROOT_PASSWORD=[password] mysql:latest --character-set-server=utf8 --network [NAME RED]))
+
+-- para entrar a la instancia MySQL o bd que esta en el contenedor CORRIENDO 
+
+docker exec -it [container name or id] mysql -u [root user name bd] -p (al dar enter pedirá la pass asignada)
+
+(esto nos dejara en el cli de MySQL y podremos hacer consustas y visualizaiciones, si quieres usar una ui para revisar la bd pueden usar tableplus.
+-------------------------------------------------------------
+--para listar los contenedores
+Docker container ls
+
+--ver logs del contenedor
+
+docker container logs [ID CONTENEDOR]
+
+-- detener contenedor 
+
+Docker container stop [ID CONTENEDOR]
+
+-- iniciar contenedor 
+
+Docker container start [ID CONTENEDOR]
+
+-- remover un contenedor 
+
+Docker container rm -f [ID CONTENEDOR]
+	ó
+docker rm -f [ID CONTENEDOR]
+-------------------------------------------------------------
+
+--para crear un volumen 
+
+Docker volumen créate [NAME VOLUME]
+
+-- para ver un volumen en especifico
+
+docker volume inspect [NAME VOLUME]
+
+--para ver todos los volumen
+
+Docker volumen ls
+
+--agregar contenedores a la misma red 
+
+Docker network connect [NAME RED] [ID CONTENEDOR]
+
+----------------------------sql comandos-----------------------
+mysql> CREATE TABLE userstoassign ( id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(50), uid INT NOT NULL UNIQUE, email VARCHAR(50), password VARCHAR(50) );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> CREATE TABLE activities ( id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(20), state VARCHAR(20), priority VARCHAR(20), expirationdate DATE, description TEXT, assignedto INT, FOREIGN KEY (assignedto) REFERENCES userstoassign(id) );
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> select * from userstoassign;
+Empty set (0.00 sec)
+
+mysql> select * from activities;
+Empty set (0.00 sec)

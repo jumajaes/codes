@@ -4,15 +4,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+//import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.backendmentor.app.models.Firtsmodel;
+import com.backendmentor.app.models.userstoassign;
 import com.backendmentor.app.repository.FirtsmodelRepository;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+//import org.springframework.web.bind.annotation.PutMapping;
 
 
 
@@ -55,39 +55,39 @@ public class IndexController {
     }
 
     @GetMapping("/first")
-    public java.util.List<Firtsmodel> getfirst() {
+    public java.util.List<userstoassign> getfirst() {
 
         return repository.findAll();
     }
 
-    @GetMapping("/first/{id}")
-    public Firtsmodel getOnefirst(@PathVariable long id) {
-        Firtsmodel fmodel = repository.findById(id).get();
-        return fmodel;
-    }
+    // @GetMapping("/first/{id}")
+    // public Firtsmodel getOnefirst(@PathVariable long id) {
+    //     Firtsmodel fmodel = repository.findById(id).get();
+    //     return fmodel;
+    // }
     
 
-    @PostMapping("/newfirst")
-    public String newfirst(@RequestBody Firtsmodel fmodel) {
+    // @PostMapping("/newfirst")
+    // public String newfirst(@RequestBody Firtsmodel fmodel) {
 
-        repository.save(fmodel);
+    //     repository.save(fmodel);
 
-        return "newfirst saved";
-    }
+    //     return "newfirst saved";
+    // }
 
-     @PutMapping(value="/update/{id}")
-    public String updatemodel(@PathVariable long id, @RequestBody Firtsmodel fmodel){
-        Firtsmodel updatefmodel = repository.findById(id).get();
-        updatefmodel.setName(fmodel.getName());
-        repository.save(updatefmodel);
-        return "Updated Task";
-    }
+    //  @PutMapping(value="/update/{id}")
+    // public String updatemodel(@PathVariable long id, @RequestBody Firtsmodel fmodel){
+    //     Firtsmodel updatefmodel = repository.findById(id).get();
+    //     updatefmodel.setName(fmodel.getName());
+    //     repository.save(updatefmodel);
+    //     return "Updated Task";
+    // }
 
-    @DeleteMapping(value="delete/{id}")
-    public String deletemodel(@PathVariable long id){
-        Firtsmodel deletedfmodel = repository.findById(id).get();
-        repository.delete(deletedfmodel);
-        return "Deleted Task";
-    }
+    // @DeleteMapping(value="delete/{id}")
+    // public String deletemodel(@PathVariable long id){
+    //     Firtsmodel deletedfmodel = repository.findById(id).get();
+    //     repository.delete(deletedfmodel);
+    //     return "Deleted Task";
+    // }
     
 }
