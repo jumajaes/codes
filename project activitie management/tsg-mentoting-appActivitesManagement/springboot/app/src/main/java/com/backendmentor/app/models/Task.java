@@ -15,12 +15,12 @@ import jakarta.persistence.Table;
 @Entity
 @Table //(schema = "userstoassign") ---- no lo especifico por que en aplication propertis ya estoy hubicando el esquema /activitiemanagement o bd spring.datasource.url=jdbc:mysql://localhost:3307/activitiemanagement?useSSL=false
 @Component
-public class Userstoassign {
+public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    
     @Column
     private String name;
 
@@ -34,7 +34,7 @@ public class Userstoassign {
     private String password;
 
     //--------------------------------
-
+       
     public Integer getUid() {
         return uid;
     }

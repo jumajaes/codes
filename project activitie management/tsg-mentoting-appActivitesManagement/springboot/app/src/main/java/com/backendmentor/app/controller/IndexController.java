@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import com.backendmentor.app.models.userstoassign;
+
+import com.backendmentor.app.models.Userstoassign;
 import com.backendmentor.app.repository.FirtsmodelRepository;
-import org.springframework.web.bind.annotation.PostMapping;
+
 //import org.springframework.web.bind.annotation.PutMapping;
 
 
@@ -54,11 +53,17 @@ public class IndexController {
         return "hola";
     }
 
-    @GetMapping("/first")
-    public java.util.List<userstoassign> getfirst() {
+    @GetMapping("/users")
+    public java.util.List<Userstoassign> getUsers() {
 
         return repository.findAll();
     }
+
+    // @GetMapping("/{idUser}/userTasks")
+    // public java.util.List<userstoassign> getfirst(@PathVariable Integer idUser) {
+
+    //     return repository.findAll();
+    // }
 
     // @GetMapping("/first/{id}")
     // public Firtsmodel getOnefirst(@PathVariable long id) {
