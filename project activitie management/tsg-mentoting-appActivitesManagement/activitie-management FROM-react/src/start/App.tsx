@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { Lobby } from "./components/body/Lobby"
-import HeadApp from "./components/head/HeadApp"
-import { UserTasks } from "./components/body/onSessionComponents/UserTasks"
+import { Lobby } from "./components/body/Lobby.tsx"
+import HeadApp from "./components/head/HeadApp.tsx"
+import UserTasks  from "./components/body/onSessionComponents/UserTasks.tsx"
+import React from "react"
 
 
 
@@ -13,7 +14,7 @@ export const App = () => {
                     <HeadApp />
                     <Routes>
                         <Route path="/" element={ <Lobby />} />
-                        <Route path="/user:" element={ <UserTasks/>} />
+                        <Route path="/user-task" element={ <UserTasks/>} />
                         
                     </Routes>
                 </BrowserRouter>

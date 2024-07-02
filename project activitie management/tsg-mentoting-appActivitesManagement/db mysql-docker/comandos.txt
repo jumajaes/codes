@@ -1,6 +1,6 @@
 --crear contenedor con MySQL con volumen para que la información sea persintente
 
-docker run -p 3307:3306 --volume [NAME VOLUME]:/var/lib/mysql --name container -e MYSQL_ROOT_PASSWORD=[password] mysql:latest --character-set-server=utf8
+docker run -p 3307:3306 --volume [NAME VOLUME]:/var/lib/mysql --name [NAME CONTAINER] -e MYSQL_ROOT_PASSWORD=[password] mysql:latest --character-set-server=utf8
 
 -- crear contenedor con Docker compose archivo .yml
 

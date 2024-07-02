@@ -1,4 +1,5 @@
 import { Button, Typography } from '@mui/material';
+import React from 'react';
 // import { useState } from 'react';
 import { Link } from 'react-router-dom';
 // import Button from '@mui/material/Button';
@@ -29,7 +30,7 @@ export const LoginButton = () => {
         variant='contained'
         sx={{ overflow: "hidden", boxShadow:10}}
       >
-        <Link to="/user:" style={{textDecoration:"none"}}><Typography color="white">START</Typography></Link>
+        <Link to="/user-task" style={{textDecoration:"none"}}><Typography color="white">START</Typography></Link>
       </Button>
 
     

@@ -1,9 +1,10 @@
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import { TitleNavBar } from './headComponents/TitleNavBar';
+import { TitleNavBar } from './headComponents/TitleNavBar.tsx';
 // import { ButtonNavBar } from './headComponents/ButtonNavBar';
-import {LoginButton} from './headComponents/LoginButton';
+import {LoginButton} from './headComponents/LoginButton.tsx';
+import React from 'react';
 
 
 export default function HeadApp() {

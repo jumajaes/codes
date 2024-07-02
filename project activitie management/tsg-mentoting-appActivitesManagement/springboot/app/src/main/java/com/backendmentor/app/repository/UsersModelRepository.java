@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.backendmentor.app.models.Userstoassign;
 
 @Repository
-public interface FirtsmodelRepository extends JpaRepository<Userstoassign, Integer>{}
+public interface UsersModelRepository extends JpaRepository<Userstoassign, Integer>{}

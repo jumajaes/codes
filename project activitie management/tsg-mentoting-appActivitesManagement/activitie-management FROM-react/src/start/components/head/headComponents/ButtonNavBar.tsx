@@ -3,6 +3,7 @@ import { useState } from "react"
 
 import { ReceiptRounded } from '@mui/icons-material';
 import { OptionsNavBar } from './NavBarButtonComponents/OptionsNavBar';
+import React from 'react';
 
 
 export const ButtonNavBar = () => {
