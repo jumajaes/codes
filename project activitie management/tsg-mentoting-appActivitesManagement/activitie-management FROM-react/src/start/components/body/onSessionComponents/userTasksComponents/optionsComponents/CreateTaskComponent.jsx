@@ -34,6 +34,7 @@ export const CreateTaskComponent = () => {
                 <Collapse in={open} sx={{position:"absolute", top:"120%", left:"-7%", zIndex: 1}}>
                     <Box
                         autoComplete="true"
+                        minWidth={"250px"}
                     >
                         <CardCreateTask />
                     </Box>

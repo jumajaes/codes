@@ -26,8 +26,7 @@ export const FilterComponent = () => {
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
-      <List component="nav"
-      >
+      <List component="nav">
         <ListItemButton onClick={handleClick}>
           <FilterList />
           <ListItemText primary="Filter" />

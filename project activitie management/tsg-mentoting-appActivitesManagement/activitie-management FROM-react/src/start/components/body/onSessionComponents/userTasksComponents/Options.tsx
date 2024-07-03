@@ -18,7 +18,7 @@ const options: Option[] = [
 
 export const Options = () => {
   return (
-    <Box justifyContent="space-between" display="flex">
+    <Box justifyContent="space-between"  display="flex-box" alignItems="center">
       {options.map((option, i) => {
         return (
           <Button key={i} variant={option.variant} onClick={() => {}}>

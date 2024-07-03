@@ -15,7 +15,7 @@ export default function UserTasks(){
             <Title />
             <Grid container columnGap={5} rowGap={5}  justifyContent='center' >
                 {[1,2,3,4,5].map((item,i)=>{
-                    return (<CardTask key={i} title={"ytr"} assingto={1} descriptión={undefined} expirationDate={undefined} priority={undefined} state={undefined}/>)
+                    return (<CardTask key={i+item} id={1} title={"Firts Task"} assingto={1} descriptión={"loqueseassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssdsdsdsdssssssssssssssssssssssssdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsssssssssssssssssssssfdsdfsdfsdffffffffffffffffffffffffffffffffffffsssssssssssssssssssssssssssssssssssssssssssssssssddddddddddd"} expirationDate={"2/2/2024 11:58:00"} priority={"low"} state={"canceled"}/>)
                 })}
             </Grid>
         </Box>
