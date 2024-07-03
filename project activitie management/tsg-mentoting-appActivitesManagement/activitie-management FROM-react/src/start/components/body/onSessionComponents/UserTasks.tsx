@@ -10,12 +10,12 @@ export default function UserTasks(){
 
     return (
 
-        <Box padding={5} >
+        <Box padding={3} alignItems={"center"} >
             <Options />
             <Title />
             <Grid container columnGap={5} rowGap={5}  justifyContent='center' >
                 {[1,2,3,4,5].map((item,i)=>{
-                    return (<CardTask key={i+item} id={1} title={"Firts Task"} assingto={1} descriptión={"loqueseassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssdsdsdsdssssssssssssssssssssssssdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsssssssssssssssssssssfdsdfsdfsdffffffffffffffffffffffffffffffffffffsssssssssssssssssssssssssssssssssssssssssssssssssddddddddddd"} expirationDate={"2/2/2024 11:58:00"} priority={"low"} state={"canceled"}/>)
+                    return (<CardTask key={i+item} id={1} title={"Firts Task"} assingto={1} descriptión={"loqueseass"} expirationDate={"2/2/2024 11:58:00"} priority={"medium"} state={"completed"}/>)
                 })}
             </Grid>
         </Box>
