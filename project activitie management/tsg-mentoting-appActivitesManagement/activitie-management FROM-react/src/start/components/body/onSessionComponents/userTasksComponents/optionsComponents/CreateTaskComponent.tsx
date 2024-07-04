@@ -17,14 +17,56 @@ import {
   Typography,
 } from "@mui/material";
 
+import { useStore } from "../../../../../../store/context.ts";
+import {task}  from "../../../../../../store/task.ts";
+
 export const CreateTaskComponent = () => {
-  const [priority, setPriority] = useState("MEDIUM");
+
+  const [taskName, setTaskName] = useState("")
+  const [valueDataTime, setvalueDataTime] = useState(
+    new Date().toISOString()
+  );
+  const [priority, setPriority] = useState<"medium" | "low" | "high">("medium");
+  const [descriptionTask, setDescriptionTask] = useState("");
+  const [primaryAssing, setPrimaryAssing] = useState("--------------");
+  
   const [open, setOpen] = useState(false);
   const [openAssingTo, setOpenAssingTo] = useState(false);
   const [openPriority, setOpenPriority] = useState(false);
+
   const [backGroundColor, setBackGroundColor] = useState("#2196f3");
-  const [primaryAssing, setPrimaryAssing] = useState("1-Juan Jramillo");
-  const [valueDataTime, setvalueDataTime] = useState("01/01/0001 00:00:01");
+
+  const { finished, sendRequestNewTask, requestNewTask } = useStore();
+  
+
+  const createTask = () => {
+    
+    console.log(taskName);
+    console.log(new Date(valueDataTime).toISOString());
+    console.log(priority);
+    console.log(descriptionTask);
+    console.log(primaryAssing);
+    console.log(finished);
+
+    task.name =  taskName
+    task.expirationDate =  new Date(valueDataTime).toISOString()
+    task.priority = priority
+    task.description =  descriptionTask
+    task.assing = primaryAssing
+    
+    console.log(task)
+
+    sendRequestNewTask(task)
+    
+    console.log(requestNewTask)
+    
+  };
+
+  const handleOnChangeDescription = (event) => {
+    console.log("Click descrip");
+    console.log(event.target.value);
+    setDescriptionTask(event.target.value);
+  };
 
   const handleClick = () => {
     setOpen(!open);
@@ -39,14 +81,15 @@ export const CreateTaskComponent = () => {
   };
 
   const handleOnChangeName = (event) => {
-    console.log("Click");
+    console.log("Click name");
     console.log(event.target.value);
+    setTaskName(event.target.value);
   };
 
   const handleOnChangeDate = (event) => {
-    console.log("Click");
+    console.log("Click date");
     console.log(event.target.value);
-    setvalueDataTime(event.target.value)
+    setvalueDataTime(event.target.value);
   };
 
   const handleClickAway = () => {
@@ -62,11 +105,14 @@ export const CreateTaskComponent = () => {
   };
 
   useEffect(() => {
-    priority === "MEDIUM"
+    priority === "medium"
       ? setBackGroundColor("#2196f3")
-      : priority === "HIGH"
+      : priority === "high"
       ? setBackGroundColor("#ffc107")
       : setBackGroundColor("#9E9E9E");
+
+    //console.log( new Date().toISOString())
+
   }, [priority]);
 
   return (
@@ -82,7 +128,7 @@ export const CreateTaskComponent = () => {
           sx={{
             position: "absolute",
             top: "120%",
-            left: "-10%",
+            left: "-20%",
             zIndex: 1,
             borderRadius: 10,
             border: 2,
@@ -92,7 +138,7 @@ export const CreateTaskComponent = () => {
         >
           <Box>
             <Box
-              sx={{ minWidth: 300, backgroundColor: "white", borderRadius:10 }}
+              sx={{ minWidth: 300, backgroundColor: "white", borderRadius: 10 }}
               justifyContent="center"
               padding={1}
             >
@@ -109,11 +155,12 @@ export const CreateTaskComponent = () => {
               </Typography>
 
               <Box>
-                
                 <TextField
                   label="name here..."
                   variant="standard"
                   onChange={handleOnChangeName}
+                  required
+                  sx={{ minWidth: "210px", maxWidth: "210px"}}
                 />
               </Box>
               <CardContent>
@@ -122,9 +169,10 @@ export const CreateTaskComponent = () => {
                     label="Expiration Date:"
                     type="datetime-local"
                     variant="standard"
-                    sx={{ maxWidth: "180px" }}
+                    sx={{ minWidth: "210px", maxWidth: "210px"}}
                     onChange={handleOnChangeDate}
-                    value={valueDataTime}
+                    value={valueDataTime}                  
+                    required
                   />
                 </Box>
 
@@ -172,9 +220,9 @@ export const CreateTaskComponent = () => {
                     >
                       <Button
                         sx={{ borderRadius: 25 }}
-                        variant={priority === "HIGH" ? "contained" : "text"}
+                        variant={priority === "high" ? "contained" : "text"}
                         onClick={() => {
-                          setPriority("HIGH");
+                          setPriority("high");
                           setOpenPriority(false);
                         }}
                       >
@@ -182,9 +230,9 @@ export const CreateTaskComponent = () => {
                       </Button>
                       <Button
                         sx={{ borderRadius: 25 }}
-                        variant={priority === "MEDIUM" ? "contained" : "text"}
+                        variant={priority === "medium" ? "contained" : "text"}
                         onClick={() => {
-                          setPriority("MEDIUM");
+                          setPriority("medium");
                           setOpenPriority(false);
                         }}
                       >
@@ -192,9 +240,9 @@ export const CreateTaskComponent = () => {
                       </Button>
                       <Button
                         sx={{ borderRadius: 25 }}
-                        variant={priority === "LOW" ? "contained" : "text"}
+                        variant={priority === "low" ? "contained" : "text"}
                         onClick={() => {
-                          setPriority("LOW");
+                          setPriority("low");
                           setOpenPriority(false);
                         }}
                       >
@@ -203,8 +251,15 @@ export const CreateTaskComponent = () => {
                     </Collapse>
                   </Box>
                 </ClickAwayListener>
-                
-                <TextField label="Description..." multiline rows="auto" />
+
+                <TextField
+                  required
+                  label="Description..."
+                  multiline
+                  minRows={6}
+                  sx={{ minWidth: "220px", maxWidth: "220px"}}
+                  onChange={handleOnChangeDescription}
+                />
 
                 <ClickAwayListener onClickAway={handleClickAwayAssingTo}>
                   <Box
@@ -248,9 +303,8 @@ export const CreateTaskComponent = () => {
                           <Button
                             key={i}
                             sx={{
-                              
-                              border:1,
-                              borderRadius:10
+                              border: 1,
+                              borderRadius: 10,
                             }}
                             onClick={() => {
                               setPrimaryAssing(option);
@@ -273,6 +327,7 @@ export const CreateTaskComponent = () => {
               sx={{ marginBottom: 2 }}
               onClick={() => {
                 setOpen(false);
+                createTask();
               }}
             >
               Crear

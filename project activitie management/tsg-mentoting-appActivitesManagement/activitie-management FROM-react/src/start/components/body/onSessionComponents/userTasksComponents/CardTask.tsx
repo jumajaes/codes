@@ -5,10 +5,8 @@ import {
   DeleteForever,
   Task,
   PriorityHigh,
-  //   Assignment,
 } from "@mui/icons-material";
 import {
-  // Avatar,
   Box,
   Button,
   Card,
@@ -59,30 +57,28 @@ export const CardTask = ({
   const [backGroundColor, setBackGroundColor] = useState("#2196f3");
 
   useEffect(() => {
-    // {setTitle(title)
-    // setDescription(descriptión)
-    // setExpirationDate(expirationDate);
-    // setPriority(priority);
-    // setState(state);
-    // setAssignTo(assingto);
-    // setIdTask(id);}
-
     stateTask === "active" && setColorState("primary");
     stateTask === "completed" && setColorState("success");
     stateTask === "canceled" && setColorState("error");
+    stateTask === "expirated" && setColorState("warning");
+
     stateTask === "active" && setColorFondo("#1976d2");
     stateTask === "completed" && setColorFondo("#2e7d32");
     stateTask === "canceled" && setColorFondo("#d32f2f");
+    stateTask === "expirated" && setColorFondo("#f57c00");
+
     priorityTask === "medium"
       ? setBackGroundColor("#2196f3")
       : priorityTask === "high"
       ? setBackGroundColor("#ffc107")
       : setBackGroundColor("#9E9E9E");
+
   }, [stateTask, priorityTask, colorState]);
 
   const handleClickAway = () => {
     setOpen(false);
   };
+
   return (
     <Card
       sx={{
@@ -114,10 +110,15 @@ export const CardTask = ({
                   }}
                 >
                   {stateTask}
-                  {state === "active" && <Task />}
-                  {state === "completed" && <TaskAlt />}
-                  {state === "canceled" && <Cancel />}
-                  {state === "expirated" && <PriorityHigh />}
+                  {state === "active" ? 
+                    <Task />
+                   : state === "completed" ? 
+                    <TaskAlt />
+                   : state === "canceled" ? 
+                    <Cancel />
+                   : 
+                    state === "expirated" && <PriorityHigh />
+                  }
                 </Button>
               }
             />
@@ -245,7 +246,7 @@ export const CardTask = ({
             marginBottom={1}
             sx={{ backgroundColor: colorFondo }}
           >
-            <Typography variant="h6" color="white" align="left" fontSize={11}>
+            <Typography variant="h6" color="white" align="left" fontSize={14}>
               Name:
             </Typography>
             <Typography variant="h3" color="white">
@@ -255,12 +256,15 @@ export const CardTask = ({
         }
         subheader={
           <Box>
-            <Typography variant="h6" fontSize={12}>
-              ID Task:{idTask}
+            <hr />
+            <Typography variant="h6" fontSize={14} align="left">
+              ID Task:
             </Typography>
-            <Typography variant="subtitle2" fontSize={"14px"}>
-              Expiration Date: {expirationDateTask}
+            {idTask}
+            <Typography variant="subtitle2" fontSize={12} align="left">
+              Expiration Date:
             </Typography>
+            {expirationDateTask}
             <hr />
             <Typography
               variant="h6"
@@ -271,11 +275,12 @@ export const CardTask = ({
               padding={1}
               sx={{ backgroundColor: colorFondo }}
             >
-              <Typography variant="h6" align="left" fontSize={11}>
+              <Typography variant="h6" align="left" fontSize={12}>
                 ASSINGNED TO:
               </Typography>
               {assignToTask}
             </Typography>
+            <hr />
           </Box>
         }
       />
@@ -306,11 +311,10 @@ export const CardTask = ({
           {priorityTask}
         </Typography>
         <TextField
-          
           disabled
           value={descriptionTask}
           onChange={handleOnChangeDescription}
-          sx={{ margin: "10px", minWidth: "220px", zIndex:0}}
+          sx={{ margin: "10px", minWidth: "220px", zIndex: 0 }}
           label="Description..."
           multiline={true}
           maxRows={6}

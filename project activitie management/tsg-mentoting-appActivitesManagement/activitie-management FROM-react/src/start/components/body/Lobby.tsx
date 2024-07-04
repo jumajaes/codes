@@ -14,7 +14,7 @@ export const Lobby = () => {
   ];
 
   return (
-    <Box display={"flex"} width={"100%"}>
+    <Box display={"flex"} justifyContent={"center"} width={"100%"}>
       <Typography component="div" align="center" padding={2}>
         <Typography
           padding={2}
