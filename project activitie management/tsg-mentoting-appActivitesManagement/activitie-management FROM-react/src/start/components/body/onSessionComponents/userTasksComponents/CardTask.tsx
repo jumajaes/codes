@@ -38,10 +38,10 @@ export const CardTask = ({
     | "info"
     | "warning";
 
-  const handleOnChangeDescription = (event) => {
-    setDescription(event.target.value);
-    console.log(descriptionTask);
-  };
+  // const handleOnChangeDescription = (event) => {
+  //   setDescription(event.target.value);
+  //   console.log(descriptionTask);
+  // };
 
   const [titleTask, setTitle] = useState(title);
   const [descriptionTask, setDescription] = useState(descriptión);
@@ -70,8 +70,8 @@ export const CardTask = ({
     priorityTask === "medium"
       ? setBackGroundColor("#2196f3")
       : priorityTask === "high"
-      ? setBackGroundColor("#ffc107")
-      : setBackGroundColor("#9E9E9E");
+        ? setBackGroundColor("#ffc107")
+        : setBackGroundColor("#9E9E9E");
 
   }, [stateTask, priorityTask, colorState]);
 
@@ -110,14 +110,14 @@ export const CardTask = ({
                   }}
                 >
                   {stateTask}
-                  {state === "active" ? 
+                  {state === "active" ?
                     <Task />
-                   : state === "completed" ? 
-                    <TaskAlt />
-                   : state === "canceled" ? 
-                    <Cancel />
-                   : 
-                    state === "expirated" && <PriorityHigh />
+                    : state === "completed" ?
+                      <TaskAlt />
+                      : state === "canceled" ?
+                        <Cancel />
+                        :
+                        state === "expirated" && <PriorityHigh />
                   }
                 </Button>
               }
@@ -194,11 +194,10 @@ export const CardTask = ({
                 <IconButton
                   aria-label="DELETE"
                   color="warning"
-                  onClick={() => {}}
+                  onClick={() => { }}
                 >
                   <Box
-                    border={1}
-                    borderRadius={"25px"}
+
                     display="flex"
                     padding={1}
                   >
@@ -215,11 +214,10 @@ export const CardTask = ({
                 <IconButton
                   aria-label="EDIT"
                   color="secondary"
-                  onClick={() => {}}
+                  onClick={() => { }}
                 >
                   <Box
-                    border={1}
-                    borderRadius={"25px"}
+
                     display="flex"
                     padding={1}
                   >
@@ -241,15 +239,15 @@ export const CardTask = ({
           <Box
             display={"flex-box"}
             fontSize={20}
-            borderRadius={"25px"}
+            borderRadius={"15px"}
             padding={1}
             marginBottom={1}
             sx={{ backgroundColor: colorFondo }}
           >
-            <Typography variant="h6" color="white" align="left" fontSize={14}>
+            <Typography variant="h6" color="white" align="left" fontSize={13}>
               Name:
             </Typography>
-            <Typography variant="h3" color="white">
+            <Typography variant="h4" color="white">
               {titleTask}
             </Typography>
           </Box>
@@ -271,7 +269,7 @@ export const CardTask = ({
               align="center"
               color="white"
               fontSize={20}
-              borderRadius={"25px"}
+              borderRadius={"15px"}
               padding={1}
               sx={{ backgroundColor: colorFondo }}
             >
@@ -286,7 +284,7 @@ export const CardTask = ({
       />
       <Box
         border={2}
-        borderRadius={"25px"}
+        borderRadius={"15px"}
         color="text.secondary"
         padding={1}
         margin={1}
@@ -295,7 +293,7 @@ export const CardTask = ({
           variant="h6"
           align="left"
           fontSize={15}
-          borderRadius={"25px"}
+          borderRadius={"15px"}
         >
           Priority...
         </Typography>
@@ -310,15 +308,19 @@ export const CardTask = ({
         >
           {priorityTask}
         </Typography>
+        <hr />
+
         <TextField
           disabled
-          value={descriptionTask}
-          onChange={handleOnChangeDescription}
-          sx={{ margin: "10px", minWidth: "220px", zIndex: 0 }}
           label="Description..."
           multiline={true}
           maxRows={6}
+          variant="filled"
+          value={descriptionTask}
+          // onChange={handleOnChangeDescription}
+          sx={{ margin: "5px", minWidth: "230px", zIndex: 0, color: "blue"}}
         />
+
       </Box>
     </Card>
   );

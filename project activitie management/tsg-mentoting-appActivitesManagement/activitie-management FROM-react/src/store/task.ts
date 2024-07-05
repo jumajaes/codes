@@ -1,15 +1,15 @@
 interface iTask {
     name: string,
-    expirationDate: string,
-    priority: "medium" | "low" | "high",
+    expirationDate?: Date,
+    priority?: "medium" | "low" | "high",
     description:  string,
-    assing: string;
+    assignedto: number
 }
 
 export const task: iTask = {
     name: "",
-    expirationDate: "",
-    priority: "medium",
-    description:  "",
-    assing: ""
+    expirationDate: undefined,
+    priority: undefined,
+    description: "",
+    assignedto: 0
 }

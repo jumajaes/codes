@@ -33,7 +33,14 @@ public class ActivitiesController {
 
     @PostMapping("/newActivitie")
     public String SetNewUser(@RequestBody Activities newActivite) {
-        System.out.println(newActivite.);
+        
+        System.out.println(newActivite.getState());
+        System.out.println(newActivite.getExpirationdate());
+        System.out.println(newActivite.getName());
+        System.out.println(newActivite.getDescription());
+        System.out.println(newActivite.getPriority());
+        System.out.println(newActivite.getAssignedto());
+
         activitiesRepository.save(newActivite);
         return "newfirst saved";
     }

@@ -33,7 +33,7 @@ public class Activities {
     private String priority;
 
     @Column(nullable = false)
-    private Timestamp expirationdate;
+    private Timestamp expirationDate;
 
     @Column(nullable = false)
     private String description;
