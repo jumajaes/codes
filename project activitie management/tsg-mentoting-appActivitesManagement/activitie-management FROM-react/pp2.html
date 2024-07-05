@@ -1,0 +1,460 @@
+<style>
+    .icon-box {
+      height: 4rem;
+    }
+  
+    .icon-box i, span {
+      font-family: Akzidenz-Grotesk Next Regular, sans-serif !important;
+    }
+  
+    .icon-box #fecha-apertura, .icon-box #fecha-cierre {
+      font-size: 1rem;
+      font-weight: 700;
+      top: 57% !important;
+    }
+  
+    .icon-box #mes-apertura, .icon-box #mes-cierre {
+      font-size: 0.8rem;
+      top: 95% !important;
+    }
+  
+    .icon-box i::before {
+      font-size: 2.4rem;
+    }
+  
+    #celular-gerente i::before {
+      font-weight: 700 !important;
+    }
+  
+    #mensaje-bienvenida-container {
+      font-family: Akzidenz-Grotesk Next Regular, sans-serif !important;
+    }
+  
+    #buttonCollapseInfoCategy {
+      border-bottom-right-radius: 15px !important;
+      border-bottom-left-radius: 15px !important;
+    }
+  
+    #link-ver-mas {
+      color: #808080;
+    }
+  
+    .button-dropdown {
+      top: 105% !important;
+      z-index: 10;
+    }
+  
+    .color-border-dropdown {
+      border-color: [Element context="portalContext" type="content" key="color-oro-principal"];
+    }
+  
+    .image {
+      width: 30px;
+      border-radius: 50%;
+    }
+  
+    .fw-md-normal {
+      font-weight: normal !important;
+    }
+  
+    .fw-400 {
+      font-weight: 400 !important;
+    }
+  
+    .w-25 {
+      width: 21% !important;
+    }
+  
+    .border-layout {
+      border-radius: 15px;
+    }
+    
+    @media screen and (max-width: 768px) {
+      #mensaje-bienvenida-container {
+        padding: 0.25rem !important;
+      }
+      .gap-sm-c {
+        gap: 0.5rem !important;
+      }
+      .small-sm {
+        font-size: 0.8rem !important;
+      }	
+      .image {
+        font-size: 3.5rem !important;
+      }
+      .small-sm-1 {
+        font-size: 0.7rem !important;
+      }
+      .fs-sm-small {
+        font-size: 0.5rem !important;
+      }
+    }
+      
+    @media (min-width: 768px) {
+      .w-md-100 {
+        width: 100% !important;
+      }
+      .border-md-bottom {
+        border-bottom: 2px solid #EBEBEB !important;
+        border-right: none !important;
+      }
+      .icon-box i::before {
+        font-size: 3.4rem;
+      }
+      .icon-box #fecha-apertura, .icon-box #fecha-cierre {
+        font-size: 1.5rem;
+      }
+  
+      .icon-box #mes-apertura, .icon-box #mes-cierre {
+        font-size: 1rem;
+        top: 110% !important;
+      }
+      .fs-md-3 {
+        font-size: 1.2rem !important;
+      }
+    }
+  </style>
+  
+  <link href="/VotreTheme9/themes/html/dynamicSpots/css/bootstrap-icons.css" rel="stylesheet">
+  
+  <div id="mensaje-bienvenida-container" class="p-3 bg-white border-layout">
+    <div id="contenedor-nombrecategoria" class="d-flex align-items-center flex-md-wrap gap-2 gap-sm-c pb-2 pt-2 pt-md-0">
+      <img loading="lazy" id="img-categoria" class="img-fluid w-25" alt="imagen categoria">
+      <div class="d-flex flex-column align-items-start fw-bold lh-1 w-75">
+        <h3 id="nombre-compradora" class="mb-0 fs-6 fs-md-3"></h3>
+        <span id="categoria" class="small-sm"></span>
+        <span class="small-sm">Tu talento no tiene límites. <a id="link-ver-mas" class="text-decoration-underline">Ver más</a><i class="bi bi-chevron-right"></i></span>
+        <span id="campana-mobile" class="fw-bold small-sm text-white px-1 py-1 mt-2 rounded-pill me-auto d-md-none"></span>
+      </div>
+      <span id="campana-desktop" class="fw-bold small-sm text-white px-2 py-1 rounded-pill me-auto d-none d-md-block"></span>
+    </div>
+    <hr class="d-md-none" id="hr-mobile">
+    <div class="d-flex flex-md-column align-items-center align-items-md-start fw-bold lh-1 pb-2 pb-md-0">
+      <div class="d-flex flex-md-column align-items-md-start align-items-center border-end w-75 w-md-100 border-md-bottom pb-md-4" id="border-custom">
+        <span id="mensaje-pedido" class="small-sm-1 col-6 col-md-12 px-1 fw-md-normal"></span>
+        <div id="contenedor-calendario-cierre" class="d-flex justify-content-md-start justify-content-center gap-1 flex-md-nowrap flex-wrap pe-1 ms-md-4 me-2">
+          <div id="contenedor-fecha-apertura" class="position-relative icon-box ms-md-2 me-3">
+            <i class="bi bi-calendar position-absolute top-50 start-0 translate-middle fs-1"></i>
+            <span id="fecha-apertura" class="position-absolute start-0 translate-middle fw-bold"></span>
+            <span id="mes-apertura" class="position-absolute top-100 start-0 translate-middle fw-bold"></span>
+          </div>
+          <div class="justify-content-center align-items-center small-sm-1 text-center col-12 d-none d-md-flex" id="contenedor-hora-apertura">
+            <span id="hora-apertura" class="small fs-sm-small fw-400"></span>
+          </div>
+          <div id="contenedor-fecha-cierre" class="position-relative icon-box ms-4 ms-md-5">
+            <i class="bi bi-calendar-fill position-absolute top-50 start-0 translate-middle fs-1"></i>
+            <span id="fecha-cierre" class="position-absolute start-0 translate-middle text-white fw-bold"></span>
+            <span id="mes-cierre" class="position-absolute top-100 start-0 translate-middle fw-bold"></span>
+          </div>
+          <div class="d-flex justify-content-center align-items-center small-sm-1 text-center col-12" id="contenedor-hora-limite">
+            <span id="hora-limite" class="small fs-sm-small fw-400"></span>
+          </div>
+        </div>
+    </div>
+    <hr class="d-none d-md-block">
+      <div class="ps-2 ps-md-0 small-sm-1" id="hr-desk">
+        <span class="fw-md-normal">Tu Gerente de Zona</span>
+        <div class="fw-bold d-flex flex-column flex-md-row py-md-2 gap-md-2">
+          <span id="gerente-zona"></span>
+          <br>
+          <span id="celular-gerente"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+  const categoryStyles = {
+      A: ['[Element key="img-segmento-diamante-azul" type="content" context="selected" rendition="auto" name="colombia_content/home_compradora/familia-vip/imagenes-segmentos-vip" format="url"]', '[Element key="color-diamante-azul-principal" type="content" context="selected" name="colombia_content/home_compradora/familia-vip/imagenes-segmentos-vip"]', 'Categoría diamante azul'],
+  
+      O: ['[Element key="img-segmento-oro" type="content" context="selected" rendition="auto" name="colombia_content/home_compradora/familia-vip/imagenes-segmentos-vip" format="url"]', '[Element key="color-oro-principal" type="content" context="selected" name="colombia_content/home_compradora/familia-vip/imagenes-segmentos-vip"]', 'Categoría oro'],
+  
+      D: ['[Element key="img-segmento-diamante" type="content" context="selected" rendition="auto" name="colombia_content/home_compradora/familia-vip/imagenes-segmentos-vip" format="url"]', '[Element key="color-diamante-principal" type="content" context="selected" name="colombia_content/home_compradora/familia-vip/imagenes-segmentos-vip"]', 'Categoría diamante'],
+  
+      BR: ['[Element key="categoria-bronce" type="content" context="selected" rendition="auto" name="colombia_content/home_compradora/categoria/imagenes-categoria" format="url"]', '[Element key="color-bronce" type="content" context="selected" name="colombia_content/home_compradora/categoria/imagenes-categoria"]', 'Categoría bronce'],
+  
+      CO: ['[Element key="img-categoria-cobre" type="content" context="selected" rendition="auto" name="colombia_content/home_compradora/categoria/imagenes-categoria" format="url"]', '[Element key="color-cobre" type="content" context="selected" name="colombia_content/home_compradora/categoria/imagenes-categoria"]', 'Categoría cobre'],
+  
+      CR: ['[Element key="categoria-cristal" type="content" context="selected" rendition="auto" name="colombia_content/home_compradora/categoria/imagenes-categoria" format="url"]', '[Element key="color-cristal" type="content" context="selected" name="colombia_content/home_compradora/categoria/imagenes-categoria"]', 'Categoría cristal'],
+  
+      SC: ['[Element key="img-categoria-inactiva" type="content" context="selected" rendition="auto" name="colombia_content/home_compradora/categoria/imagenes-categoria" format="url"]', '[Element key="color-inactiva" type="content" context="selected" name="colombia_content/home_compradora/categoria/imagenes-categoria"]', 'INACTIVA']
+    }
+    [IfNotEditMode]
+      const collapsibleElement = document.querySelector('#collapseExample');
+      collapsibleElement.classList.add('collapse');
+      collapsibleElement.classList.remove('show');
+    [/IfNotEditMode]
+  
+  window.addEventListener('load', () => {
+    
+    const setCategoryStyles = () => {
+  
+      const imgCategory = document.querySelector('#img-categoria');
+  
+      const colorCategory = document.querySelector('#spanCategoria'); 
+      const spanCampanaMobile = document.querySelector('#campana-mobile');
+      const spanCampanaDesktop = document.querySelector('#campana-desktop');
+      const buttonCollapseInfoCategy = document.querySelector('#buttonCollapseInfoCategy');
+      const buttonCollapseInfoCategyContainer = document.querySelector('#buttonCollapseInfoCategyContainer');
+      const borderCustom = document.querySelector('#border-custom');
+  
+      const imgCategoryName = document.createElement('img');
+  
+      const category = window.userSessionData.categoria;
+  
+      const imgCategoryArray = categoryStyles.hasOwnProperty(category) ? categoryStyles[category] : categoryStyles['SC'];   
+  
+      const urlImage = imgCategoryArray[0];
+      const stylesImage = imgCategoryArray[1];
+      const categoryName = imgCategoryArray[2];
+  
+      borderCustom && (borderCustom.style = `border-color: ${stylesImage} !important`);
+  
+      colorCategory && (colorCategory.style.color = stylesImage) ;
+  
+      spanCampanaMobile.style.backgroundColor = stylesImage;
+      spanCampanaDesktop.style.backgroundColor = stylesImage;
+  
+      categoryName === 'INACTIVA' && spanCampanaDesktop.classList.remove('text-white');
+      categoryName === 'INACTIVA' && spanCampanaMobile.classList.remove('text-white');
+  
+      buttonCollapseInfoCategy.style.backgroundColor = stylesImage;
+      buttonCollapseInfoCategyContainer.style = `border-top: 4px solid ${stylesImage} !important`;
+  
+      if (categoryName === 'Categoría cobre') {
+        buttonCollapseInfoCategy.classList.remove('text-dark');
+        buttonCollapseInfoCategy.classList.add('text-white');
+      }
+      
+      imgCategory.src = urlImage;
+      imgCategory.alt = categoryName;
+  
+      imgCategoryName.src = urlImage;
+      imgCategoryName.alt = categoryName;
+      imgCategoryName.id = 'img-category-name';
+      imgCategoryName.loading = 'lazy';
+      imgCategoryName.classList.add('img-fluid', 'image', 'd-none');
+      if (categoryName === 'INACTIVA') {
+        imgCategoryName.style.webkitFilter = "invert(100%)";
+        imgCategoryName.style.filter = "invert(100%)";
+      }
+      buttonCollapseInfoCategy.appendChild(imgCategoryName);
+    }
+  
+    const checkCategory = () => {
+  
+      let categoryNl = window.nl[countryCode].BienvenidaCategorias.categories;
+  
+      const categoriaLink = window.userSessionData?.categoria;
+  
+      const linkVerMas = (categoriaLink === 'A' || categoriaLink === 'O' || categoriaLink === 'D') 
+          ? `${window.location.origin}/wps/myportal/colombia/expertas-vip`
+          : `${window.location.origin}/wps/myportal/colombia/categoria`;
+  
+      document.querySelector('#link-ver-mas').setAttribute('href', linkVerMas);
+  
+      if(categoriaLink) {
+        if (categoryNl[categoriaLink]) {
+          document.querySelector('#categoria').innerHTML = `Perteneces a la categoría <span id="spanCategoria" class="fs-5 fw-bold text-uppercase"> ${categoryNl[window.userSessionData.categoria]}.</span>`;
+        } else {
+          document.querySelector('#categoria').innerHTML = '';
+        }
+      } else {
+        document.querySelector('#categoria').classList.add('d-none');
+      }
+    }
+    
+    const getMonthName = (fecha) => { 
+      let monthNumber = parseInt(fecha.split('-')[1]);
+      let monthNames = ["", "ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"];
+      return monthNames[monthNumber];
+    }
+  
+    const getMonthNameAlternative = (fecha) => {
+      let monthNumber = parseInt(fecha.split('/')[0]);
+      let monthNames = ["", "ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"];
+      return monthNames[monthNumber];
+    }
+  
+    const toCapitalize = (str) => {
+      return str.toLowerCase().split(' ').map((word) => {
+          return word.charAt(0).toUpperCase() + word.slice(1);
+      }).join(' ');
+    }
+  
+    const mensajePedido = () => {
+  
+      const pedido = window.userSessionData.serviceType;
+  
+      document.querySelector('#mensaje-pedido').innerHTML = window.nl[countryCode].BienvenidaCategorias.messages[pedido];
+    
+      if(pedido === 'UOP') {
+        document.querySelector('#fecha-cierre').innerHTML = new Date().getDate();
+        document.querySelector('#mes-cierre').innerHTML = getMonthName(new Date().toISOString().split('T')[0]);
+        document.querySelector('#contenedor-fecha-apertura').classList.add('d-none');
+        document.querySelector('#contenedor-fecha-cierre').classList.remove('ms-md-5', 'ms-4');
+        document.querySelector('#contenedor-fecha-cierre').classList.add('ms-md-2', 'ms-2');
+        document.querySelector('#contenedor-hora-limite').classList.add('ms-md-3');
+        document.querySelector('#contenedor-hora-apertura').classList.remove('d-md-flex');
+      } else if(pedido === 'PAD') {
+        document.querySelector('#fecha-cierre').innerHTML = new Date().getDate();
+        document.querySelector('#mes-cierre').innerHTML = getMonthName(new Date().toISOString().split('T')[0]);
+        document.querySelector('#contenedor-fecha-apertura').classList.add('d-none');
+        document.querySelector('#contenedor-fecha-cierre').classList.remove('ms-md-5', 'ms-4');
+        document.querySelector('#contenedor-fecha-cierre').classList.add('ms-md-2', 'ms-2');
+        document.querySelector('#contenedor-hora-limite').classList.add('d-none');
+        document.querySelector('#contenedor-calendario-cierre').classList.add('ms-4');
+        document.querySelector('#border-custom').classList.remove('w-75');
+        document.querySelector('#border-custom').classList.add('w-50');
+        document.querySelector('#contenedor-hora-apertura').classList.remove('d-md-flex');
+      } 
+    }
+  
+    window.addEventListener('resize', () => {
+  
+      const pedido = window.userSessionData.serviceType;
+      if (window.innerWidth > 768 && (pedido === 'PVE' || pedido === 'PAZ')) {
+          document.querySelector('#contenedor-hora-apertura').classList.remove('col-12');
+          document.querySelector('#contenedor-hora-apertura').classList.add('col-5');
+          document.querySelector('#contenedor-hora-limite').classList.remove('col-12');
+          document.querySelector('#contenedor-hora-limite').classList.add('col-7');
+          document.querySelector('#contenedor-fecha-cierre').classList.remove('ms-md-5');
+          document.querySelector('#contenedor-fecha-cierre').classList.add('ms-md-4');
+          document.querySelector('#hora-limite').classList.add('ms-2');
+          document.querySelector('#hora-apertura').classList.add('ms-2');
+      } else {
+          document.querySelector('#contenedor-hora-apertura').classList.remove('col-5');
+          document.querySelector('#contenedor-hora-apertura').classList.add('col-12');
+          document.querySelector('#contenedor-hora-limite').classList.remove('col-7');
+          document.querySelector('#contenedor-hora-limite').classList.add('col-12');
+          document.querySelector('#contenedor-fecha-cierre').classList.remove('ms-md-4');
+          document.querySelector('#contenedor-fecha-cierre').classList.add('ms-md-5');
+          document.querySelector('#hora-limite').classList.remove('ms-2');
+          document.querySelector('#hora-apertura').classList.remove('ms-2');
+      }
+      if(pedido === 'UOP') {
+        document.querySelector('#fecha-cierre').innerHTML = new Date().getDate();
+        document.querySelector('#mes-cierre').innerHTML = getMonthName(new Date().toISOString().split('T')[0]);
+        document.querySelector('#contenedor-fecha-apertura').classList.add('d-none');
+        document.querySelector('#contenedor-fecha-cierre').classList.remove('ms-md-5', 'ms-4');
+        document.querySelector('#contenedor-fecha-cierre').classList.add('ms-md-2', 'ms-2');
+        document.querySelector('#contenedor-hora-limite').classList.add('ms-md-3');
+        document.querySelector('#contenedor-hora-apertura').classList.remove('d-md-flex');
+      } else if(pedido === 'PAD') {
+  
+        document.querySelector('#fecha-cierre').innerHTML = new Date().getDate();
+        document.querySelector('#mes-cierre').innerHTML = getMonthName(new Date().toISOString().split('T')[0]);
+        document.querySelector('#contenedor-fecha-apertura').classList.add('d-none');
+        document.querySelector('#contenedor-fecha-cierre').classList.remove('ms-md-5', 'ms-4');
+        document.querySelector('#contenedor-fecha-cierre').classList.add('ms-md-2', 'ms-2');
+        document.querySelector('#contenedor-hora-limite').classList.add('d-none');
+        document.querySelector('#contenedor-calendario-cierre').classList.add('ms-4');
+        document.querySelector('#border-custom').classList.remove('w-75');
+        document.querySelector('#border-custom').classList.add('w-50');
+        document.querySelector('#contenedor-hora-apertura').classList.remove('d-md-flex');
+      } 
+    });
+  
+    const nombreCompradora = toCapitalize(window.userSessionData.nombre);
+    
+    document.querySelector('#nombre-compradora').innerHTML = '¡Hola! ' + nombreCompradora;
+  
+    document.querySelector('#campana-mobile').innerHTML = 'Estás en la campaña ' + window.userSessionData.campana.slice(-2);
+    document.querySelector('#campana-desktop').innerHTML = 'Estás en la campaña ' + window.userSessionData.campana.slice(-2);
+    
+    document.querySelector('#fecha-apertura').innerHTML = window.userSessionData.openingDate ? window.userSessionData.openingDate.split('-')[2] : window.userSessionData.puedePedirDesde.split('/')[1];
+    document.querySelector('#fecha-cierre').innerHTML = window.userSessionData.closingDate ? window.userSessionData.closingDate.split('-')[2] : window.userSessionData.puedePedirHasta.split('/')[1];
+  
+    if (window.userSessionData.closingTime) {
+      document.querySelector('#hora-limite').innerHTML = `Hasta las <br class="d-none d-md-block"> <strong>${window.userSessionData.closingTime} P.M.</strong>`;
+    } else {
+      document.querySelector('#contenedor-hora-limite').classList.add('d-none');
+    }
+  
+    if (window.userSessionData.openingTime) {
+      document.querySelector('#hora-apertura').innerHTML = `Desde las <br class="d-none d-md-block"> <strong>${window.userSessionData.openingTime} A.M.</strong>`;
+    } else {
+      document.querySelector('#contenedor-hora-apertura').classList.add('d-none');
+    }
+  
+    if (window.userSessionData.openingDate) {
+      document.querySelector('#mes-apertura').innerHTML = getMonthName(window.userSessionData.openingDate);
+    } else {
+      document.querySelector('#mes-apertura').innerHTML = getMonthNameAlternative(window.userSessionData.puedePedirDesde);
+    }
+  
+    if (window.userSessionData.closingDate) {
+      document.querySelector('#mes-cierre').innerHTML = getMonthName(window.userSessionData.closingDate);
+    } else {
+      document.querySelector('#mes-cierre').innerHTML = getMonthNameAlternative(window.userSessionData.puedePedirHasta);
+    }
+  
+    const gerenteZona =toCapitalize(window.userSessionData.gerenteZona);
+    document.querySelector('#gerente-zona').innerHTML = `${gerenteZona}.`;
+    document.querySelector('#celular-gerente').innerHTML = `  <i class="bi bi-telephone"></i> ${window.userSessionData.celGerenteZona}`;
+  
+    const dropdownContainer = document.querySelector('#collapseExample');
+    dropdownContainer.classList.add('border-dropdown');
+    dropdownContainer.classList.add('position-relative');
+    dropdownContainer.style = 'background-color: #EBEBEB !important;'
+    
+    let contenedorBotonCollapse = document.createElement('div');
+    let botonCollapse = document.createElement('a');
+  
+    contenedorBotonCollapse.className = 'd-grid justify-content-center rounded-bottom';
+    contenedorBotonCollapse.id = 'buttonCollapseInfoCategyContainer';
+  
+    botonCollapse.innerHTML = 'CERRAR <i class="bi bi-chevron-up"></i>';
+    botonCollapse.id = 'buttonCollapseInfoCategy';
+    botonCollapse.className = 'd-flex align-items-center gap-1 px-3 py-2 text-dark fw-bold text-decoration-none';
+    botonCollapse.setAttribute('data-bs-toggle', 'collapse');
+    botonCollapse.setAttribute('href', '#collapseExample');
+    botonCollapse.setAttribute('role', 'button');
+    botonCollapse.setAttribute('aria-expanded', 'true');
+    botonCollapse.setAttribute('aria-controls', 'collapseExample');
+  
+    contenedorBotonCollapse.appendChild(botonCollapse);
+  
+    dropdownContainer.insertAdjacentElement('afterend', contenedorBotonCollapse);
+  
+    const botonCollapseCategory = document.querySelector('#buttonCollapseInfoCategy');
+    
+    botonCollapseCategory.addEventListener('click', () => {
+      const imgTag = document.querySelector('#img-category-name');
+      const buttonText = botonCollapseCategory.innerHTML.trim();
+      const isHolaPresent = buttonText.includes('Hola');
+      
+      if (imgTag) {
+        isHolaPresent ? imgTag.classList.add('d-none') : imgTag.classList.remove('d-none');
+      } 
+  
+      const chevronIcon = isHolaPresent ? 'bi-chevron-up' : 'bi-chevron-down';
+      const displayName = isHolaPresent ? 'CERRAR' : `Hola ${window.userSessionData.givenName}`;
+  
+      botonCollapseCategory.innerHTML = `${imgTag ? imgTag.outerHTML : ''} ${displayName} <i class="bi 
+    ${chevronIcon}"></i>`;
+  
+    });
+  
+    const objNl = window.nl[countryCode].BienvenidaCategorias
+    
+    if (objNl.categories && objNl.messages) {
+    
+      checkCategory();
+      mensajePedido();
+      const collapsibleElement = document.querySelector('#collapseExample');
+      $(collapsibleElement).collapse('show');
+  
+    }
+  
+  
+    const element = document.querySelector("#contentLoginPortlet");
+    if (element) {
+      elementclassList.add("d-none");
+    }
+  
+    setCategoryStyles();
+  
+  });
+  
+  </script>

@@ -1,6 +1,9 @@
 package com.backendmentor.app.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.print.attribute.standard.DateTimeAtCreation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,8 +43,8 @@ public class ActivitiesController {
         System.out.println(newActivite.getDescription());
         System.out.println(newActivite.getPriority());
         System.out.println(newActivite.getAssignedto());
-
-        activitiesRepository.save(newActivite);
+        
+        System.out.println(new DateTimeAtCreation(newActivite.getExpirationdate()));
         return "newfirst saved";
     }
 

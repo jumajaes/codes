@@ -31,7 +31,7 @@ export default function UserTasks() {
               }
               expirationDate={"2/2/2024 11:58:00"}
               priority={"low"}
-              state={"completed"}
+              state={"expirated"}
             />
           );
         })}

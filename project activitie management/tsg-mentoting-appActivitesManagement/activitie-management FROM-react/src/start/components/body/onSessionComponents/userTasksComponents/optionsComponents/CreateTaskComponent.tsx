@@ -22,71 +22,61 @@ import { useStore } from "../../../../../../store/context.ts";
 import { task } from "../../../../../../store/task.ts";
 
 export const CreateTaskComponent = () => {
-
-  const [taskName, setTaskName] = useState("")
-  const [valueDataTime, setvalueDataTime] = useState(new Date().toISOString().split(".")[0]);
+  const [taskName, setTaskName] = useState("");
+  const [valueDataTime, setvalueDataTime] = useState(
+    new Date().toISOString().split(".")[0]
+  );
   const [priority, setPriority] = useState<"medium" | "low" | "high">("medium");
-  const [descriptionTask, setDescriptionTask] = useState("");
-  const [primaryAssing, setPrimaryAssing] = useState("0");
+  const [descriptionTask, setDescriptionTask] = useState("Sin description");
+  const [primaryAssing, setPrimaryAssing] = useState<string>(
+    "-------------------"
+  );
 
   const [open, setOpen] = useState(false);
   const [openAssingTo, setOpenAssingTo] = useState(false);
-  const [primaryAssingId, setPrimaryAssingId] = useState(0);
+  const [primaryAssingId, setPrimaryAssingId] = useState<number>(0);
   const [openPriority, setOpenPriority] = useState(false);
 
   const [backGroundColor, setBackGroundColor] = useState("#2196f3");
 
   const { sendRequestNewTask, requestNewTask } = useStore();
 
-  const [validate, setValidateButton] = useState(false);
+  const [validate, setValidateButton] = useState<boolean>(false);
 
-  const [alert, setAlert] = useState<boolean>(false)
+  const [alert, setAlert] = useState<boolean>(false);
   //<Alert severity="success">This is a success Alert.</Alert>
   // <Alert severity="info">This is an info Alert.</Alert>|
   // <Alert severity="warning">This is a warning Alert.</Alert>|
   // <Alert severity="error">This is an error Alert.</Alert>
 
-  const fxVlidate = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    taskName.length > 0 ?
-      (priority.length > 0 ?
-        descriptionTask.length > 0 :
-        (primaryAssingId > 0 ? setValidateButton(true) : setAlert(true))
-      )
-      : setAlert(true)
-  }
+  const fxVlidate = () => 
+    {
+    console.log(descriptionTask.length);
+    console.log(descriptionTask);
+    
+    (taskName.length > 0 && priority.length > 0 && descriptionTask.length >= 1 && primaryAssingId > 0) ? setValidateButton(true) : setAlert(true);
 
-
-  const createTask = () => {
-
-    //console.log(taskName);
-    console.log("*" + valueDataTime);
-    console.log("**" + new Date().toISOString().split(".")[0]);
-    // console.log(priority);
-    // console.log(descriptionTask);
-    // console.log(primaryAssing);
     console.log(validate);
-
-    task.name = taskName
-    task.expirationDate = new Date(valueDataTime)
-    task.priority = priority
-    task.description = descriptionTask
-    task.assignedto = primaryAssingId
-
-
-    console.log(task)
-
-    sendRequestNewTask(task)
-    console.log(requestNewTask)
-
-
+    
 
   };
 
+  const createTask = () => {
+    task.name = taskName;
+    task.expirationDate = new Date(valueDataTime);
+    task.priority = priority;
+    task.description = descriptionTask;
+    task.assignedto = primaryAssingId;
+
+    validate && sendRequestNewTask(task);
+
+    //console.log(requestNewTask);
+  };
+
   const handleOnChangeDescription = (event) => {
-    console.log("Click descrip");
-    console.log(event.target.value);
+    
     setDescriptionTask(event.target.value);
+    setAlert(false);
   };
 
   const handleClick = () => {
@@ -104,46 +94,38 @@ export const CreateTaskComponent = () => {
   };
 
   const handleOnChangeName = (event) => {
-
-    console.log("Click name");
-    console.log(event.target.value);
+ 
 
     setTaskName(event.target.value.trim());
     setAlert(false);
   };
 
   const handleOnChangeDate = (event) => {
-    console.log("Click date");
-    console.log(event.target.value);
+    
     setvalueDataTime(event.target.value);
     setAlert(false);
   };
 
   const handleClickAway = () => {
     setOpen(false);
-    setAlert(false);
   };
 
   const handleClickAwayPriority = () => {
     setOpenPriority(false);
-    
-
   };
 
   const handleClickAwayAssingTo = () => {
     setOpenAssingTo(false);
-    
   };
 
   useEffect(() => {
     priority === "medium"
       ? setBackGroundColor("#2196f3")
       : priority === "high"
-        ? setBackGroundColor("#ffc107")
-        : setBackGroundColor("#9E9E9E");
+      ? setBackGroundColor("#ffc107")
+      : setBackGroundColor("#9E9E9E");
 
     //console.log( new Date().toISOString())
-
   }, [priority]);
 
   return (
@@ -290,6 +272,8 @@ export const CreateTaskComponent = () => {
                   minRows={6}
                   sx={{ minWidth: "220px", maxWidth: "220px" }}
                   onChange={handleOnChangeDescription}
+                  
+                  value={descriptionTask}
                 />
 
                 <ClickAwayListener onClickAway={handleClickAwayAssingTo}>
@@ -324,12 +308,12 @@ export const CreateTaskComponent = () => {
                       }}
                     >
                       {[
-                        ["0","--------------------"],
-                        ["1", "Juan Manuel Jramillo Espinosa"],
-                        ["2", "Elpepe"],
-                        ["3", "jasinto"],
-                        ["4", "Tyrone"],
-                        ["5", "Mau"],
+                        { id: 0, name: "--------------------" },
+                        { id: 1, name: "Juan Manuel Jramillo Espinosa" },
+                        { id: 2, name: "Elpepe" },
+                        { id: 3, name: "jasinto" },
+                        { id: 4, name: "Tyrone" },
+                        { id: 5, name: "Mau" },
                       ].map((option, i) => {
                         return (
                           <Button
@@ -339,12 +323,12 @@ export const CreateTaskComponent = () => {
                               borderRadius: 10,
                             }}
                             onClick={() => {
-                              setPrimaryAssing(option[1]);
-                              setPrimaryAssingId(parseInt(option[0]))
+                              setPrimaryAssing(option.name);
+                              setPrimaryAssingId(option.id);
                               setOpenAssingTo(!openAssingTo);
                             }}
                           >
-                            {option[1]}
+                            {option.name}
                           </Button>
                         );
                       })}
@@ -353,28 +337,45 @@ export const CreateTaskComponent = () => {
                 </ClickAwayListener>
               </CardContent>
             </Box>
+            <Box display={alert ? "flex" : "none"} margin={2}>
+              <Alert severity="error">Todos los campos son obligatorios.</Alert>
+            </Box>
             <Button
-              type="submit"
+
               endIcon={<Assignment sx={{ fontSize: 10 }} />}
               size="large"
               variant="contained"
-              sx={{ marginBottom: 2 }}
+              sx={{ marginBottom: 2, display:!alert ? "" : "none" }}
               onClick={() => {
-                fxVlidate()
-                validate ? (() => {
-                  setOpen(false);
-                  createTask()
-                  setAlert(false)
-                })(): setAlert(true)
-              }
-              }
+                console.log("entre init", validate);
+
+                fxVlidate();
+                
+                console.log("validé", validate);
+
+                validate
+                  ? (() => {
+                      console.log("entre");
+                      createTask();                     
+                    })()
+                  : (() => {
+                      console.log("entre al no");
+                      //console.log(taskName.length);
+                      // console.log("*" + valueDataTime);
+                      // console.log(
+                      //   "**" + new Date().toISOString().split(".")[0]
+                      // );
+                      //console.log(priority.length);
+                      //console.log(descriptionTask.length);
+                      // console.log(primaryAssing.length);
+                      // console.log(primaryAssingId);
+                      //console.log(validate);
+                      setAlert(true);
+                    })();
+              }}
             >
               Crear
             </Button>
-
-            <Box display={alert ? "flex" : "none" }>
-              <Alert severity="error">Todos los campos son obligatorios.</Alert>
-            </Box>
           </Box>
         </Collapse>
       </List>

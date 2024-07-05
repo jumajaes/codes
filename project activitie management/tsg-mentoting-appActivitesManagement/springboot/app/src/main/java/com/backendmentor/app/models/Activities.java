@@ -71,11 +71,11 @@ public class Activities {
     }
 
     public Timestamp getExpirationdate() {
-        return expirationdate;
+        return expirationDate;
     }
 
     public void setExpirationdate(Timestamp expirationdate) {
-        this.expirationdate = expirationdate;
+        this.expirationDate = expirationdate;
     }
 
     public String getDescription() {
