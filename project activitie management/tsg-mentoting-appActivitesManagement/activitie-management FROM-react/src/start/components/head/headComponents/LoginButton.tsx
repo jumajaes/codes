@@ -27,8 +27,7 @@ export const LoginButton = () => {
 
   return (
     <Button
-        variant='contained'
-        sx={{ overflow: "hidden", boxShadow:10}}
+        
       >
         <Link to="/user-task" style={{textDecoration:"none"}}><Typography color="white">START</Typography></Link>
       </Button>
