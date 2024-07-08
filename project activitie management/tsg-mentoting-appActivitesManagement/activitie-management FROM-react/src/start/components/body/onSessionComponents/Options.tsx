@@ -1,7 +1,7 @@
 import { Button, Grid } from "@mui/material";
 import { FilterComponent } from "./optionsComponents/FilterComponent.tsx";
 import { SearchTaskComponent } from "./optionsComponents/SearchTaskComponent.tsx";
-import { CreateTaskComponent } from "./optionsComponents/CreateTaskComponent.tsx";
+import { CreateTaskComponent } from "./optionsComponents/CreateTask.tsx";
 import React from "react";
 
 

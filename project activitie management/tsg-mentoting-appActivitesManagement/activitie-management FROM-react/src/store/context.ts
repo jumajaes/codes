@@ -20,12 +20,13 @@ export const useStore = create<typeStore>()((set) => (
     // changeFinishedState: () => set((state) => ({ finished: !state.finished})),
     sendRequestNewTask: async (newTask) => {
 
-      console.log(newTask.name)
-      console.log(newTask.expirationDate)
-      console.log(newTask.priority)
-      console.log(newTask.description)
-      console.log(newTask.assignedto)
-      console.log(newTask.description)
+      console.log(typeof newTask.name)
+      console.log(typeof newTask.expirationDate)
+      console.log(typeof newTask.priority)
+      console.log(typeof newTask.description)
+      console.log(typeof newTask.assignedto)
+      console.log(typeof newTask.description)
+
       try {
 
 

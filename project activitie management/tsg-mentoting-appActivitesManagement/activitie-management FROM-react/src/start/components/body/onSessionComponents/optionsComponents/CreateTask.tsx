@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
-
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
-
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
@@ -17,124 +14,30 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import task from "../../../../../store/task.ts";
-import { useStore } from "../../../../../store/context.ts";
+
+import { useCreateTask } from "./hooks/useCreateTask.ts";
+import React from "react";
 
 export const CreateTaskComponent = () => {
+  const {
+    backGroundColor, 
+    priority, handleClickPriority,
+    valueDataTime, 
+    descriptionTask, 
+    primaryAssing, setPrimaryAssing,
+    setPrimaryAssingId,
+    open, 
+    openAssingTo, setOpenAssingTo,
+    alert, 
+    fxVlidate,
+    handleOnChangeDescription,
+    handleClick,
+    handleClickAssingTo,
+    handleOnChangeName,
+    handleOnChangeDate,
+    handleClickAway
 
-  const [taskName, setTaskName] = useState<string>("");
-  const [valueDataTime, setvalueDataTime] = useState<Date>(new Date());//.toISOString().split(".")[0]
-  const [priority, setPriority] = useState<"medium" | "low" | "high">("medium");
-  const [descriptionTask, setDescriptionTask] = useState<string>("");
-  const [primaryAssing, setPrimaryAssing] = useState<string>("-------------------");
-  const [primaryAssingId, setPrimaryAssingId] = useState<number>(0);
-
-  const [open, setOpen] = useState(false);
-  const [openAssingTo, setOpenAssingTo] = useState(false);
-  // const [openPriority, setOpenPriority] = useState(false);
-
-  const [backGroundColor, setBackGroundColor] = useState("#2196f3");
-  const { sendRequestNewTask } = useStore();
-  const [validate, setValidateButton] = useState<boolean>(false);
-  const [alert, setAlert] = useState<boolean>(false);
-  //<Alert severity="success">This is a success Alert.</Alert>
-  // <Alert severity="info">This is an info Alert.</Alert>|
-  // <Alert severity="warning">This is a warning Alert.</Alert>|
-  // <Alert severity="error">This is an error Alert.</Alert>
-
-  const fxVlidate = () => {
-    
-    (taskName.length !== 0 &&
-      priority.length !== 0 &&
-      descriptionTask.length !== 0 &&
-      primaryAssingId !== 0) ?
-      setValidateButton(true) : setAlert(true);
-
-  };
-
-
-
-  const handleOnChangeDescription = (event) => {
-    setDescriptionTask(event.target.value);
-    setDescriptionTask(event.target.value);
-    setAlert(false);
-  };
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
-  // const handleClickPriority = () => {
-  //   setOpenPriority(true);
-  //   setAlert(false);
-  // };
-
-  const handleClickAssingTo = () => {
-    setOpenAssingTo(!openAssingTo);
-    setAlert(false);
-  };
-
-  const handleOnChangeName = (event) => {
-    setTaskName(event.target.value.trim());
-    setAlert(false);
-  };
-
-  const handleOnChangeDate = (event) => {
-
-    setvalueDataTime(new Date(event.target.value));
-    setAlert(false);
-  };
-
-  const handleClickAway = () => {
-    setOpen(false);
-  };
-
-
-  // const handleClickAwayAssingTo = () => {
-  //   setOpenAssingTo(false);
-  // };
-
-  useEffect(() => {
-
-    const handleClickAwayPriority = () => {
-      priority === "medium"
-        ? setBackGroundColor("#2196f3")
-        : priority === "high"
-          ? setBackGroundColor("#ffc107")
-          : setBackGroundColor("#9E9E9E");
-    };
-
-    const createTask = () => {
-
-      const newTask: typeof task = task;
-      newTask.name=taskName;
-      newTask.description=descriptionTask;
-      newTask.expirationDate=valueDataTime;
-      newTask.priority=priority;
-      newTask.assignedto=primaryAssingId
-      
-      // console.log(newTask.name)
-      // console.log(newTask.expirationDate)
-      // console.log(newTask.priority)
-      // console.log(newTask.description)
-      // console.log(newTask.assignedto)
-      // console.log(newTask.description)
-
-      validate
-        ? (() => {
-          validate && sendRequestNewTask(newTask );
-          setValidateButton(false);
-        })()
-        :
-        setAlert(true);
-
-    };
-
-    handleClickAwayPriority();
-
-    validate && createTask();
-
-  }, [descriptionTask, primaryAssing, primaryAssingId, priority, sendRequestNewTask, taskName, validate, valueDataTime]);
+  } = useCreateTask();
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
@@ -208,7 +111,6 @@ export const CreateTaskComponent = () => {
                   }}
                 >
                   <Typography
-
                     sx={{ backgroundColor: "#1976d2" }}
                     align="left"
                     color="white"
@@ -218,7 +120,7 @@ export const CreateTaskComponent = () => {
                     Priority...
                   </Typography>
                   <ListItemButton
-                    // onClick={handleClickPriority}
+                    // onClick={(e)=>handleClickPriority(e.target.value)}
                     sx={{ borderRadius: "15px" }}
                   >
                     <ListItemText
@@ -229,11 +131,9 @@ export const CreateTaskComponent = () => {
                         borderRadius: "15px",
                       }}
                     />
-
                   </ListItemButton>
                   <Box
                     sx={{
-
                       backgroundColor: "#00ACC1",
                       borderRadius: "15px",
                     }}
@@ -242,7 +142,7 @@ export const CreateTaskComponent = () => {
                       sx={{ borderRadius: 10 }}
                       variant={priority === "high" ? "contained" : "text"}
                       onClick={() => {
-                        setPriority("high");
+                        handleClickPriority("high");
                       }}
                     >
                       HIGH
@@ -251,8 +151,7 @@ export const CreateTaskComponent = () => {
                       sx={{ borderRadius: 10 }}
                       variant={priority === "medium" ? "contained" : "text"}
                       onClick={() => {
-                        setPriority("medium");
-
+                        handleClickPriority("medium");
                       }}
                     >
                       MEDIUM
@@ -261,8 +160,7 @@ export const CreateTaskComponent = () => {
                       sx={{ borderRadius: 10 }}
                       variant={priority === "low" ? "contained" : "text"}
                       onClick={() => {
-                        setPriority("low");
-                        ;
+                        handleClickPriority("low");
                       }}
                     >
                       LOW
@@ -278,34 +176,35 @@ export const CreateTaskComponent = () => {
                   minRows={6}
                   sx={{ minWidth: "220px", maxWidth: "220px" }}
                   onChange={handleOnChangeDescription}
-
                   value={descriptionTask}
                 />
 
-                <ClickAwayListener onClickAway={() => { openAssingTo && setOpenAssingTo(false) }}>
+                <ClickAwayListener
+                  onClickAway={() => {
+                    openAssingTo && setOpenAssingTo(false);
+                  }}
+                >
                   <Box
                     padding={1}
                     borderRadius={6}
                     sx={{
-                      backgroundColor: "#1976d2", 
+                      backgroundColor: "#1976d2",
                       marginTop: 2,
-                      padding: 1, justifyContent: "center"
-
+                      padding: 1,
+                      justifyContent: "center",
                     }}
                   >
                     Assing To:
-
                     <ListItemButton
                       onClick={handleClickAssingTo}
-                      sx={{ borderRadius: "15px", justifyContent: "space-between" }}
-
+                      sx={{
+                        borderRadius: "15px",
+                        justifyContent: "space-between",
+                      }}
                     >
-
                       {primaryAssing}
                       <Box fontSize={20}>{openAssingTo ? "⬆" : "⬇"}</Box>
-
                     </ListItemButton>
-
                     <Box
                       display={openAssingTo ? "flex" : "none"}
                       position={"absolute"}
@@ -324,7 +223,7 @@ export const CreateTaskComponent = () => {
                         zIndex: 1,
                         justifyContent: "center",
                         padding: 1,
-                        paddingTop: 11
+                        paddingTop: 11,
                       }}
                     >
                       {[
@@ -335,19 +234,18 @@ export const CreateTaskComponent = () => {
                         { id: 4, name: "Tyrone" },
                         { id: 5, name: "Mau" },
                       ].map((option, i) => {
-
                         return (
-
                           <Button
                             key={i}
                             sx={{
                               padding: 1,
                               border: 1,
                               margin: 1,
-                              display: option.name === primaryAssing ? "none" : "flex",
-                              
+                              display:
+                                option.name === primaryAssing ? "none" : "flex",
+
                               direction: "colum",
-                              justifyContent: "center"
+                              justifyContent: "center",
                             }}
                             onClick={() => {
                               setPrimaryAssing(option.name);
@@ -356,12 +254,10 @@ export const CreateTaskComponent = () => {
                             }}
                           >
                             {option.name}
-
                           </Button>
                         );
                       })}
                     </Box>
-
                   </Box>
                 </ClickAwayListener>
               </CardContent>
@@ -370,7 +266,6 @@ export const CreateTaskComponent = () => {
               <Alert severity="error">Todos los campos son obligatorios.</Alert>
             </Box>
             <Button
-
               endIcon={<Assignment sx={{ fontSize: 10 }} />}
               size="large"
               variant="contained"
