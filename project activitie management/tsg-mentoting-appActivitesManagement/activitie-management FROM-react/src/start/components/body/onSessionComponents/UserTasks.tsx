@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
-import { Options } from "./userTasksComponents/Options.tsx";
-import { CardTask } from "./userTasksComponents/CardTask.tsx";
+import { Options } from "./Options.tsx";
+import { CardTask } from "./CardTask.tsx";
 import React from "react";
 
 export default function UserTasks() {
