@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { Options } from "./Options.tsx";
-import { CardTask } from "./CardTask.tsx";
+import { CardTask } from "./userTaskComponents/CardTask.tsx";
 import React from "react";
 
 export default function UserTasks() {
@@ -29,7 +29,7 @@ export default function UserTasks() {
               descriptión={
                 "loqueseassssssssssssssssssssssssssssssssssssssssssssssss"
               }
-              expirationDate={"2/2/2024 11:58:00"}
+              expirationDate={"12/21/2024 11:58:00"}
               priority={"low"}
               state={"completed"}
             />

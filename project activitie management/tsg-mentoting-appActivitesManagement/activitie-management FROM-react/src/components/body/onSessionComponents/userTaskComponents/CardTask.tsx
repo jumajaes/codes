@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import {
   TaskAlt,
   Cancel,
   BorderColor,
   DeleteForever,
-  Task,
-  PriorityHigh,
+  Task
 } from "@mui/icons-material";
 import {
   Box,
@@ -17,9 +17,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import React, { useEffect } from "react";
-
-import { useState } from "react";
+import React from "react";
 
 export const CardTask = ({
   id,
@@ -30,54 +28,6 @@ export const CardTask = ({
   state,
   assingto,
 }) => {
-  type ColorState =
-    | "primary"
-    | "success"
-    | "error"
-    | "secondary"
-    | "info"
-    | "warning";
-
-  // const handleOnChangeDescription = (event) => {
-  //   setDescription(event.target.value);
-  //   console.log(descriptionTask);
-  // };
-
-  const [titleTask, setTitle] = useState(title);
-  const [descriptionTask, setDescription] = useState(descriptión);
-  const [expirationDateTask, setExpirationDate] = useState(expirationDate);
-  const [priorityTask, setPriority] = useState(priority);
-  const [stateTask, setState] = useState(state);
-  const [assignToTask, setAssignTo] = useState(assingto);
-  const [idTask, setIdTask] = useState(id);
-
-  const [open, setOpen] = useState(false);
-  const [colorState, setColorState] = useState<ColorState>("primary");
-  const [colorFondo, setColorFondo] = useState("#1976d2");
-  const [backGroundColor, setBackGroundColor] = useState("#2196f3");
-
-  useEffect(() => {
-    stateTask === "active" && setColorState("primary");
-    stateTask === "completed" && setColorState("success");
-    stateTask === "canceled" && setColorState("error");
-    stateTask === "expirated" && setColorState("warning");
-
-    stateTask === "active" && setColorFondo("#1976d2");
-    stateTask === "completed" && setColorFondo("#2e7d32");
-    stateTask === "canceled" && setColorFondo("#d32f2f");
-    stateTask === "expirated" && setColorFondo("#f57c00");
-
-    priorityTask === "medium"
-      ? setBackGroundColor("#2196f3")
-      : priorityTask === "high"
-        ? setBackGroundColor("#ffc107")
-        : setBackGroundColor("#9E9E9E");
-
-  }, [stateTask, priorityTask, colorState]);
-
-  const handleClickAway = () => {
-    setOpen(false);
-  };
 
   return (
     <Card
@@ -93,7 +43,7 @@ export const CardTask = ({
         <ClickAwayListener onClickAway={handleClickAway}>
           <Box display={"flex"} justifyContent="space-between">
             <Tooltip
-              title="Change Task State"
+              title={stateTask === "expirated" ? "Edit to task to change expiration date":"Change Task State"}
               arrow
               children={
                 <Button
@@ -110,15 +60,7 @@ export const CardTask = ({
                   }}
                 >
                   {stateTask}
-                  {state === "active" ?
-                    <Task />
-                    : state === "completed" ?
-                      <TaskAlt />
-                      : state === "canceled" ?
-                        <Cancel />
-                        :
-                        state === "expirated" && <PriorityHigh />
-                  }
+                  {iconState}
                 </Button>
               }
             />
@@ -136,10 +78,11 @@ export const CardTask = ({
               }}
             >
               <IconButton
-                aria-label="ACTIVE"
+                aria-label="active"
                 color="primary"
                 onClick={() => {
                   setOpen(!open);
+                  setState("active")
                 }}
               >
                 <Box
@@ -148,15 +91,16 @@ export const CardTask = ({
                   display="flex"
                   padding={1}
                 >
-                  <Typography>Active</Typography>
+                  <Typography>active</Typography>
                   <Task />
                 </Box>
               </IconButton>
               <IconButton
-                aria-label="COMPLETE"
+                aria-label="completed"
                 color="success"
                 onClick={() => {
                   setOpen(!open);
+                  setState("completed")
                 }}
               >
                 <Box
@@ -165,15 +109,16 @@ export const CardTask = ({
                   display="flex"
                   padding={1}
                 >
-                  <Typography>Completed</Typography>
+                  <Typography>completed</Typography>
                   <TaskAlt />
                 </Box>
               </IconButton>
               <IconButton
-                aria-label="CANCEL"
+                aria-label="canceled"
                 color="error"
                 onClick={() => {
                   setOpen(!open);
+                  setState("canceled")
                 }}
               >
                 <Box
@@ -182,7 +127,7 @@ export const CardTask = ({
                   display="flex"
                   padding={1}
                 >
-                  <Typography>Canceled</Typography>
+                  <Typography>canceled</Typography>
                   <Cancel />
                 </Box>
               </IconButton>
@@ -194,13 +139,9 @@ export const CardTask = ({
                 <IconButton
                   aria-label="DELETE"
                   color="warning"
-                  onClick={() => { }}
+                  onClick={() => {}}
                 >
-                  <Box
-
-                    display="flex"
-                    padding={1}
-                  >
+                  <Box display="flex" padding={1}>
                     <DeleteForever />
                   </Box>
                 </IconButton>
@@ -214,13 +155,9 @@ export const CardTask = ({
                 <IconButton
                   aria-label="EDIT"
                   color="secondary"
-                  onClick={() => { }}
+                  onClick={() => {}}
                 >
-                  <Box
-
-                    display="flex"
-                    padding={1}
-                  >
+                  <Box display="flex" padding={1}>
                     <BorderColor />
                   </Box>
                 </IconButton>
@@ -244,10 +181,10 @@ export const CardTask = ({
             marginBottom={1}
             sx={{ backgroundColor: colorFondo }}
           >
-            <Typography variant="h6" color="white" align="left" fontSize={13}>
+            <Typography variant="h6" align="left" fontSize={13}>
               Name:
             </Typography>
-            <Typography variant="h4" color="white">
+            <Typography variant="h4" >
               {titleTask}
             </Typography>
           </Box>
@@ -267,7 +204,7 @@ export const CardTask = ({
             <Typography
               variant="h6"
               align="center"
-              color="white"
+              
               fontSize={20}
               borderRadius={"15px"}
               padding={1}
@@ -318,9 +255,8 @@ export const CardTask = ({
           variant="filled"
           value={descriptionTask}
           // onChange={handleOnChangeDescription}
-          sx={{ margin: "5px", minWidth: "230px", zIndex: 0, color: "blue"}}
+          sx={{ margin: "5px", minWidth: "230px", zIndex: 0, color: "blue" }}
         />
-
       </Box>
     </Card>
   );

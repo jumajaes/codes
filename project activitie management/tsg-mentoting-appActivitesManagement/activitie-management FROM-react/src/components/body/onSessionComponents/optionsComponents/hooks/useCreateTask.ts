@@ -1,6 +1,6 @@
 import { useState } from "react";
-import task from "../../../../../../store/task.ts";
-import { useStore } from "../../../../../../store/context.ts";
+import task from "../../../../../store/task.ts";
+import { useStore } from "../../../../../store/context.ts";
 
 export const useCreateTask = () => {
 
