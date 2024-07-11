@@ -1,11 +1,12 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
     TaskAlt,
     Cancel,
     BorderColor,
     DeleteForever,
-    Task
+    Task,
+    PriorityHigh
   } from "@mui/icons-material";
 
 export const useCreateTask = ({
@@ -32,7 +33,7 @@ export const useCreateTask = ({
   >("primary");
   const [colorFondo, setColorFondo] = useState("#e1e7f8");
   const [backGroundColor, setBackGroundColor] = useState("#2196f3");
-  const [iconState, setIconState] = useState(<Box></Box>);
+  const [iconState, setIconState] = useState<JSX.Element>();
 
   useEffect(() => {
     stateTask === "active" &&
@@ -43,25 +44,25 @@ export const useCreateTask = ({
       (() => {
         setColorState("primary");
         setColorFondo("#e1e7f8");
-        setIconState(<Task />);
+        setIconState(Task);
       })();
     stateTask === "completed" &&
       (() => {
         setColorState("success");
         setColorFondo("#dce9db");
-        setIconState(<TaskAlt />);
+        setIconState(TaskAlt);
       })();
     stateTask === "canceled" &&
       (() => {
         setColorState("error");
         setColorFondo("#ffdfd9");
-        setIconState(<Cancel />);
+        setIconState(Cancel);
       })();
     stateTask === "expirated" &&
       (() => {
         setColorState("warning");
         setColorFondo("#ffe9d7");
-        setIconState(<PriorityHigh />);
+        setIconState(PriorityHigh);
       })();
 
     priorityTask === "medium"
@@ -73,5 +74,10 @@ export const useCreateTask = ({
 
   const handleClickAway = () => {
     setOpen(false);
+  };
+
+  return {
+    
+
   };
 };
