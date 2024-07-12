@@ -1,9 +1,26 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { Options } from "./Options.tsx";
 import { CardTask } from "./userTaskComponents/CardTask.tsx";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import task from "../../../store/task";
 
 export default function UserTasks() {
+  const tasks = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/allActivities");
+      const data = await response.json();
+      setAllTasks(data);
+    } catch (error) {
+      console.error("Error al obtener productos:", error);
+      setAllTasks([]);
+    }
+  };
+
+  const [allTasks, setAllTasks] = useState<(typeof task)[]>([]);
+
+  useEffect(() => {
+    tasks();
+  }, []);
   return (
     <Box padding={3} alignItems={"center"}>
       <Options />
@@ -19,19 +36,17 @@ export default function UserTasks() {
         Me tasks...
       </Typography>
       <Grid container columnGap={5} rowGap={5} justifyContent="center">
-        {[1, 2, 3, 4, 5].map((task, i) => {
+        {allTasks.map((taskElement: typeof task, i) => {
           return (
             <CardTask
-              key={i + task}
-              id={1}
-              title={"Firts Task"}
-              assingto={1}
-              descriptión={
-                "loqueseassssssssssssssssssssssssssssssssssssssssssssssss"
-              }
-              expirationDate={new Date("2023-01-01T05:53:02").toISOString()}
-              priority={"low"}
-              state={"active"}
+              key={i + taskElement.id}
+              id={taskElement.id}
+              name={taskElement.name}
+              assignedto={taskElement.assignedto}
+              description={taskElement.description}
+              expirationdate={taskElement.expirationdate}
+              priority={taskElement.priority}
+              state={taskElement.state}
             />
           );
         })}

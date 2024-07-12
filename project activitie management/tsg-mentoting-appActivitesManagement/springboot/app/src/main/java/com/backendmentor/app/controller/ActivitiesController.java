@@ -2,8 +2,6 @@ package com.backendmentor.app.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.print.attribute.standard.DateTimeAtCreation;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,17 +33,18 @@ public class ActivitiesController {
     }
 
     @PostMapping("/newActivitie")
-    public String SetNewUser(@RequestBody Activities newActivite) {
+    public void SetNewUser(@RequestBody Activities newActivite) {
         
         System.out.println(newActivite.getState());
-        System.out.println(newActivite.getExpirationdate());
         System.out.println(newActivite.getName());
         System.out.println(newActivite.getDescription());
         System.out.println(newActivite.getPriority());
         System.out.println(newActivite.getAssignedto());
-        
-        System.out.println(new DateTimeAtCreation(newActivite.getExpirationdate()));
-        return "newfirst saved";
+        newActivite.setExpirationdate(newActivite.getExpirationdate());
+        activitiesRepository.save(newActivite);
+
+        //System.out.println(new DateTimeAtCreation(newActivite.getExpirationdate()));
+
     }
 
     @PutMapping("/updateActivitie/{id}")

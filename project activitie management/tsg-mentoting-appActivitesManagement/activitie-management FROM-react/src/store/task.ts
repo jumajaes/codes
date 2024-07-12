@@ -1,8 +1,7 @@
 interface iTask {
-
-    
+    id: number;
     name: string,
-    expirationDate: Date,
+    expirationdate: string,
     priority: "medium" | "low" | "high" | "",
     description:  string,
     assignedto: number,
@@ -10,13 +9,13 @@ interface iTask {
 }
 
 const task:iTask = {
-    
     name: "",
-    expirationDate: new Date(),
+    expirationdate: "",
     priority: "",
     description: "",
     assignedto: 0,
     state: "",
+    id: 0,
 }
 
 export default task;

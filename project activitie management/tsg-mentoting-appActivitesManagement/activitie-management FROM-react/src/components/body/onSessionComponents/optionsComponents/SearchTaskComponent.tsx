@@ -17,7 +17,7 @@ export const  SearchTaskComponent = () => {
       }}
     >
       
-        <TextField variant="filled" sx={{ minWidth: "150px"}} label="Search by name or id" />
+        <TextField variant="filled" sx={{ minWidth: "150px", zIndex:0}} label="Search by name or id" />
 
         <Button
           sx={{ padding:0, width:20 }}

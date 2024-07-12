@@ -19,46 +19,21 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect } from "react";
-import { useCreateTask } from "./hooks/useUserTask.ts";
+import { useUserTask } from "./hooks/useUserTask.ts";
 
-export const CardTask = ({
-  id,
-  title,
-  descriptión,
-  expirationDate,
-  priority,
-  state,
-  assingto,
-}) => {
-  const {
-    titleTask,
-    descriptionTask, 
-    expirationDateTask, 
-    priorityTask, 
-    stateTask, setState,
-    assignToTask, 
-    idTask, 
-    open, setOpen,
-    colorState, setColorState,
-    colorFondo, setColorFondo,
-    backGroundColor, setBackGroundColor,
-    iconState, setIconState,
+export const CardTask = ({id, name, description, expirationdate, priority, state, assignedto}) => {
   
-    handleClickAway
-  } = useCreateTask(
-    id,
-    title,
-    descriptión,
-    expirationDate,
-    priority,
-    state,
-    assingto,
-  )
-
+  const {titleTask, descriptionTask, expirationDateTask, priorityTask, stateTask, setState, assignToTask, idTask, open, setOpen, colorState, setColorState, colorFondo,
+    setColorFondo, backGroundColor, setBackGroundColor, iconState, setIconState, handleClickAway} = useUserTask({id, name, description, expirationdate, priority, state, assignedto})
+    //console.log(id, name, description, expirationDate , priority, state, assignedto )
+    //console.log(titleTask, descriptionTask, expirationDateTask, priorityTask, stateTask, assignToTask, idTask)
+    //console.log(new Date(expirationDateTask).toISOString().split(".")[0])
   useEffect(() => {
     
-   ( stateTask === "active" && new Date() > new Date(expirationDateTask)) && setState("expirated");
-
+   ( stateTask === "active" && new Date() < new Date(expirationDateTask)) && setState("expirated");
+   console.log(new Date() > new Date(expirationDateTask))
+   console.log(new Date() + "acual")
+   console.log( new Date(expirationDateTask))
     stateTask === "active" &&
       (() => {
         setColorState("primary");
@@ -262,7 +237,7 @@ export const CardTask = ({
                     type="datetime-local"
                     
                     sx={{ minWidth: "250px", maxWidth: "250px", zIndex:0 }}
-                    value={new Date(expirationDate).toISOString().split(".")[0]}
+                    value={new Date(expirationDateTask).toISOString().split(".")[0]}
                     disabled
                   />
            

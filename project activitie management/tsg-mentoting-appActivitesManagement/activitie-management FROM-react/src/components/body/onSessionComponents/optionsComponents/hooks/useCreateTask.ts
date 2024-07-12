@@ -13,7 +13,7 @@ export const useCreateTask = () => {
   const [primaryAssingId, setPrimaryAssingId] = useState<number>(0);
   const [open, setOpen] = useState(false);
   const [openAssingTo, setOpenAssingTo] = useState(false);
-  const { sendRequestNewTask } = useStore();
+  const { sendRequestNewTask, requestNewTask } = useStore();
   const [alert, setAlert] = useState<boolean>(false);
 
   const handleClickPriority = (typePriority: "medium" | "low" | "high" | "") => { 
@@ -74,18 +74,22 @@ export const useCreateTask = () => {
     const newTask: typeof task = task;
     newTask.name = taskName;
     newTask.description = descriptionTask;
-    newTask.expirationDate = valueDataTime;
+    newTask.expirationdate = valueDataTime.toISOString().split(".")[0];
     newTask.priority = priority;
     newTask.assignedto = primaryAssingId;
-
-    console.log(newTask.name)
-    console.log(newTask.expirationDate.toISOString().split(".")[0])
-    console.log(newTask.priority)
-    console.log(newTask.description)
-    console.log(newTask.assignedto)
-    console.log(primaryAssing)
+    newTask.state = "active"
+    // console.log(newTask.name)
+    // console.log(newTask.expirationdate)
+    // console.log(newTask.priority)
+    // console.log(newTask.description)
+    // console.log(newTask.assignedto)
+    //console.log(primaryAssing)
 
     sendRequestNewTask(newTask);
+    // requestNewTask.json().then((res) =>{
+    //   console.log(res)
+    // });
+    console.log(requestNewTask.status)
     setAlert(false);
   };
 
