@@ -1,60 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 
-import List from "@mui/material/List";
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
 import { SearchSharp } from "@mui/icons-material";
-import { Box, Button, ClickAwayListener, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 
-export const SearchTaskComponent = () => {
-  const [open, setOpen] = useState(false);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
-  const handleClickAway = () => {
-    setOpen(false);
-  };
-
+export const  SearchTaskComponent = () => {
   return (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <List component="nav" >
-        <Button variant={open ? "contained": "outlined"} onClick={handleClick}>
-          <SearchSharp />
-          <ListItemText  primary="Search to tasks" />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </Button>
-        <Collapse
-          in={open}
-          sx={{
-            position: "absolute",
-            backgroundColor:"white",
-            borderColor: "#1976d2",
-            top: "120%",
-            left: "-7%",
-            zIndex: 1,
-            border:1,
-            borderRadius: 5,
-            maxWidth:"250px"
+
+    <Box
+      sx={{
+        display:"flex",
+        backgroundColor: "white",
+        borderColor: "#1976d2",
+        border: 1,
+        borderRadius: 2,
+        maxWidth: "230px"
+      }}
+    >
+      
+        <TextField variant="filled" sx={{ minWidth: "150px"}} label="Search by name or id" />
+
+        <Button
+          sx={{ padding:0, width:20 }}
+          onClick={() => {
+            console.log("Clic d");
           }}
         >
-          <Box padding={1}>
-          <TextField variant="filled" color="success" sx={{ margin: "10px", minWidth:"220px" }} label="NAME OR ID"  multiline={true} maxRows={6} />
+          <SearchSharp />
+        </Button>
+      
+    </Box>
 
-            <Button
-              sx={{ color: "black", border: 1, borderColor: "black" }}
-              onClick={() => {
-                console.log("Clic d");
-              }}
-            >
-              <SearchSharp/>
-            </Button>
-          </Box>
-        </Collapse>
-      </List>
-    </ClickAwayListener>
   );
 };

@@ -21,7 +21,7 @@ export const Options = () => {
     <Grid container columnGap={2} rowGap={2}  justifyContent='space-around' >
       {options.map((option, i) => {
         return (
-          <Button key={i} variant={option.variant} sx={{maxWidth:270, minWidth:230, margin:1}} onClick={() => {}}>
+          <Button key={i} variant={option.variant} sx={{maxWidth:270, minWidth:230, margin:1, padding:0}}>
             {option.component}
           </Button>
         );

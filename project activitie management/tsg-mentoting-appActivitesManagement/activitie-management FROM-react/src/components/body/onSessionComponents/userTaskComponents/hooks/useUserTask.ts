@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
-    TaskAlt,
-    Cancel,
-    BorderColor,
-    DeleteForever,
-    Task,
-    PriorityHigh
-  } from "@mui/icons-material";
+  TaskAlt,
+  Cancel,
+  BorderColor,
+  DeleteForever,
+  Task,
+  PriorityHigh
+} from "@mui/icons-material";
 
-export const useCreateTask = ({
+export const useCreateTask = (
+  
     id,
     title,
     descriptión,
@@ -17,7 +18,8 @@ export const useCreateTask = ({
     priority,
     state,
     assingto,
-  }) => {
+  
+) => {
 
   const [titleTask, setTitle] = useState(title);
   const [descriptionTask, setDescription] = useState(descriptión);
@@ -31,53 +33,30 @@ export const useCreateTask = ({
   const [colorState, setColorState] = useState<
     "primary" | "success" | "error" | "secondary" | "info" | "warning"
   >("primary");
-  const [colorFondo, setColorFondo] = useState("#e1e7f8");
-  const [backGroundColor, setBackGroundColor] = useState("#2196f3");
-  const [iconState, setIconState] = useState<JSX.Element>();
-
-  useEffect(() => {
-    stateTask === "active" &&
-      new Date() < new Date(expirationDateTask) &&
-      setState("expirated");
-
-    stateTask === "active" &&
-      (() => {
-        setColorState("primary");
-        setColorFondo("#e1e7f8");
-        setIconState(Task);
-      })();
-    stateTask === "completed" &&
-      (() => {
-        setColorState("success");
-        setColorFondo("#dce9db");
-        setIconState(TaskAlt);
-      })();
-    stateTask === "canceled" &&
-      (() => {
-        setColorState("error");
-        setColorFondo("#ffdfd9");
-        setIconState(Cancel);
-      })();
-    stateTask === "expirated" &&
-      (() => {
-        setColorState("warning");
-        setColorFondo("#ffe9d7");
-        setIconState(PriorityHigh);
-      })();
-
-    priorityTask === "medium"
-      ? setBackGroundColor("#2196f3")
-      : priorityTask === "high"
-      ? setBackGroundColor("#ffc107")
-      : setBackGroundColor("#9E9E9E");
-  }, [stateTask, priorityTask, expirationDateTask]);
+  const [colorFondo, setColorFondo] = useState<string>("#e1e7f8");
+  const [backGroundColor, setBackGroundColor] = useState<string>("#2196f3");
+  const [iconState, setIconState] = useState<any>();
 
   const handleClickAway = () => {
     setOpen(false);
   };
 
   return {
+    titleTask, setTitle,
+    descriptionTask, setDescription,
+    expirationDateTask, setExpirationDate,
+    priorityTask, setPriority,
+    stateTask, setState,
+    assignToTask, setAssignTo
+    , idTask, setIdTask,
+    open, setOpen,
+    colorState, setColorState,
+    colorFondo, setColorFondo,
+    backGroundColor, setBackGroundColor,
+    iconState, setIconState,
+    BorderColor,DeleteForever,
     
 
+    handleClickAway
   };
 };

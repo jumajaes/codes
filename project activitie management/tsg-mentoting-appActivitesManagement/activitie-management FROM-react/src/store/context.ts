@@ -27,26 +27,26 @@ export const useStore = create<typeStore>()((set) => (
       console.log(typeof newTask.assignedto)
       console.log(typeof newTask.description)
 
-      try {
+      // try {
 
 
 
-        const response = await fetch(apiUrls.setNewActivitie, {
+      //   const response = await fetch(apiUrls.setNewActivitie, {
 
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(newTask),
-        }
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json'
+      //     },
+      //     body: JSON.stringify(newTask),
+      //   }
 
-        );
+      //   );
 
-        set({ requestNewTask: await response.json() })
+      //   set({ requestNewTask: await response.json() })
 
-      } catch (Exeption: any) {
-        console.log(Exeption)
-      }
+      // } catch (Exeption: any) {
+      //   console.log(Exeption)
+      // }
     }
   }
 )

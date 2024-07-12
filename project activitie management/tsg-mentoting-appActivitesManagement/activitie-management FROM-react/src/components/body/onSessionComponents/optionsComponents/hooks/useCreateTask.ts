@@ -66,8 +66,8 @@ export const useCreateTask = () => {
     setAlert(false);
   };
 
-  const handleClickAway = () => {
-    setOpen(false);
+  const handleClickAway = (event) => {
+    event.pointerType !== ""  && setOpen(false);
   };
 
   const createTask = () => {
@@ -78,12 +78,12 @@ export const useCreateTask = () => {
     newTask.priority = priority;
     newTask.assignedto = primaryAssingId;
 
-    // console.log(newTask.name)
-    // console.log(newTask.expirationDate)
-    // console.log(newTask.priority)
-    // console.log(newTask.description)
-    // console.log(newTask.assignedto)
-    // console.log(newTask.description)
+    console.log(newTask.name)
+    console.log(newTask.expirationDate.toISOString().split(".")[0])
+    console.log(newTask.priority)
+    console.log(newTask.description)
+    console.log(newTask.assignedto)
+    console.log(primaryAssing)
 
     sendRequestNewTask(newTask);
     setAlert(false);

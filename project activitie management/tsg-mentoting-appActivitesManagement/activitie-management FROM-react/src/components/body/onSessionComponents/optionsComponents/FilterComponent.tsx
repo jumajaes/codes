@@ -1,55 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import List from '@mui/material/List';
 
 import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
-
-
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
 
 import { CalendarMonth, FilterList, IndeterminateCheckBox, PriorityHigh } from '@mui/icons-material';
-import { Button, ClickAwayListener } from '@mui/material';
+import { Box, Button, ClickAwayListener } from '@mui/material';
 
 export const FilterComponent = () => {
-  const [open, setOpen] = React.useState(false);
+  const [openFilter, setOpenFilter] = useState(false);
 
-  const handleClick = () => {
-    setOpen(!open);
+  const handleClickFilter = () => {
+    setOpenFilter(!openFilter);
   };
-  const handleClickAway = () => {
-    setOpen(false);
+  const handleClickAwayFilter = () => {
+    setOpenFilter(false);
   };
 
 
   return (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <List component="nav">
-        <Button variant={open ? "contained": "text"} onClick={handleClick}>
+    <ClickAwayListener onClickAway={handleClickAwayFilter}>
+      <List sx={{ padding: 0 }} component="nav">
+        <Button variant={openFilter ? "contained" : "text"} onClick={handleClickFilter}>
           <FilterList />
           <ListItemText primary="Filter" />
-          {open ? <ExpandLess /> : <ExpandMore />}
         </Button>
-        <Collapse in={open} timeout="auto"  sx={{position:"absolute", top:"120%", left:"-7%", zIndex: 1, backgroundColor:"white", border:1, borderRadius:10}}>
-          <List component="div" disablePadding>
-            <Button sx={{ display: 'flex', flexDirection: 'column', minWidth:"140px" }} >
+        <Box display={openFilter ? 'flex' : "none"} sx={{ position: "absolute", top: "120%", left: "-20%", zIndex: 1, backgroundColor: "white", border: 1, borderRadius: 5, flexDirection: 'column',  minWidth: "140px" }}>
 
-              <Button endIcon={<CalendarMonth />}>
-                <ListItemText primary="Date" />
-              </Button>
+          <Button>
+          <CalendarMonth />
+          Date
+          </Button>
 
-              <Button endIcon={<IndeterminateCheckBox />}>
-                <ListItemText primary="State" />
-              </Button>
+          <Button >
+            State
+            <IndeterminateCheckBox />
+          </Button>
 
-              <Button endIcon={<PriorityHigh />}>
-                <ListItemText primary="Priority" />
-              </Button>
+          <Button >
+            Priority
+            <PriorityHigh />
+          </Button>
 
-            </Button>
-          </List>
-        </Collapse>
+        </Box>
       </List>
     </ClickAwayListener>
   );

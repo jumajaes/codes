@@ -29,9 +29,9 @@ export default function UserTasks() {
               descriptión={
                 "loqueseassssssssssssssssssssssssssssssssssssssssssssssss"
               }
-              expirationDate={"12/21/2024 11:58:00"}
+              expirationDate={new Date("2023-01-01T05:53:02").toISOString()}
               priority={"low"}
-              state={"completed"}
+              state={"active"}
             />
           );
         })}
