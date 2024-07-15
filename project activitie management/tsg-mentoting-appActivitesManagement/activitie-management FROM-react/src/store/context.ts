@@ -14,13 +14,11 @@ type typeStore = {
 
 export const useStore = create<typeStore>()((set) => ({
   requestNewTask: {},
-  
   requestTask:{},
 
   tasks : async () => {
     try {
       const response = await fetch("http://localhost:4000/allActivities");
-      console.log( response.json())
       set({ requestTask: response.json() });
     } catch (error) {
       console.error("Error al obtener productos:", error);
@@ -37,15 +35,14 @@ export const useStore = create<typeStore>()((set) => ({
       },
       body: JSON.stringify(newTask),
     })
-      .then((response) => {                      // first then()
+      .then(async (response) => {                      
         if (response.ok) {
-          //console.log('Request successful', response)
+          console.log('Request successful', await response.json())
           set({ requestNewTask:  response });
         }
 
         throw new Error('Something went wrong.');
       })
-      .catch(error => {                        
-      });
+      .catch(error => {});
   },
 }));

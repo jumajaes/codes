@@ -2,6 +2,8 @@ package com.backendmentor.app.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,9 +26,12 @@ public class ActivitiesController {
 
     @GetMapping("/allActivities")
     public java.util.List<Activities> getAllActivities() {
-
-
-        return activitiesRepository.findAll();
+        try {
+            return activitiesRepository.findAll();
+        } catch (Exception e) {
+            java.util.List<Activities> error = new ArrayList<>();
+            return error;
+        }
     }
 
     @GetMapping("/activitieById/{id}")
@@ -35,15 +40,18 @@ public class ActivitiesController {
     }
 
     @PostMapping("/newActivitie")
-    public void SetNewUser(@RequestBody Activities newActivite) {
-        // try{
+    public boolean SetNewUser(@RequestBody Activities newActivite) {
+        try {
+            System.out.println(newActivite.getExpirationdate());            
+            activitiesRepository.save(newActivite);
+            return true;
+        } catch (Exception e) {
             System.out.println(newActivite.getExpirationdate());
-        //newActivite.setExpirationdate(newActivite.getExpirationdate());
-        activitiesRepository.save(newActivite);
-        // }catch(Exception e ){}
+            return false;    
+        }
     }
 
-    @PutMapping("/updateActivitie/{id}")
+    @PutMapping("/updateActivitie/{id} ")
     public String updateUser(@PathVariable Integer id, @RequestBody Activities activitieToUpdate) {
         Activities update = activitiesRepository.findById(id).get();
         update.setName(activitieToUpdate.getName());

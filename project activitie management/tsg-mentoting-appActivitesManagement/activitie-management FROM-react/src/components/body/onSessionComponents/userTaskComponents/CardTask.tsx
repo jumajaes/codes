@@ -5,13 +5,12 @@ import {
   BorderColor,
   DeleteForever,
   Task,
-  PriorityHigh
+  PriorityHigh,
 } from "@mui/icons-material";
 import {
   Box,
   Button,
   Card,
-  CardHeader,
   ClickAwayListener,
   IconButton,
   TextField,
@@ -21,54 +20,94 @@ import {
 import React, { useEffect } from "react";
 import { useUserTask } from "./hooks/useUserTask.ts";
 
-export const CardTask = ({id, name, description, expirationdate, priority, state, assignedto}) => {
-  
-  const {titleTask, descriptionTask, expirationDateTask, priorityTask, stateTask, setState, assignToTask, idTask, open, setOpen, colorState, setColorState, colorFondo,
-    setColorFondo, backGroundColor, setBackGroundColor, iconState, setIconState, handleClickAway} = useUserTask({id, name, description, expirationdate, priority, state, assignedto})
-    //console.log(id, name, description, expirationDate , priority, state, assignedto )
-    //console.log(titleTask, descriptionTask, expirationDateTask, priorityTask, stateTask, assignToTask, idTask)
-    //console.log(new Date(expirationDateTask).toISOString().split(".")[0])
-    
+export const CardTask = ({
+  id,
+  name,
+  description,
+  expirationdate,
+  priority,
+  state,
+  assignedto,
+}) => {
+  const {
+    titleTask,
+    descriptionTask,
+    expirationDateTask,
+    priorityTask,
+    stateTask,
+    setState,
+    assignToTask,
+    idTask,
+    open,
+    setOpen,
+    colorState,
+    setColorState,
+    colorFondo,
+    setColorFondo,
+    backGroundColor,
+    setBackGroundColor,
+    iconState,
+    setIconState,
+    handleClickAway,
+  } = useUserTask({
+    id,
+    name,
+    description,
+    expirationdate,
+    priority,
+    state,
+    assignedto,
+  });
+  //console.log(id, name, description, expirationDate , priority, state, assignedto )
+  //console.log(titleTask, descriptionTask, expirationDateTask, priorityTask, stateTask, assignToTask, idTask)
+  //console.log(new Date(expirationDateTask).toISOString().split(".")[0])
+
   useEffect(() => {
-    
-   ( stateTask === "active" && new Date(expirationDateTask) < new Date()) && setState("expirated");
-   console.log(new Date(expirationDateTask), "////////////", expirationDateTask)
-  //  console.log(new Date() > new Date(expirationDateTask)) ---------- .split(".")[0]
-  //   console.log(new Date() + "acual")
-  //console.log(expirationDateTask, new Date(expirationDateTask)+" <  ", new Date(), new Date(expirationDateTask) < new Date())
-    
+    stateTask === "active" &&
+      new Date(expirationDateTask.split(".")[0]) < new Date() &&
+      setState("expirated");
+
     stateTask === "active" &&
       (() => {
         setColorState("primary");
         setColorFondo("#e1e7f8");
-        setIconState(<Task/>);
+        setIconState(<Task />);
       })();
     stateTask === "completed" &&
       (() => {
         setColorState("success");
         setColorFondo("#dce9db");
-        setIconState(<TaskAlt/>);
+        setIconState(<TaskAlt />);
       })();
     stateTask === "canceled" &&
       (() => {
         setColorState("error");
         setColorFondo("#ffdfd9");
-        setIconState(<Cancel/>);
+        setIconState(<Cancel />);
       })();
     stateTask === "expirated" &&
       (() => {
         setColorState("warning");
         setColorFondo("#ffe9d7");
-        setIconState(<PriorityHigh/>);
+        setIconState(<PriorityHigh />);
       })();
 
     priorityTask === "medium"
       ? setBackGroundColor("#2196f3")
       : priorityTask === "high"
-        ? setBackGroundColor("#ffc107")
-        : setBackGroundColor("#9E9E9E");
-  }, [stateTask, priorityTask, expirationDateTask, setBackGroundColor, setColorFondo, setColorState, setIconState, setState]);
-    
+      ? setBackGroundColor("#ffc107")
+      : setBackGroundColor("#9E9E9E");
+  }, [
+    stateTask,
+    priorityTask,
+    expirationDateTask,
+    setBackGroundColor,
+    setColorFondo,
+    setColorState,
+    setIconState,
+    setState,
+  ]);
+
   return (
     <Card
       sx={{
@@ -83,7 +122,11 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
         <ClickAwayListener onClickAway={handleClickAway}>
           <Box display={"flex"} justifyContent="space-between">
             <Tooltip
-              title={stateTask === "expirated" ? "Edit to task to change expiration date":"Change Task State"}
+              title={
+                stateTask === "expirated"
+                  ? "Edit to task to change expiration date"
+                  : "Change Task State"
+              }
               arrow
               children={
                 <Button
@@ -122,7 +165,7 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
                 color="primary"
                 onClick={() => {
                   setOpen(!open);
-                  setState("active")
+                  setState("active");
                 }}
               >
                 <Box
@@ -140,7 +183,7 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
                 color="success"
                 onClick={() => {
                   setOpen(!open);
-                  setState("completed")
+                  setState("completed");
                 }}
               >
                 <Box
@@ -158,7 +201,7 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
                 color="error"
                 onClick={() => {
                   setOpen(!open);
-                  setState("canceled")
+                  setState("canceled");
                 }}
               >
                 <Box
@@ -210,71 +253,49 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
       {
         //------------------------------------------------------------------------------------------------------------------
       }
-      <CardHeader
-        align="center"
-        title={
-          <Box
-            display={"flex-box"}
-            fontSize={20}
-            borderRadius={"10px"}
-            padding={1}
-            marginBottom={1}
-            sx={{ backgroundColor: colorFondo }}
-            maxWidth={"315px"}
-          >
-            <Typography variant="h6" align="left" fontSize={13}>
-              Name:
-            </Typography>
-            <Typography variant="h6" maxWidth={290} >
-              {titleTask}
-            </Typography>
-          </Box>
-        }
-        subheader={
-          <Box>
-            <hr />
-            <Typography variant="h6" fontSize={14} align="center" margin={2}>
-              ID Task: {idTask}
-            </Typography>
-            <TextField
-                    label="Expiration Date:"
-                    type="datetime-local"
-                    
-                    sx={{ minWidth: "250px", maxWidth: "250px", zIndex:0 }}
-                    value={new Date(expirationDateTask).toISOString().split(".")[0]}
-                    disabled
-                  />
-           
-            <Box
-              marginTop={2}
-              borderRadius={"10px"}
-              padding={1}
-              // sx={{ backgroundColor: colorFondo }}
-            >
-              <Typography align="left" fontSize={12} color={"black"}>
-                ASSINGNED TO:
-              </Typography>
-              {assignToTask}
-            </Box>
-            <hr />
-          </Box>
-        }
-      />
+      <Box sx={{ maxWidth: "265px", minWidth: "265px" }}>
+        <Typography variant="h6" align="left" fontSize={13}>
+          Name...
+        </Typography>
+        <Typography variant="h5" maxWidth={290} marginBottom={2}>
+          {titleTask}
+        </Typography>
+
+        <Box
+          sx={{
+            backgroundColor: colorFondo,
+            borderRadius: "10px",
+            padding: 1,
+            marginBottom: 2,
+          }}
+        >
+          <hr />
+          <Typography variant="h6" fontSize={14} marginBottom={2} align="center">
+            ID Task: {idTask}
+          </Typography>
+          <TextField
+            label="Expiration Date:"
+            type="datetime-local"
+            sx={{ minWidth: "250px", maxWidth: "250px", zIndex: 0 }}
+            value={expirationDateTask.split(".")[0]}
+            disabled
+          />
+          <Typography align="left" fontSize={10} color={"black"} marginTop={1}>
+            ASSINGNED TO:
+          </Typography>
+          {assignToTask}
+
+          <hr />
+        </Box>
+      </Box>
       <Box
-      display={"block"}
-        border={2}
+        display={"block"}
         borderRadius={"10px"}
         color="black"
-        padding={1}
-        margin={1}
-        justifyContent={"space-between"}
+        justifyItems={"center"}
+        width="270px"
       >
-        <Typography
-          variant="h6"
-          align="left"
-          fontSize={15}
-          borderRadius={"10px"}
-        >
+        <Typography variant="h6" align="left" fontSize={15}>
           Priority...
         </Typography>
 
@@ -289,16 +310,22 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
           {priorityTask}
         </Typography>
         <hr />
-        
+
         <TextField
           disabled
           label="Description..."
           multiline={true}
-          maxRows={6}
-         
+          maxRows={5}
+          minRows={5}
           value={descriptionTask}
           // onChange={handleOnChangeDescription}
-          sx={{ margin: "1px",minWidth: "240px", zIndex: 0, color: "black" }}
+          sx={{
+            margin: "1px",
+            maxWidth: "270px",
+            minWidth: "270px",
+            zIndex: 0,
+            marginTop: 1,
+          }}
         />
       </Box>
     </Card>

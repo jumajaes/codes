@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import List from '@mui/material/List';
 
-import ListItemText from '@mui/material/ListItemText';
 
 import { CalendarMonth, FilterList, IndeterminateCheckBox, PriorityHigh } from '@mui/icons-material';
 import { Box, Button, ClickAwayListener } from '@mui/material';

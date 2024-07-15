@@ -24,12 +24,8 @@ public class Userstoassign {
     @Column
     private String name;
 
-
-    
-
     //--------------------------------
 
-   
    
     public String getName() {
         return name;
@@ -42,7 +38,6 @@ public class Userstoassign {
     public Integer getId() {
         return id;
     }
-
 
     public void setId(Integer id) {
         this.id = id;

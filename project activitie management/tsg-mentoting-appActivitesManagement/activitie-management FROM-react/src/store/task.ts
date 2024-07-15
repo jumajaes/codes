@@ -4,7 +4,7 @@ interface iTask {
     expirationdate: string,
     priority: "medium" | "low" | "high" | "",
     description:  string,
-    assignedto: number,
+    assignedto: string,
     state: "canceled" | "completed" | "expirated" | "active" | ""
 }
 
@@ -13,7 +13,7 @@ const task:iTask = {
     expirationdate: "",
     priority: "",
     description: "",
-    assignedto: 0,
+    assignedto: "",
     state: "",
     id: 0,
 }

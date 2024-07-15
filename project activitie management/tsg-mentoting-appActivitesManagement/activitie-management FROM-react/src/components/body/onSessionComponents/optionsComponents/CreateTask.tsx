@@ -1,24 +1,36 @@
 import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
+
 import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
+
 import { Assignment, TaskAlt } from "@mui/icons-material";
 import {
   Alert,
   Box,
   Button,
-  CardContent,
   ClickAwayListener,
   TextField,
   Typography,
 } from "@mui/material";
 
 import { useCreateTask } from "./hooks/useCreateTask.ts";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import task from "../../../../store/task.ts";
 
 export const CreateTask = () => {
+
+  const Users = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/allUsers");
+      const data = await response.json();
+      setAllUsers(data);
+    } catch (error) {
+      //console.error("Error al obtener productos:", error);
+      setAllUsers([]);
+    }
+  };
+
+  const [allUsers, setAllUsers] = useState<(typeof task)[]>([]);
+
   const {
     priority,
     handleClickPriority,
@@ -38,10 +50,14 @@ export const CreateTask = () => {
     handleOnChangeName,
     handleOnChangeDate,
     handleClickAway,
+    requestNewTask,
+    alertName, setAlertName
   } = useCreateTask();
 
   useEffect(() => {
-  }, [priority])
+    Users()
+    !requestNewTask && setAlertName(true) 
+  }, [priority, requestNewTask, setAlertName])
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
@@ -68,14 +84,14 @@ export const CreateTask = () => {
           }}
         >
           <Box
-            sx={{ minWidth: 295, maxWidth: 315, backgroundColor: "white", borderRadius: 10 }}
+            sx={{ minWidth: 300, maxWidth: 315, backgroundColor: "white", borderRadius: 10 }}
             justifyContent="center"
             padding={1}
             display="flex"
             flexDirection={"column"}
           >
             <Typography
-              borderRadius={20}
+              borderRadius={10}
               sx={{ backgroundColor: "#1976d2" }}
               align="center"
               color="white"
@@ -92,7 +108,9 @@ export const CreateTask = () => {
               required
               sx={{ minWidth: "250px" }}
             />
-
+            <Box display={alertName ? "flex" : "none"} justifyContent={"center"} margin={2}>
+            <Alert severity="error">Este nombre ya existe.</Alert>
+          </Box>
             <br />
 
             <TextField
@@ -101,7 +119,7 @@ export const CreateTask = () => {
               variant="standard"
               sx={{ minWidth: "250px" }}
               onChange={handleOnChangeDate}
-              value={valueDataTime.toISOString().split(".")[0]}
+              value={valueDataTime?.split(".")[0]}
               required
             />
 
@@ -112,13 +130,13 @@ export const CreateTask = () => {
                 sx={{
                   zIndex:2,
                   display: "flex",
-                  backgroundColor: "#1976d2",
+                  
                   marginTop: 1,
                   justifyContent: "center",
                   flexDirection: "column"
                 }}
-              >
-                <Typography sx={{ color: "white", alignSelf: "center" }}>{openAssingTo ? "*Assing To*⬆" : "*Assing To*⬇"}</Typography>
+              > 
+                Assing To
                 <Button
                   onClick={handleClickAssingTo}
                   sx={{
@@ -128,7 +146,7 @@ export const CreateTask = () => {
                     justifyContent: "space-between",
                   }}
                 >
-                  {primaryAssing}
+                  {primaryAssing} <Typography sx={{fontSize: 20, color: "#1976d2", alignSelf: "center" }}>{openAssingTo ? "*⬆" : "*⬇"}</Typography>
                 </Button>
 
                 <Box
@@ -138,29 +156,22 @@ export const CreateTask = () => {
                   overflow={"scroll"}
                   sx={{
                     top: "35%",
-                    left: "1%",
+                    left: "2%",
                     backgroundColor: "white",
                     borderRadius: "15px",
                     border: 5,
                     borderColor: "#1976d2",
                     minWidth: "285px", 
                     maxWidth: "285px",
-
+                    padding:"10px",
                     maxHeight: "240px",
                     zIndex: 1,
                     justifyContent: "center",
-                    padding: 1,
+                    
                     paddingTop: 11,
                   }}
                 >
-                  {[
-                    { id: 0, name: "-------------------" },
-                    { id: 1, name: "Juan Manuel Jramillo Espinosa" },
-                    { id: 2, name: "Elpepe" },
-                    { id: 3, name: "jasinto" },
-                    { id: 4, name: "Tyrone" },
-                    { id: 5, name: "Mau" },
-                  ].map((option, i) => {
+                  {allUsers.map((option, i) => {
                     return (
                       <Box
                         key={i}
@@ -210,6 +221,8 @@ export const CreateTask = () => {
 
               <Box
                 sx={{
+                  display:"flex",
+                  justifyContent:"space-between",
                   backgroundColor: "#00ACC1",
                   borderRadius: "15px",
                 }}
@@ -252,6 +265,7 @@ export const CreateTask = () => {
               sx={{ minWidth: "220px" }}
               onChange={handleOnChangeDescription}
               value={descriptionTask}
+              minRows={6}
             />
 
           </Box>

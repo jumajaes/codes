@@ -41,7 +41,7 @@ public class Activities {
     private String description; 
 
     @Column(nullable = false)
-    private Integer assignedto;
+    private String assignedto;
 
 
     public Integer getId() {
@@ -88,11 +88,11 @@ public class Activities {
         this.description = description;
     }
 
-    public Integer getAssignedto() {
+    public String getAssignedto() {
         return assignedto;
     }
 
-    public void setAssignedto(Integer assignedto) {
+    public void setAssignedto(String assignedto) {
         this.assignedto = assignedto;
     }
 

@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { FilterComponent } from "./optionsComponents/FilterComponent.tsx";
 import { SearchTaskComponent } from "./optionsComponents/SearchTaskComponent.tsx";
 import { CreateTask } from "./optionsComponents/CreateTask.tsx";

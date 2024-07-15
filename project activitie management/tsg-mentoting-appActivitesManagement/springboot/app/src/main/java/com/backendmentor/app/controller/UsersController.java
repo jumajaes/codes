@@ -1,7 +1,11 @@
 package com.backendmentor.app.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.backendmentor.app.models.Userstoassign;
 import com.backendmentor.app.repository.UsersModelRepository;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class UsersController {
 
@@ -20,7 +25,12 @@ public class UsersController {
 
     @GetMapping("/allUsers")
     public java.util.List<Userstoassign> getAllUsers() {
-        return userRepository.findAll();
+        try {
+            return userRepository.findAll();
+        } catch (Exception e) {
+            java.util.List<Userstoassign> error = new ArrayList<>();
+            return error;
+        }
     }
 
     @GetMapping("/user/{idUser}")
