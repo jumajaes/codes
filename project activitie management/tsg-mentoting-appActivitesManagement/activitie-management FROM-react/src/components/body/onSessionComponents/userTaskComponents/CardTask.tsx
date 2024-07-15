@@ -28,12 +28,15 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
     //console.log(id, name, description, expirationDate , priority, state, assignedto )
     //console.log(titleTask, descriptionTask, expirationDateTask, priorityTask, stateTask, assignToTask, idTask)
     //console.log(new Date(expirationDateTask).toISOString().split(".")[0])
+    
   useEffect(() => {
     
-   ( stateTask === "active" && new Date() < new Date(expirationDateTask)) && setState("expirated");
-   console.log(new Date() > new Date(expirationDateTask))
-   console.log(new Date() + "acual")
-   console.log( new Date(expirationDateTask))
+   ( stateTask === "active" && new Date(expirationDateTask) < new Date()) && setState("expirated");
+   console.log(new Date(expirationDateTask), "////////////", expirationDateTask)
+  //  console.log(new Date() > new Date(expirationDateTask)) ---------- .split(".")[0]
+  //   console.log(new Date() + "acual")
+  //console.log(expirationDateTask, new Date(expirationDateTask)+" <  ", new Date(), new Date(expirationDateTask) < new Date())
+    
     stateTask === "active" &&
       (() => {
         setColorState("primary");
@@ -72,11 +75,11 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
         maxWidth: 500,
         minWidth: 310,
         boxShadow: 20,
-        borderRadius: "25px",
+        borderRadius: "10px",
         padding: 2,
       }}
     >
-      <Box display={"flex"} justifyContent="center">
+      <Box display={"flex"} justifyContent="center" maxWidth={"315px"}>
         <ClickAwayListener onClickAway={handleClickAway}>
           <Box display={"flex"} justifyContent="space-between">
             <Tooltip
@@ -87,7 +90,7 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
                   variant={open ? "text" : "contained"}
                   color={colorState}
                   sx={{
-                    borderRadius: "25px",
+                    borderRadius: "10px",
                     padding: "5px",
                     margin: "10px",
                     minWidth: "120px",
@@ -110,7 +113,7 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
                 backgroundColor: "white",
                 zIndex: 1,
                 border: 1,
-                borderRadius: "15px",
+                borderRadius: "10px",
                 justifyContent: "space-around",
               }}
             >
@@ -124,7 +127,7 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
               >
                 <Box
                   border={1}
-                  borderRadius={"25px"}
+                  borderRadius={"10px"}
                   display="flex"
                   padding={1}
                 >
@@ -142,7 +145,7 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
               >
                 <Box
                   border={1}
-                  borderRadius={"25px"}
+                  borderRadius={"10px"}
                   display="flex"
                   padding={1}
                 >
@@ -160,7 +163,7 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
               >
                 <Box
                   border={1}
-                  borderRadius={"25px"}
+                  borderRadius={"10px"}
                   display="flex"
                   padding={1}
                 >
@@ -213,15 +216,16 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
           <Box
             display={"flex-box"}
             fontSize={20}
-            borderRadius={"15px"}
+            borderRadius={"10px"}
             padding={1}
             marginBottom={1}
             sx={{ backgroundColor: colorFondo }}
+            maxWidth={"315px"}
           >
             <Typography variant="h6" align="left" fontSize={13}>
               Name:
             </Typography>
-            <Typography variant="h4" >
+            <Typography variant="h6" maxWidth={290} >
               {titleTask}
             </Typography>
           </Box>
@@ -243,11 +247,11 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
            
             <Box
               marginTop={2}
-              borderRadius={"15px"}
+              borderRadius={"10px"}
               padding={1}
-              sx={{ backgroundColor: colorFondo }}
+              // sx={{ backgroundColor: colorFondo }}
             >
-              <Typography align="left" fontSize={12}>
+              <Typography align="left" fontSize={12} color={"black"}>
                 ASSINGNED TO:
               </Typography>
               {assignToTask}
@@ -257,17 +261,19 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
         }
       />
       <Box
+      display={"block"}
         border={2}
-        borderRadius={"15px"}
-        color="text.secondary"
+        borderRadius={"10px"}
+        color="black"
         padding={1}
         margin={1}
+        justifyContent={"space-between"}
       >
         <Typography
           variant="h6"
           align="left"
           fontSize={15}
-          borderRadius={"15px"}
+          borderRadius={"10px"}
         >
           Priority...
         </Typography>
@@ -277,22 +283,22 @@ export const CardTask = ({id, name, description, expirationdate, priority, state
           align="center"
           color="white"
           fontSize={20}
-          borderRadius={"25px"}
+          borderRadius={"10px"}
           sx={{ backgroundColor: backGroundColor }}
         >
           {priorityTask}
         </Typography>
         <hr />
-
+        
         <TextField
           disabled
           label="Description..."
           multiline={true}
           maxRows={6}
-          variant="filled"
+         
           value={descriptionTask}
           // onChange={handleOnChangeDescription}
-          sx={{ margin: "5px", minWidth: "230px", zIndex: 0, color: "blue" }}
+          sx={{ margin: "1px",minWidth: "240px", zIndex: 0, color: "black" }}
         />
       </Box>
     </Card>

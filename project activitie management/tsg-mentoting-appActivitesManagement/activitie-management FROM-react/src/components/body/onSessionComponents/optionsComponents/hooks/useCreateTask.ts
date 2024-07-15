@@ -9,20 +9,20 @@ export const useCreateTask = () => {
   const [taskName, setTaskName] = useState<string>("");
   const [valueDataTime, setvalueDataTime] = useState<Date>(new Date()); //.toISOString().split(".")[0]
   const [descriptionTask, setDescriptionTask] = useState<string>("");
-  const [primaryAssing, setPrimaryAssing] = useState<string>("-------------------");
+  const [primaryAssing, setPrimaryAssing] = useState<string>("---------------------------------------");
   const [primaryAssingId, setPrimaryAssingId] = useState<number>(0);
   const [open, setOpen] = useState(false);
   const [openAssingTo, setOpenAssingTo] = useState(false);
-  const { sendRequestNewTask, requestNewTask } = useStore();
+  const { sendRequestNewTask } = useStore();
   const [alert, setAlert] = useState<boolean>(false);
 
   const handleClickPriority = (typePriority: "medium" | "low" | "high" | "") => { 
     
-    typePriority === "medium"
-      ? setBackGroundColor("#2196f3")
-      : typePriority === "high"
-      ? setBackGroundColor("#ffc107")
-      : setBackGroundColor("#9E9E9E");
+    // typePriority === "medium"
+    //   ? setBackGroundColor("#2196f3")
+    //   : typePriority === "high"
+    //   ? setBackGroundColor("#ffc107")
+    //   : setBackGroundColor("#9E9E9E");
 
     setPriority(typePriority);
   };
@@ -88,8 +88,7 @@ export const useCreateTask = () => {
     sendRequestNewTask(newTask);
     // requestNewTask.json().then((res) =>{
     //   console.log(res)
-    // });
-    console.log(requestNewTask.status)
+    // })
     setAlert(false);
   };
 

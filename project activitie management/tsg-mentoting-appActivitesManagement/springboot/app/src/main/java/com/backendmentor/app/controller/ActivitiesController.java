@@ -15,15 +15,17 @@ import com.backendmentor.app.models.Activities;
 
 import com.backendmentor.app.repository.ActivitiesModelRepository;
 
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RestController
 public class ActivitiesController {
-    
+
     @Autowired
-    private ActivitiesModelRepository  activitiesRepository;
+    private ActivitiesModelRepository activitiesRepository;
 
     @GetMapping("/allActivities")
     public java.util.List<Activities> getAllActivities() {
+
+
         return activitiesRepository.findAll();
     }
 
@@ -34,17 +36,11 @@ public class ActivitiesController {
 
     @PostMapping("/newActivitie")
     public void SetNewUser(@RequestBody Activities newActivite) {
-        
-        System.out.println(newActivite.getState());
-        System.out.println(newActivite.getName());
-        System.out.println(newActivite.getDescription());
-        System.out.println(newActivite.getPriority());
-        System.out.println(newActivite.getAssignedto());
-        newActivite.setExpirationdate(newActivite.getExpirationdate());
+        // try{
+            System.out.println(newActivite.getExpirationdate());
+        //newActivite.setExpirationdate(newActivite.getExpirationdate());
         activitiesRepository.save(newActivite);
-
-        //System.out.println(new DateTimeAtCreation(newActivite.getExpirationdate()));
-
+        // }catch(Exception e ){}
     }
 
     @PutMapping("/updateActivitie/{id}")

@@ -1,29 +1,29 @@
-import { Button, Grid } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import { FilterComponent } from "./optionsComponents/FilterComponent.tsx";
 import { SearchTaskComponent } from "./optionsComponents/SearchTaskComponent.tsx";
-import { CreateTaskComponent } from "./optionsComponents/CreateTask.tsx";
+import { CreateTask } from "./optionsComponents/CreateTask.tsx";
 import React from "react";
 
 
 interface Option {
     component: React.ReactNode;
-    variant: "contained" | "text" | "outlined";
+    
 }
 
 const options: Option[] = [
-    { component: <CreateTaskComponent />, variant: "contained" },
-    { component: <SearchTaskComponent />, variant: "text" },
-    { component: <FilterComponent />, variant: "text" },
+    { component: <CreateTask />},
+    { component: <SearchTaskComponent />},
+    { component: <FilterComponent />},
 ];
 
 export const Options = () => {
   return (
-    <Grid container columnGap={2} rowGap={2}  justifyContent='space-around' >
-      {options.map((option, i) => {
+    <Grid container columnGap={2} rowGap={2}  justifyContent='center' >
+      {options.map((option, id) => {
         return (
-          <Button key={i} variant={option.variant} sx={{maxWidth:270, minWidth:230, margin:1, padding:0}}>
+          <Box key={id} sx={{maxWidth:270, minWidth:230, margin:1, borderRadius:"15px"}}>
             {option.component}
-          </Button>
+          </Box>
         );
       })}
     </Grid>

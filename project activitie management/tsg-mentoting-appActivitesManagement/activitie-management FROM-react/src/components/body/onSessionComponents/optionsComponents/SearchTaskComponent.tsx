@@ -10,14 +10,15 @@ export const  SearchTaskComponent = () => {
       sx={{
         display:"flex",
         backgroundColor: "white",
-        borderColor: "#1976d2",
-        border: 1,
+      
         borderRadius: 2,
-        maxWidth: "230px"
+        
+        maxWidth: "230px",
+        padding:"1px"
       }}
     >
       
-        <TextField variant="filled" sx={{ minWidth: "150px", zIndex:0}} label="Search by name or id" />
+        <TextField  variant="standard" sx={{ minWidth: "150px", zIndex:0}} label="Search by name or id" />
 
         <Button
           sx={{ padding:0, width:20 }}

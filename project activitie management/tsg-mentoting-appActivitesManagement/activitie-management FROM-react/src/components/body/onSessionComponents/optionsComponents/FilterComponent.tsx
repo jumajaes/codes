@@ -20,26 +20,28 @@ export const FilterComponent = () => {
 
   return (
     <ClickAwayListener onClickAway={handleClickAwayFilter}>
-      <List sx={{ padding: 0 }} component="nav">
-        <Button variant={openFilter ? "contained" : "text"} onClick={handleClickFilter}>
+      <List sx={{alignItems:"center"}} >
+        <Button sx={{minWidth:"190px", border:"1px"}} variant={openFilter ? "contained" : "text"} onClick={handleClickFilter} >
           <FilterList />
-          <ListItemText primary="Filter" />
+          Filter
         </Button>
-        <Box display={openFilter ? 'flex' : "none"} sx={{ position: "absolute", top: "120%", left: "-20%", zIndex: 1, backgroundColor: "white", border: 1, borderRadius: 5, flexDirection: 'column',  minWidth: "140px" }}>
+        <Box display={openFilter ? 'flex' : "none"} sx={{ position:"absolute", top:"120%", left:"10%", zIndex:1, backgroundColor:"white", border:1, borderRadius:5, flexDirection:'column', minWidth:"140px" }}>
 
           <Button>
-          <CalendarMonth />
-          Date
+            <CalendarMonth />
+            Date
           </Button>
 
           <Button >
-            State
+           
             <IndeterminateCheckBox />
+             State
           </Button>
 
           <Button >
-            Priority
+            
             <PriorityHigh />
+            Priority
           </Button>
 
         </Box>

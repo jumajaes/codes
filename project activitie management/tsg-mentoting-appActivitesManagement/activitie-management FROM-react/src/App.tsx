@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Lobby } from "./components/body/Lobby.tsx"
 import HeadApp from "./components/head/HeadApp.tsx"
-import UserTasks  from "./components/body/onSessionComponents/UserTasks.tsx"
+import {UserTasks}  from "./components/body/onSessionComponents/UserTasks.tsx"
 import React from "react"
 
 

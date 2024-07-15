@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 /**
@@ -35,8 +36,9 @@ public class Activities {
     @Column(nullable = false)
     private Timestamp expirationDate;
 
-    @Column(nullable = false)
-    private String description;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    @Lob
+    private String description; 
 
     @Column(nullable = false)
     private Integer assignedto;

@@ -3,8 +3,11 @@ import { Options } from "./Options.tsx";
 import { CardTask } from "./userTaskComponents/CardTask.tsx";
 import React, { useEffect, useState } from "react";
 import task from "../../../store/task";
+import { useStore } from "../../../store/context.ts";
 
-export default function UserTasks() {
+export const UserTasks = () =>{
+
+  const { requestNewTask } = useStore();
   const tasks = async () => {
     try {
       const response = await fetch("http://localhost:4000/allActivities");
@@ -20,9 +23,10 @@ export default function UserTasks() {
 
   useEffect(() => {
     tasks();
-  }, []);
+    //console.log(requestNewTask.status)
+  }, [requestNewTask]);
   return (
-    <Box padding={3} alignItems={"center"}>
+    <Box padding={3} alignItems={"center"} >
       <Options />
       <hr />
       <Typography
@@ -36,6 +40,7 @@ export default function UserTasks() {
         Me tasks...
       </Typography>
       <Grid container columnGap={5} rowGap={5} justifyContent="center">
+     
         {allTasks.map((taskElement: typeof task, i) => {
           return (
             <CardTask
