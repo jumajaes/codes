@@ -20,7 +20,7 @@ export const CreateTask = () => {
 
   const Users = async () => {
     try {
-      const response = await fetch("http://localhost:4000/allUsers");
+      const response = await fetch("http://192.168.1.38:4000/allUsers");
       const data = await response.json();
       setAllUsers(data);
     } catch (error) {
@@ -32,13 +32,13 @@ export const CreateTask = () => {
   const [allUsers, setAllUsers] = useState<(typeof task)[]>([]);
 
   const {
-    priority,
+    priorityCreate,
     handleClickPriority,
     valueDataTime,
     descriptionTask,
     primaryAssing,
     setPrimaryAssing,
-    setPrimaryAssingId,
+    successNewTask, setSuccessNewTask,
     open,
     openAssingTo,
     setOpenAssingTo,
@@ -50,19 +50,29 @@ export const CreateTask = () => {
     handleOnChangeName,
     handleOnChangeDate,
     handleClickAway,
-    requestNewTask,
+    requestNewTask, editId,
     alertName, setAlertName
   } = useCreateTask();
 
   useEffect(() => {
     Users()
-    !requestNewTask && setAlertName(true) 
-  }, [priority, requestNewTask, setAlertName])
+
+    requestNewTask ? (() => {
+      setAlertName(false)
+      setSuccessNewTask(true)
+    })()
+      :
+      (() => {
+        //console.log(requestNewTask)
+        setAlertName(true)
+        setSuccessNewTask(false)
+      })()
+  }, [priorityCreate, requestNewTask])
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       <List component="nav">
-        <Button variant={open ? "text" : "outlined"} onClick={handleClick}>
+        <Button variant={open ? "text" : "outlined"} sx={{ zIndex: 1 }} onClick={handleClick}>
           <TaskAlt />
           <ListItemText primary="Create New Task" />
 
@@ -109,8 +119,8 @@ export const CreateTask = () => {
               sx={{ minWidth: "250px" }}
             />
             <Box display={alertName ? "flex" : "none"} justifyContent={"center"} margin={2}>
-            <Alert severity="error">Este nombre ya existe.</Alert>
-          </Box>
+              <Alert severity="error">Este nombre ya existe.</Alert>
+            </Box>
             <br />
 
             <TextField
@@ -128,25 +138,25 @@ export const CreateTask = () => {
                 padding={1}
                 borderRadius="10px"
                 sx={{
-                  zIndex:2,
+                  zIndex: 2,
                   display: "flex",
-                  
+
                   marginTop: 1,
                   justifyContent: "center",
                   flexDirection: "column"
                 }}
-              > 
-                Assing To
+              >
+                Assing To: *
                 <Button
                   onClick={handleClickAssingTo}
                   sx={{
-                    
+
                     backgroundColor: "white",
                     borderRadius: "10px",
                     justifyContent: "space-between",
                   }}
                 >
-                  {primaryAssing} <Typography sx={{fontSize: 20, color: "#1976d2", alignSelf: "center" }}>{openAssingTo ? "*⬆" : "*⬇"}</Typography>
+                  {primaryAssing} <Typography sx={{ fontSize: 20, color: "#1976d2", alignSelf: "center" }}>{openAssingTo ? "*⬆" : "*⬇"}</Typography>
                 </Button>
 
                 <Box
@@ -161,13 +171,13 @@ export const CreateTask = () => {
                     borderRadius: "15px",
                     border: 5,
                     borderColor: "#1976d2",
-                    minWidth: "285px", 
+                    minWidth: "285px",
                     maxWidth: "285px",
-                    padding:"10px",
+                    padding: "10px",
                     maxHeight: "240px",
                     zIndex: 1,
                     justifyContent: "center",
-                    
+
                     paddingTop: 11,
                   }}
                 >
@@ -183,11 +193,11 @@ export const CreateTask = () => {
                           direction: "colum",
                           justifyContent: "center",
                           cursor: "pointer", // Para que parezca un botón
-                          borderRadius:"10px"
+                          borderRadius: "10px"
                         }}
                         onClick={() => {
                           setPrimaryAssing(option.name);
-                          setPrimaryAssingId(option.id);
+
                           setOpenAssingTo(!openAssingTo);
                         }}
                       >
@@ -221,15 +231,15 @@ export const CreateTask = () => {
 
               <Box
                 sx={{
-                  display:"flex",
-                  justifyContent:"space-between",
+                  display: "flex",
+                  justifyContent: "space-between",
                   backgroundColor: "#00ACC1",
                   borderRadius: "15px",
                 }}
               >
                 <Button
                   sx={{ borderRadius: 10 }}
-                  variant={priority === "high" ? "contained" : "text"}
+                  variant={priorityCreate === "high" ? "contained" : "text"}
                   onClick={() => {
                     handleClickPriority("high");
                   }}
@@ -238,7 +248,7 @@ export const CreateTask = () => {
                 </Button>
                 <Button
                   sx={{ borderRadius: 10 }}
-                  variant={priority === "medium" ? "contained" : "text"}
+                  variant={priorityCreate === "medium" ? "contained" : "text"}
                   onClick={() => {
                     handleClickPriority("medium");
                   }}
@@ -247,7 +257,7 @@ export const CreateTask = () => {
                 </Button>
                 <Button
                   sx={{ borderRadius: 10 }}
-                  variant={priority === "low" ? "contained" : "text"}
+                  variant={priorityCreate === "low" ? "contained" : "text"}
                   onClick={() => {
                     handleClickPriority("low");
                   }}
@@ -272,6 +282,13 @@ export const CreateTask = () => {
           <Box display={alert ? "flex" : "none"} justifyContent={"center"} margin={2}>
             <Alert severity="error">Todos los campos son obligatorios.</Alert>
           </Box>
+          <ClickAwayListener onClickAway={() => {
+            setSuccessNewTask(false)
+          }}>
+            <Box display={successNewTask ? "flex" : "none"} justifyContent={"center"} margin={2}>
+              <Alert severity="success">This is success task created.</Alert>
+            </Box>
+          </ClickAwayListener>
           <Button
             endIcon={<Assignment sx={{ fontSize: 10 }} />}
             size="large"

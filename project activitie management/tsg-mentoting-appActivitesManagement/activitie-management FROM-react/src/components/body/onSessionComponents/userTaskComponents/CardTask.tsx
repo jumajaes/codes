@@ -18,7 +18,8 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect } from "react";
-import { useUserTask } from "./hooks/useUserTask.ts";
+import { useCardTask } from "./hooks/useCardTask.ts";
+import useCreateTask from "../optionsComponents/hooks/useCreateTask.ts";
 
 export const CardTask = ({
   id,
@@ -27,19 +28,19 @@ export const CardTask = ({
   expirationdate,
   priority,
   state,
-  assignedto,
+  assignedto
 }) => {
   const {
     titleTask,
-    descriptionTask,
+    descriptionTaskCard,
     expirationDateTask,
-    priorityTask,
+    priorityCardTask,
     stateTask,
     setState,
     assignToTask,
-    idTask,
-    open,
-    setOpen,
+    idTask, 
+    openCardTask,
+    setOpenCardTask,
     colorState,
     setColorState,
     colorFondo,
@@ -49,20 +50,28 @@ export const CardTask = ({
     iconState,
     setIconState,
     handleClickAway,
-  } = useUserTask({
+    setTitle, setExpirationDate, setPriorityCardTask, setAssignTo,setDescriptionCard,setIdTask
+  } = useCardTask({
     id,
     name,
     description,
     expirationdate,
     priority,
     state,
-    assignedto,
+    assignedto
   });
-  //console.log(id, name, description, expirationDate , priority, state, assignedto )
-  //console.log(titleTask, descriptionTask, expirationDateTask, priorityTask, stateTask, assignToTask, idTask)
-  //console.log(new Date(expirationDateTask).toISOString().split(".")[0])
+
+  const {  setOpen, setTaskName, setvalueDataTime, setDescriptionTask, setPrimaryAssing, setEditId, setPriority, priorityCreate,taskName,valueDataTime,descriptionTask,primaryAssing,editId } = useCreateTask();
 
   useEffect(() => {
+
+    setTitle(name)
+     setExpirationDate(expirationdate) 
+     setPriorityCardTask(priority)
+      setAssignTo(assignedto)
+      setDescriptionCard(description) 
+      setIdTask(id)
+
     stateTask === "active" &&
       new Date(expirationDateTask.split(".")[0]) < new Date() &&
       setState("expirated");
@@ -92,21 +101,12 @@ export const CardTask = ({
         setIconState(<PriorityHigh />);
       })();
 
-    priorityTask === "medium"
+    priorityCardTask === "medium"
       ? setBackGroundColor("#2196f3")
-      : priorityTask === "high"
-      ? setBackGroundColor("#ffc107")
-      : setBackGroundColor("#9E9E9E");
-  }, [
-    stateTask,
-    priorityTask,
-    expirationDateTask,
-    setBackGroundColor,
-    setColorFondo,
-    setColorState,
-    setIconState,
-    setState,
-  ]);
+      : priorityCardTask === "high"
+        ? setBackGroundColor("#ffc107")
+        : setBackGroundColor("#9E9E9E");
+  }, [priorityCardTask, stateTask]);
 
   return (
     <Card
@@ -124,13 +124,13 @@ export const CardTask = ({
             <Tooltip
               title={
                 stateTask === "expirated"
-                  ? "Edit to task to change expiration date"
+                  ? "Edit to task and change to expiration date"
                   : "Change Task State"
               }
               arrow
               children={
                 <Button
-                  variant={open ? "text" : "contained"}
+                  variant={openCardTask ? "text" : "contained"}
                   color={colorState}
                   sx={{
                     borderRadius: "10px",
@@ -139,7 +139,7 @@ export const CardTask = ({
                     minWidth: "120px",
                   }}
                   onClick={() => {
-                    setOpen(!open);
+                    setOpenCardTask(true);
                   }}
                 >
                   {stateTask}
@@ -148,7 +148,7 @@ export const CardTask = ({
               }
             />
             <Box
-              display={open ? "flex-box" : "none"}
+              display={openCardTask ? "flex-box" : "none"}
               position={"absolute"}
               minWidth={250}
               maxWidth={255}
@@ -164,7 +164,7 @@ export const CardTask = ({
                 aria-label="active"
                 color="primary"
                 onClick={() => {
-                  setOpen(!open);
+                  setOpenCardTask(!openCardTask);
                   setState("active");
                 }}
               >
@@ -182,7 +182,7 @@ export const CardTask = ({
                 aria-label="completed"
                 color="success"
                 onClick={() => {
-                  setOpen(!open);
+                  setOpenCardTask(!openCardTask);
                   setState("completed");
                 }}
               >
@@ -200,7 +200,7 @@ export const CardTask = ({
                 aria-label="canceled"
                 color="error"
                 onClick={() => {
-                  setOpen(!open);
+                  setOpenCardTask(!openCardTask);
                   setState("canceled");
                 }}
               >
@@ -216,34 +216,53 @@ export const CardTask = ({
               </IconButton>
             </Box>
             <Tooltip
-              title="Delete task"
+              id="edit"
+              title="Edit Task"
               arrow
-              children={
-                <IconButton
-                  aria-label="DELETE"
-                  color="warning"
-                  onClick={() => {}}
-                >
-                  <Box display="flex" padding={1}>
-                    <DeleteForever />
-                  </Box>
-                </IconButton>
+              children={<Button 
+               
+                aria-label="EDIT"
+                color="secondary"
+                id="edit"
+                onClick={() => {
+                  setOpen(true)
+                  setEditId(id)
+                  setPriority(priority)
+                  setTaskName(name)
+                  setvalueDataTime(expirationdate)
+                  setDescriptionTask(description)
+                  setPrimaryAssing(assignedto)
+                  
+                  console.log( id,
+                    name,
+                    description,
+                    expirationdate,
+                    priority,
+                    state,
+                    assignedto)
+                }}
+              >
+                <Box  id="edit" display="flex" padding={1}>
+                  <BorderColor  sx={{zIndex:0}}  id="edit" />
+                </Box>
+              </Button>
+
               }
             />
 
             <Tooltip
-              title="Edit task"
+              title="Delete task"
               arrow
               children={
-                <IconButton
-                  aria-label="EDIT"
-                  color="secondary"
-                  onClick={() => {}}
+                <Button
+                  aria-label="Delete task"
+                  color="warning"
+                  onClick={() => { }}
                 >
                   <Box display="flex" padding={1}>
-                    <BorderColor />
+                    <DeleteForever />
                   </Box>
-                </IconButton>
+                </Button>
               }
             />
           </Box>
@@ -270,8 +289,8 @@ export const CardTask = ({
           }}
         >
           <hr />
-          <Typography variant="h6" fontSize={14} marginBottom={2} align="center">
-            ID Task: {idTask}
+          <Typography variant="h6" fontSize={14} margin={1}>
+            ID TASK: {idTask}
           </Typography>
           <TextField
             label="Expiration Date:"
@@ -280,11 +299,12 @@ export const CardTask = ({
             value={expirationDateTask.split(".")[0]}
             disabled
           />
-          <Typography align="left" fontSize={10} color={"black"} marginTop={1}>
+          <Typography fontSize={10} color={"black"} borderBottom={2} margin={1} maxWidth="75px">
             ASSINGNED TO:
           </Typography>
-          {assignToTask}
-
+          <Typography fontSize={15} align="center" color={"black"} margin={1}>
+            {assignToTask}
+          </Typography>
           <hr />
         </Box>
       </Box>
@@ -307,7 +327,7 @@ export const CardTask = ({
           borderRadius={"10px"}
           sx={{ backgroundColor: backGroundColor }}
         >
-          {priorityTask}
+          {priorityCardTask}
         </Typography>
         <hr />
 
@@ -317,7 +337,7 @@ export const CardTask = ({
           multiline={true}
           maxRows={5}
           minRows={5}
-          value={descriptionTask}
+          value={descriptionTaskCard}
           // onChange={handleOnChangeDescription}
           sx={{
             margin: "1px",
