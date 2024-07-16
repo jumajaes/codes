@@ -3,31 +3,31 @@ import apiUrls from "./apiUrls.ts";
 import task from "./task.ts";
 
 type typeStore = {
-
-  requestTask: any
-  requestNewTask: boolean
-  edit: object
-  setEdit: (toEdit:object)=>void
-  tasks: () => Promise<void>
-  sendRequestNewTask: (newTask: typeof task) => Promise<void>
-  setRequestNewTask: (state:boolean)=>void
-
+  requestTask: any;
+  requestNewTask: boolean;
+  edit: object;
+  setEdit: (toEdit: object) => void;
+  tasks: () => Promise<void>;
+  sendRequestNewTask: (newTask: typeof task) => Promise<void>;
+  setRequestNewTask: (state: boolean) => void;
 };
 
 export const useStore = create<typeStore>()((set) => ({
   requestNewTask: false,
   requestTask: {},
   edit: {},
-  setRequestNewTask: (state:boolean)=>{
+
+  setRequestNewTask: (state: boolean) => {
     set({ requestNewTask: state });
   },
-  setEdit: (toEdit) =>{
+
+  setEdit: (toEdit) => {
     set({ edit: toEdit });
   },
 
   tasks: async () => {
     try {
-      const response = await fetch("http://localhost:4000/allActivities");//http://192.168.1.38:4000/allActivities
+      const response = await fetch("http://localhost:4000/allActivities"); //http://192.168.1.38:4000/allActivities
       set({ requestTask: response.json() });
     } catch (error) {
       console.error("Error al obtener usuarios:", error);
@@ -36,7 +36,6 @@ export const useStore = create<typeStore>()((set) => ({
   },
 
   sendRequestNewTask: async (newTask) => {
-
     fetch(apiUrls.setNewActivitie, {
       method: "POST",
       headers: {
@@ -47,14 +46,12 @@ export const useStore = create<typeStore>()((set) => ({
       .then(async (response) => {
         if (response.ok) {
           set({ requestNewTask: await response.json() });
-        }else{
+        } else {
           set({ requestNewTask: false });
-          throw new Error('Something went wrong.');
+          throw new Error("Something went wrong.");
         }
-
       })
-      .catch(error => { });
+        .catch((error) => { 
+        });
   },
-
-
 }));

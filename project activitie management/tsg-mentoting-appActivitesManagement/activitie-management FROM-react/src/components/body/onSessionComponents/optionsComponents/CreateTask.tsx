@@ -1,7 +1,6 @@
+import React from "react";
 import List from "@mui/material/List";
-
 import ListItemText from "@mui/material/ListItemText";
-
 import { Assignment, TaskAlt } from "@mui/icons-material";
 import {
   Alert,
@@ -11,13 +10,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-
 import { useCreateTask } from "./hooks/useCreateTask.ts";
-import React from "react";
 
 export const CreateTask = () => {
   const {
-    setSuccessNewTask,requestNewTask,
+    requestNewTask,
     priorityCreate,
     handleClickPriority,
     valueDataTime,
@@ -36,7 +33,7 @@ export const CreateTask = () => {
     handleOnChangeName,
     handleOnChangeDate,
     handleClickAway,
-    allUsers,setAlert,
+    allUsers,
     alertName,
   } = useCreateTask();
 
@@ -45,7 +42,7 @@ export const CreateTask = () => {
       <List component="nav">
         <Button
           variant={open ? "text" : "outlined"}
-          sx={{ zIndex: 1 }}
+          sx={{ zIndex: 1, fontSize: 20, justifyContent: "center" }}
           onClick={handleClick}
         >
           <TaskAlt />
@@ -56,13 +53,9 @@ export const CreateTask = () => {
           flexDirection={"column"}
           sx={{
             position: "absolute",
-            top: "120%",
-            left: "-16%",
+            top: "85%",
+            left: "-15%",
             zIndex: 1,
-            borderRadius: 10,
-            border: 2,
-            borderColor: "black",
-            backgroundColor: "white",
             alignItems: "center",
           }}
         >
@@ -71,25 +64,17 @@ export const CreateTask = () => {
               minWidth: 300,
               maxWidth: 315,
               backgroundColor: "white",
-              borderRadius: 10,
+              borderRadius: "10px",
+              alignItems: "center",
+              border: 2,
             }}
             justifyContent="center"
             padding={1}
             display="flex"
             flexDirection={"column"}
           >
-            <Typography
-              borderRadius={10}
-              sx={{ backgroundColor: "#1976d2" }}
-              align="center"
-              color="white"
-              margin={2}
-              marginBottom={1}
-            >
-              New TASK
-            </Typography>
             <TextField
-              label="name here..."
+              label="Name here..."
               variant="standard"
               onChange={handleOnChangeName}
               required
@@ -113,14 +98,12 @@ export const CreateTask = () => {
               value={valueDataTime?.split(".")[0]}
               required
             />
-
             <ClickAwayListener
               onClickAway={() => {
                 setOpenAssingTo(false);
               }}
             >
               <Box
-                padding={1}
                 borderRadius="10px"
                 sx={{
                   zIndex: 2,
@@ -140,11 +123,11 @@ export const CreateTask = () => {
                     justifyContent: "space-between",
                   }}
                 >
-                  {primaryAssing}{" "}
+                  {primaryAssing}
                   <Typography
                     sx={{ fontSize: 20, color: "#1976d2", alignSelf: "center" }}
                   >
-                    {openAssingTo ? "*⬆" : "*⬇"}
+                    {openAssingTo ? "  *⬆" : "  *⬇"}
                   </Typography>
                 </Button>
                 <Box
@@ -156,17 +139,16 @@ export const CreateTask = () => {
                     top: "35%",
                     left: "2%",
                     backgroundColor: "white",
-                    borderRadius: "15px",
-                    border: 5,
-                    borderColor: "#1976d2",
-                    minWidth: "285px",
+                    borderRadius: "10px",
+                    border:2,
+                
                     maxWidth: "285px",
-                    padding: "10px",
+                    
                     maxHeight: "240px",
                     zIndex: 1,
                     justifyContent: "center",
 
-                    paddingTop: 11,
+                    paddingTop: 1,
                   }}
                 >
                   {allUsers.map((option, i) => {
@@ -174,9 +156,9 @@ export const CreateTask = () => {
                       <Box
                         key={i}
                         sx={{
-                          padding: 1,
-                          border: 1,
-                          margin: 1,
+                          
+                          borderBottom: 1,
+                          paddingTop: 5,
                           display:
                             option.name === primaryAssing ? "none" : "flex",
                           direction: "colum",
@@ -265,20 +247,13 @@ export const CreateTask = () => {
               value={descriptionTask}
               minRows={6}
             />
-          </Box>
-          <Box
-            display={alert ? "flex" : "none"}
-            justifyContent={"center"}
-            margin={2}
-          >
-            <Alert severity="error">Todos los campos son obligatorios.</Alert>
-          </Box>
-          <ClickAwayListener
-            onClickAway={(event) => {
-              setAlert(false)
-              setSuccessNewTask(false);
-            }}
-          >
+            <Box
+              display={alert ? "flex" : "none"}
+              justifyContent={"center"}
+              margin={2}
+            >
+              <Alert severity="error">Todos los campos son obligatorios.</Alert>
+            </Box>
             <Box
               display={requestNewTask ? "flex" : "none"}
               justifyContent={"center"}
@@ -286,26 +261,25 @@ export const CreateTask = () => {
             >
               <Alert severity="success">This is success task created.</Alert>
             </Box>
-          </ClickAwayListener>
-          <Button
-            key={"butonCreate"}
-            size="large"
-            variant="contained"
-            sx={{
-              marginY:2,
-              display: !alert ? "" : "none",
-              zIndex: 1,
-              justifyContent: "space-between",
-              width: "160px",
-             
-            }}
-            onClick={() => {
-              fxVlidate();
-              console.log(successNewTask)
-            }}
-          >
-            Crear <Assignment sx={{ fontSize: 20, zIndex: 0 }} />
-          </Button>
+            <Button
+              key={"butonCreate"}
+              size="large"
+              variant="contained"
+              sx={{
+                marginY: 2,
+                display: !alert ? "" : "none",
+                zIndex: 1,
+                justifyContent: "space-between",
+                width: "160px",
+              }}
+              onClick={() => {
+                fxVlidate();
+                console.log(successNewTask);
+              }}
+            >
+              Crear <Assignment sx={{ fontSize: 20, zIndex: 0 }} />
+            </Button>
+          </Box>
         </Box>
       </List>
     </ClickAwayListener>
