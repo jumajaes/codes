@@ -13,32 +13,18 @@ import {
 } from "@mui/material";
 
 import { useCreateTask } from "./hooks/useCreateTask.ts";
-import React, { useEffect, useState } from "react";
-import task from "../../../../store/task.ts";
+import React from "react";
 
 export const CreateTask = () => {
-
-  const Users = async () => {
-    try {
-      const response = await fetch("http://192.168.1.38:4000/allUsers");
-      const data = await response.json();
-      setAllUsers(data);
-    } catch (error) {
-      //console.error("Error al obtener productos:", error);
-      setAllUsers([]);
-    }
-  };
-
-  const [allUsers, setAllUsers] = useState<(typeof task)[]>([]);
-
   const {
+    setSuccessNewTask,requestNewTask,
     priorityCreate,
     handleClickPriority,
     valueDataTime,
     descriptionTask,
     primaryAssing,
     setPrimaryAssing,
-    successNewTask, setSuccessNewTask,
+    successNewTask,
     open,
     openAssingTo,
     setOpenAssingTo,
@@ -50,38 +36,25 @@ export const CreateTask = () => {
     handleOnChangeName,
     handleOnChangeDate,
     handleClickAway,
-    requestNewTask, editId,
-    alertName, setAlertName
+    allUsers,setAlert,
+    alertName,
   } = useCreateTask();
-
-  useEffect(() => {
-    Users()
-
-    requestNewTask ? (() => {
-      setAlertName(false)
-      setSuccessNewTask(true)
-    })()
-      :
-      (() => {
-        //console.log(requestNewTask)
-        setAlertName(true)
-        setSuccessNewTask(false)
-      })()
-  }, [priorityCreate, requestNewTask])
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       <List component="nav">
-        <Button variant={open ? "text" : "outlined"} sx={{ zIndex: 1 }} onClick={handleClick}>
+        <Button
+          variant={open ? "text" : "outlined"}
+          sx={{ zIndex: 1 }}
+          onClick={handleClick}
+        >
           <TaskAlt />
           <ListItemText primary="Create New Task" />
-
         </Button>
         <Box
           display={open ? "flex" : "none"}
           flexDirection={"column"}
           sx={{
-            overflow: "hidden",
             position: "absolute",
             top: "120%",
             left: "-16%",
@@ -90,11 +63,16 @@ export const CreateTask = () => {
             border: 2,
             borderColor: "black",
             backgroundColor: "white",
-            justifyContent: "center"
+            alignItems: "center",
           }}
         >
           <Box
-            sx={{ minWidth: 300, maxWidth: 315, backgroundColor: "white", borderRadius: 10 }}
+            sx={{
+              minWidth: 300,
+              maxWidth: 315,
+              backgroundColor: "white",
+              borderRadius: 10,
+            }}
             justifyContent="center"
             padding={1}
             display="flex"
@@ -107,7 +85,6 @@ export const CreateTask = () => {
               color="white"
               margin={2}
               marginBottom={1}
-
             >
               New TASK
             </Typography>
@@ -118,7 +95,11 @@ export const CreateTask = () => {
               required
               sx={{ minWidth: "250px" }}
             />
-            <Box display={alertName ? "flex" : "none"} justifyContent={"center"} margin={2}>
+            <Box
+              display={alertName ? "flex" : "none"}
+              justifyContent={"center"}
+              margin={2}
+            >
               <Alert severity="error">Este nombre ya existe.</Alert>
             </Box>
             <br />
@@ -133,7 +114,11 @@ export const CreateTask = () => {
               required
             />
 
-            <ClickAwayListener onClickAway={() => { setOpenAssingTo(false) }}>
+            <ClickAwayListener
+              onClickAway={() => {
+                setOpenAssingTo(false);
+              }}
+            >
               <Box
                 padding={1}
                 borderRadius="10px"
@@ -143,22 +128,25 @@ export const CreateTask = () => {
 
                   marginTop: 1,
                   justifyContent: "center",
-                  flexDirection: "column"
+                  flexDirection: "column",
                 }}
               >
                 Assing To: *
                 <Button
                   onClick={handleClickAssingTo}
                   sx={{
-
                     backgroundColor: "white",
                     borderRadius: "10px",
                     justifyContent: "space-between",
                   }}
                 >
-                  {primaryAssing} <Typography sx={{ fontSize: 20, color: "#1976d2", alignSelf: "center" }}>{openAssingTo ? "*⬆" : "*⬇"}</Typography>
+                  {primaryAssing}{" "}
+                  <Typography
+                    sx={{ fontSize: 20, color: "#1976d2", alignSelf: "center" }}
+                  >
+                    {openAssingTo ? "*⬆" : "*⬇"}
+                  </Typography>
                 </Button>
-
                 <Box
                   display={openAssingTo ? "flex" : "none"}
                   position={"absolute"}
@@ -189,11 +177,12 @@ export const CreateTask = () => {
                           padding: 1,
                           border: 1,
                           margin: 1,
-                          display: option.name === primaryAssing ? "none" : "flex",
+                          display:
+                            option.name === primaryAssing ? "none" : "flex",
                           direction: "colum",
                           justifyContent: "center",
                           cursor: "pointer", // Para que parezca un botón
-                          borderRadius: "10px"
+                          borderRadius: "10px",
                         }}
                         onClick={() => {
                           setPrimaryAssing(option.name);
@@ -206,7 +195,6 @@ export const CreateTask = () => {
                     );
                   })}
                 </Box>
-
               </Box>
             </ClickAwayListener>
 
@@ -277,30 +265,47 @@ export const CreateTask = () => {
               value={descriptionTask}
               minRows={6}
             />
-
           </Box>
-          <Box display={alert ? "flex" : "none"} justifyContent={"center"} margin={2}>
+          <Box
+            display={alert ? "flex" : "none"}
+            justifyContent={"center"}
+            margin={2}
+          >
             <Alert severity="error">Todos los campos son obligatorios.</Alert>
           </Box>
-          <ClickAwayListener onClickAway={() => {
-            setSuccessNewTask(false)
-          }}>
-            <Box display={successNewTask ? "flex" : "none"} justifyContent={"center"} margin={2}>
+          <ClickAwayListener
+            onClickAway={(event) => {
+              setAlert(false)
+              setSuccessNewTask(false);
+            }}
+          >
+            <Box
+              display={requestNewTask ? "flex" : "none"}
+              justifyContent={"center"}
+              margin={2}
+            >
               <Alert severity="success">This is success task created.</Alert>
             </Box>
           </ClickAwayListener>
           <Button
-            endIcon={<Assignment sx={{ fontSize: 10 }} />}
+            key={"butonCreate"}
             size="large"
             variant="contained"
-            sx={{ marginBottom: 2, display: !alert ? "" : "none" }}
+            sx={{
+              marginY:2,
+              display: !alert ? "" : "none",
+              zIndex: 1,
+              justifyContent: "space-between",
+              width: "160px",
+             
+            }}
             onClick={() => {
               fxVlidate();
+              console.log(successNewTask)
             }}
           >
-            Crear
+            Crear <Assignment sx={{ fontSize: 20, zIndex: 0 }} />
           </Button>
-
         </Box>
       </List>
     </ClickAwayListener>

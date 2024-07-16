@@ -106,7 +106,7 @@ export const CardTask = ({
       : priorityCardTask === "high"
         ? setBackGroundColor("#ffc107")
         : setBackGroundColor("#9E9E9E");
-  }, [priorityCardTask, stateTask]);
+  }, [assignedto, description, expirationDateTask, expirationdate, id, name, priority, priorityCardTask, setAssignTo, setBackGroundColor, setColorFondo, setColorState, setDescriptionCard, setExpirationDate, setIconState, setIdTask, setPriorityCardTask, setState, setTitle, stateTask]);
 
   return (
     <Card
@@ -239,7 +239,7 @@ export const CardTask = ({
                     expirationdate,
                     priority,
                     state,
-                    assignedto)
+                    assignedto, "//////////", priorityCreate,taskName,valueDataTime,descriptionTask,primaryAssing,editId)
                 }}
               >
                 <Box  id="edit" display="flex" padding={1}>

@@ -10,24 +10,27 @@ type typeStore = {
   setEdit: (toEdit:object)=>void
   tasks: () => Promise<void>
   sendRequestNewTask: (newTask: typeof task) => Promise<void>
+  setRequestNewTask: (state:boolean)=>void
 
 };
 
 export const useStore = create<typeStore>()((set) => ({
-  requestNewTask: true,
+  requestNewTask: false,
   requestTask: {},
   edit: {},
-  
+  setRequestNewTask: (state:boolean)=>{
+    set({ requestNewTask: state });
+  },
   setEdit: (toEdit) =>{
     set({ edit: toEdit });
   },
 
   tasks: async () => {
     try {
-      const response = await fetch("http://192.168.1.38:4000/allActivities");
+      const response = await fetch("http://localhost:4000/allActivities");//http://192.168.1.38:4000/allActivities
       set({ requestTask: response.json() });
     } catch (error) {
-      console.error("Error al obtener productos:", error);
+      console.error("Error al obtener usuarios:", error);
       set({ requestTask: [] });
     }
   },
@@ -43,11 +46,12 @@ export const useStore = create<typeStore>()((set) => ({
     })
       .then(async (response) => {
         if (response.ok) {
-          //console.log('Request successful', await response.json())
           set({ requestNewTask: await response.json() });
+        }else{
+          set({ requestNewTask: false });
+          throw new Error('Something went wrong.');
         }
 
-        throw new Error('Something went wrong.');
       })
       .catch(error => { });
   },

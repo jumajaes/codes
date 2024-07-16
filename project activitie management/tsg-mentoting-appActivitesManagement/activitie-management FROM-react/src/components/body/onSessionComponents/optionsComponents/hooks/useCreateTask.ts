@@ -4,12 +4,11 @@ import task from "../../../../../store/task.ts";
 import { useStore } from "../../../../../store/context.ts";
 
 export const useCreateTask = () => {
-
   const [backGroundColor, setBackGroundColor] = useState("#2196f3");
-  const [priorityCreate, setPriority] = useState<"medium" | "low" | "high" | "">(
-    "medium"
-  );
-  const [successNewTask, setSuccessNewTask] = useState(false)
+  const [priorityCreate, setPriority] = useState<
+    "medium" | "low" | "high" | ""
+  >("medium");
+  const [successNewTask, setSuccessNewTask] = useState(false);
   const [taskName, setTaskName] = useState<string>("");
   const [valueDataTime, setvalueDataTime] = useState<string>(
     new Date().toISOString().split(".")[0]
@@ -21,9 +20,9 @@ export const useCreateTask = () => {
   const [editId, setEditId] = useState<number>(0);
   const [open, setOpen] = useState(false);
   const [openAssingTo, setOpenAssingTo] = useState(false);
-  const { sendRequestNewTask, requestNewTask } = useStore();
+  const { sendRequestNewTask, requestNewTask, setRequestNewTask } = useStore();
   const [alert, setAlert] = useState<boolean>(false);
-  const [alertName, setAlertName] = useState<boolean>(true);
+  const [alertName, setAlertName] = useState<boolean>(false);
 
   const handleClickPriority = (
     typePriority: "medium" | "low" | "high" | ""
@@ -31,8 +30,23 @@ export const useCreateTask = () => {
     setPriority(typePriority);
   };
 
+  const Users = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/allUsers"); //"http://192.168.1.38:4000/allUsers"
+
+      setAllUsers(await response.json());
+
+      
+  
+    } catch (error) {
+      //console.error("Error al obtener productos:", error);
+      setAllUsers([]);
+    }
+  };
+
+  const [allUsers, setAllUsers] = useState<(typeof task)[]>([]);
+
   const fxVlidate = () => {
-    
     taskName.length !== 0 &&
     priorityCreate.length !== 0 &&
     descriptionTask.length !== 0 &&
@@ -40,46 +54,60 @@ export const useCreateTask = () => {
     primaryAssing !== "Seleccione un usuario"
       ? (() => {
           createTask();
-          
         })()
       : setAlert(true);
   };
 
   const handleOnChangeDescription = (event) => {
     setDescriptionTask(event.target.value);
-    setAlert(false);
+    setSuccessNewTask(false);
+    setAlertName(false)
+    setAlert(false)
+    setRequestNewTask(false)
   };
 
-  const handleClick = () => {
+  const handleClick = async() => {
     setOpen(!open);
-  };
+    await Users();
 
+    setAlertName(false)
+    setAlert(false)
+    
+    
+  };
 
   const handleClickAssingTo = () => {
     setOpenAssingTo(!openAssingTo);
-    setAlert(false);
+ 
+    setAlertName(false)
+    setAlert(false)
+  
   };
 
   const handleOnChangeName = (event) => {
     setTaskName(event.target.value.trim());
-    setAlert(false);
-    setAlertName(false);
+    setAlertName(false)
+    setAlert(false)
+   
   };
 
   const handleOnChangeDate = (event) => {
     setvalueDataTime(event.target.value);
-    console.log(event.target.value);
-    setAlert(false);
+    setAlertName(false)
+    setAlert(false)
   };
 
   const handleClickAway = (event) => {
-    
-    event.target.outerHTML === '<path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path>' ||
-    event.target.outerHTML === '<svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1fxs7k2-MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BorderColorIcon" id="edit"><path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path></svg>'  ||
-    event.target.outerHTML === '<div class="MuiBox-root css-1ckupud" id="edit"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1fxs7k2-MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BorderColorIcon" id="edit"><path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path></svg></div>' ||
-    event.target.outerHTML === '<button class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSecondary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorSecondary MuiButton-root MuiButton-text MuiButton-textSecondary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorSecondary css-1d3f8j8-MuiButtonBase-root-MuiButton-root" tabindex="0" type="button" aria-label="EDIT" id="edit" data-mui-internal-clone-element="true"><div class="MuiBox-root css-1ckupud" id="edit"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1fxs7k2-MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BorderColorIcon" id="edit"><path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path></svg></div><span class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"><span class="css-y4cjyz-MuiTouchRipple-ripple MuiTouchRipple-ripple MuiTouchRipple-rippleVisible" style="width: 154.932px; height: 154.932px; top: -70.4661px; left: -72.4661px;"><span class="MuiTouchRipple-child MuiTouchRipple-childLeaving"></span></span></span></button>' ? setOpen(true) : setOpen(false) 
-
-    setSuccessNewTask(false)
+    event.target.outerHTML ===
+      '<path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path>' ||
+    event.target.outerHTML ===
+      '<svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1fxs7k2-MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BorderColorIcon" id="edit"><path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path></svg>' ||
+    event.target.outerHTML ===
+      '<div class="MuiBox-root css-1ckupud" id="edit"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1fxs7k2-MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BorderColorIcon" id="edit"><path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path></svg></div>' ||
+    event.target.outerHTML ===
+      '<button class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSecondary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorSecondary MuiButton-root MuiButton-text MuiButton-textSecondary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorSecondary css-1d3f8j8-MuiButtonBase-root-MuiButton-root" tabindex="0" type="button" aria-label="EDIT" id="edit" data-mui-internal-clone-element="true"><div class="MuiBox-root css-1ckupud" id="edit"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1fxs7k2-MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BorderColorIcon" id="edit"><path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path></svg></div><span class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"><span class="css-y4cjyz-MuiTouchRipple-ripple MuiTouchRipple-ripple MuiTouchRipple-rippleVisible" style="width: 154.932px; height: 154.932px; top: -70.4661px; left: -72.4661px;"><span class="MuiTouchRipple-child MuiTouchRipple-childLeaving"></span></span></span></button>'
+      ? setOpen(true)
+      : setOpen(false);
   };
 
   const createTask = () => {
@@ -93,18 +121,25 @@ export const useCreateTask = () => {
     newTask.state = "active";
 
     sendRequestNewTask(newTask);
-   
-    requestNewTask && (()=>{
-      setOpen(false);
-    })
-    
-    setAlert(false);
+    console.log(requestNewTask, "create task")
+    requestNewTask
+      ? () => {
+          console.log("se guardo");
+          setOpen(false);
+          setSuccessNewTask(true);
+        }
+      : () => {
+          console.log("no se guardo");
+          setOpen(true);
+          setSuccessNewTask(false);
+        };
   };
 
   return {
     backGroundColor,
     setBackGroundColor,
-    priorityCreate,setPriority,
+    priorityCreate,
+    setPriority,
     handleClickPriority,
     taskName,
     setTaskName,
@@ -122,7 +157,8 @@ export const useCreateTask = () => {
     setOpenAssingTo,
     alert,
     setAlert,
-    sendRequestNewTask, requestNewTask,
+    sendRequestNewTask,
+    requestNewTask,
     fxVlidate,
     handleOnChangeDescription,
     handleClick,
@@ -130,7 +166,12 @@ export const useCreateTask = () => {
     handleOnChangeName,
     handleOnChangeDate,
     handleClickAway,
-    alertName, setAlertName, successNewTask, setSuccessNewTask
+    alertName,
+    setAlertName,
+    successNewTask,
+    setSuccessNewTask,
+    allUsers,
+    setRequestNewTask
   };
 };
 
