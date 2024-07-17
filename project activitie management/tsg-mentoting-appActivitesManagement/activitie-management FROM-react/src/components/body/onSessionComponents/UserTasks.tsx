@@ -26,11 +26,11 @@ export const UserTasks = () =>{
     //console.log(requestNewTask.status)
   }, [requestNewTask]);
   return (
-    <Box padding={3} alignItems={"center"} >
+    <Box padding={1} alignItems={"center"} >
       <Options />
       <hr />
       <Typography
-        marginTop={5}
+        marginTop={3}
         variant="h3"
         align="left"
         marginLeft={3}

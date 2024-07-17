@@ -19,12 +19,12 @@ export const FilterComponent = () => {
 
   return (
     <ClickAwayListener onClickAway={handleClickAwayFilter}>
-      <List sx={{alignItems:"center"}} >
-        <Button sx={{minWidth:"190px", border:"1px"}} variant={openFilter ? "contained" : "text"} onClick={handleClickFilter} >
+      <List>
+        <Button sx={{minWidth:"190px"}} variant={openFilter ? "contained" : "text"} onClick={handleClickFilter} >
           <FilterList />
           Filter
         </Button>
-        <Box display={openFilter ? 'flex' : "none"} sx={{ position:"absolute", top:"120%", left:"10%", zIndex:1, backgroundColor:"white", border:1, borderRadius:5, flexDirection:'column', minWidth:"140px" }}>
+        <Box display={openFilter ? 'flex' : "none"} sx={{ alignItems:"center", position:"absolute", top:"120%", left:"10%", zIndex:1, backgroundColor:"white", border:1, borderRadius:5, flexDirection:'column', minWidth:"140px" }}>
 
           <Button>
             <CalendarMonth />

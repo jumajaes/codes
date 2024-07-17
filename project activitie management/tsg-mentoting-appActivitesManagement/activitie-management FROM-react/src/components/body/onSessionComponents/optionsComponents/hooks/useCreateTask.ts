@@ -4,25 +4,28 @@ import task from "../../../../../store/task.ts";
 import { useStore } from "../../../../../store/context.ts";
 
 export const useCreateTask = () => {
-
   const [backGroundColor, setBackGroundColor] = useState("#2196f3");
   const [allUsers, setAllUsers] = useState<(typeof task)[]>([]);
   const { sendRequestNewTask, requestNewTask, setRequestNewTask } = useStore();
 
   const [editId, setEditId] = useState<number>(0);
-  const [priorityCreate, setPriorityCreate] = useState<"medium" | "low" | "high" | "">("medium");
+  const [priorityCreate, setPriorityCreate] = useState<
+    "medium" | "low" | "high" | ""
+  >("medium");
   const [taskName, setTaskName] = useState<string>("");
-  const [valueDataTime, setvalueDataTime] = useState<string>(new Date().toISOString().split(".")[0]);
+  const [valueDataTime, setvalueDataTime] = useState<string>(
+    new Date().toISOString().split(".")[0]
+  );
   const [descriptionTask, setDescriptionTask] = useState<string>("");
-  const [primaryAssing, setPrimaryAssing] = useState<string>("Seleccione un usuario");
+  const [primaryAssing, setPrimaryAssing] = useState<string>(
+    "Seleccione un usuario"
+  );
 
   const [openAssingTo, setOpenAssingTo] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [alert, setAlert] = useState<boolean>(false);
   const [alertName, setAlertName] = useState<boolean>(false);
   const [successNewTask, setSuccessNewTask] = useState<boolean>(false);
-
- 
 
   const Users = async () => {
     try {
@@ -39,17 +42,17 @@ export const useCreateTask = () => {
     descriptionTask.length !== 0 &&
     primaryAssing.length !== 0 &&
     primaryAssing !== "Seleccione un usuario"
-      ? () => createTask()
-      :(() => {
-        console.log("alert todos los datos con obligatorios.")
-        setAlert(true);
-      })()
+      ? createTask()
+      : (() => {
+          console.log("alert todos los datos con obligatorios.");
+          setRequestNewTask(false);
+          setAlert(true);
+        })();
   };
 
-  const handleClickPriority = (
-    typePriority: "medium" | "low" | "high" | ""
-  ) => {
+  const handleClickPriority = (typePriority: "medium" | "low" | "high" | "") => {
     setPriorityCreate(typePriority);
+    setRequestNewTask(false);
   };
 
   const handleOnChangeDescription = (event) => {
@@ -58,13 +61,15 @@ export const useCreateTask = () => {
     setAlertName(false);
     setAlert(false);
     setRequestNewTask(false);
+    setRequestNewTask(false);
   };
 
   const handleClick = async () => {
     await Users();
     setAlertName(false);
     setAlert(false);
-    setOpen(!open)
+    setOpen(!open);
+    setRequestNewTask(false);
   };
 
   const handleClickAssingTo = () => {
@@ -78,15 +83,19 @@ export const useCreateTask = () => {
     setTaskName(event.target.value.trim());
     setAlertName(false);
     setAlert(false);
+    setRequestNewTask(false);
   };
 
   const handleOnChangeDate = (event) => {
     setvalueDataTime(event.target.value);
     setAlertName(false);
     setAlert(false);
+    setRequestNewTask(false);
   };
 
   const handleClickAway = (event) => {
+    setRequestNewTask(false);
+    console.log("se debio borrar la alerta de se agrego correctamente");
     event.target.outerHTML ===
       '<path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path>' ||
     event.target.outerHTML ===
@@ -104,26 +113,25 @@ export const useCreateTask = () => {
     newTask.name = taskName;
     newTask.description = descriptionTask;
     newTask.expirationdate = valueDataTime;
-
     newTask.priority = priorityCreate;
     newTask.assignedto = primaryAssing;
     newTask.state = "active";
 
     sendRequestNewTask(newTask);
+
     console.log(requestNewTask, "create task");
+
     requestNewTask
-      ? () => {
+      ? (() => {
           console.log("se guardo");
-          setOpen(false);
+          
           setSuccessNewTask(true);
-        }
-      : () => {
+        })()
+      : (() => {
           console.log("no se guardo");
           setOpen(true);
-          setSuccessNewTask(false);
           setAlertName(true);
-         
-        };
+        })();
   };
 
   return {
@@ -159,7 +167,7 @@ export const useCreateTask = () => {
     handleClickAway,
     alertName,
     setAlertName,
-    successNewTask,
+    
     setSuccessNewTask,
     allUsers,
     setRequestNewTask,

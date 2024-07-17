@@ -21,7 +21,7 @@ export const CreateTask = () => {
     descriptionTask,
     primaryAssing,
     setPrimaryAssing,
-    successNewTask,
+   
     open,
     openAssingTo,
     setOpenAssingTo,
@@ -54,7 +54,7 @@ export const CreateTask = () => {
           sx={{
             position: "absolute",
             top: "85%",
-            left: "-15%",
+            
             zIndex: 1,
             alignItems: "center",
           }}
@@ -81,7 +81,7 @@ export const CreateTask = () => {
               sx={{ minWidth: "250px" }}
             />
             <Box
-              display={alertName ? "flex" : "none"}
+              display={alertName  ? "flex" : "none"}
               justifyContent={"center"}
               margin={2}
             >
@@ -274,7 +274,7 @@ export const CreateTask = () => {
               }}
               onClick={() => {
                 fxVlidate();
-                console.log(successNewTask);
+                
               }}
             >
               Crear <Assignment sx={{ fontSize: 20, zIndex: 0 }} />

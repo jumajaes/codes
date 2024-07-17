@@ -3,7 +3,7 @@ import apiUrls from "./apiUrls.ts";
 import task from "./task.ts";
 
 type typeStore = {
-  requestTask: any;
+  requestUserstoAssing: any;
   requestNewTask: boolean;
   edit: object;
   setEdit: (toEdit: object) => void;
@@ -14,7 +14,7 @@ type typeStore = {
 
 export const useStore = create<typeStore>()((set) => ({
   requestNewTask: false,
-  requestTask: {},
+  requestUserstoAssing: {},
   edit: {},
 
   setRequestNewTask: (state: boolean) => {
@@ -28,10 +28,10 @@ export const useStore = create<typeStore>()((set) => ({
   tasks: async () => {
     try {
       const response = await fetch("http://localhost:4000/allActivities"); //http://192.168.1.38:4000/allActivities
-      set({ requestTask: response.json() });
+      set({ requestUserstoAssing: response.json() });
     } catch (error) {
       console.error("Error al obtener usuarios:", error);
-      set({ requestTask: [] });
+      set({ requestUserstoAssing: [] });
     }
   },
 
@@ -46,6 +46,7 @@ export const useStore = create<typeStore>()((set) => ({
       .then(async (response) => {
         if (response.ok) {
           set({ requestNewTask: await response.json() });
+
         } else {
           set({ requestNewTask: false });
           throw new Error("Something went wrong.");

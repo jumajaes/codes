@@ -18,10 +18,10 @@ const options: Option[] = [
 
 export const Options = () => {
   return (
-    <Grid container columnGap={2} rowGap={2}  justifyContent='center' >
+    <Grid container  rowGap={2} columnGap={2} justifyContent='space-between' >
       {options.map((option, id) => {
         return (
-          <Box key={id} sx={{maxWidth:270, minWidth:230, margin:1, borderRadius:"15px"}}>
+          <Box key={id} sx={{maxWidth:250, minWidth:230}}>
             {option.component}
           </Box>
         );
