@@ -37,7 +37,7 @@ export const UserTasks = () =>{
         marginBottom={5}
         fontSize={30}
       >
-        Me tasks...
+        Me tasks:
       </Typography>
       <Grid container columnGap={5} rowGap={5} justifyContent="center">
      

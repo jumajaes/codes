@@ -17,16 +17,16 @@ export const Lobby = () => {
     <Box display={"flex"} justifyContent={"center"} width={"100%"}>
       <Typography component="div" align="center" padding={2}>
         <Typography
-          padding={2}
+          
           variant="h1"
           component="div"
-          style={{ fontSize: 70 }}
+          style={{ fontSize: 70 , color:"#59c7ff" }}
         >
           Welcome to our Task Manager
         </Typography>
-        <TaskAlt  style={{ fontSize: 200, color:"#1976d2" }} />
+        <TaskAlt  style={{ fontSize: 200, color:"#59c7ff" }} />
 
-        <Typography color={"#1976d2"} >Your ally in productivity</Typography>
+        <Typography color={"#59c7ff"} >Your ally in productivity</Typography>
         <br />
         <hr />
         <br />
@@ -48,7 +48,7 @@ export const Lobby = () => {
 
         <br />
         <hr />
-        <Typography variant="h2" color={"#1976d2"} padding={2}>
+        <Typography variant="h2" color={"#59c7ff"} padding={2}>
           You’ve come to the right place.
           <hr style={{ width: "50%" }} />
         </Typography>
@@ -56,15 +56,15 @@ export const Lobby = () => {
           {items.map((item, index) => (
             <Box
               border={2}
-              borderRadius={25}
+              borderRadius={"10px"}
               margin={2}
               padding={2}
               key={index}
-              borderColor={"#1976d2"}
+              borderColor={"#59c7ff"}
             >
               <ListItem
                 disableGutters
-                secondaryAction={<Task style={{color:"#1976d2"}} />}
+                secondaryAction={<Task style={{color:"#59c7ff"}} />}
               >
                 <ListItemText primary={`*${item}`} />
               </ListItem>
@@ -73,7 +73,7 @@ export const Lobby = () => {
         </Box>
         <hr></hr>
         <br></br>
-        <Typography color={"#1976d2"} marginBottom={3}>
+        <Typography marginBottom={3}>
           Start taking control of your tasks and projects today. Register and
           discover how our Task Manager can transform your productivity!
         </Typography>

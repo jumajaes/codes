@@ -1,7 +1,6 @@
 import React from "react";
 import List from "@mui/material/List";
-import ListItemText from "@mui/material/ListItemText";
-import { Assignment, TaskAlt } from "@mui/icons-material";
+import { TaskAlt } from "@mui/icons-material";
 import {
   Alert,
   Box,
@@ -21,7 +20,7 @@ export const CreateTask = () => {
     descriptionTask,
     primaryAssing,
     setPrimaryAssing,
-   
+
     open,
     openAssingTo,
     setOpenAssingTo,
@@ -46,239 +45,219 @@ export const CreateTask = () => {
           onClick={handleClick}
         >
           <TaskAlt />
-          <ListItemText primary="Create New Task" />
+          <Typography style={{ textTransform: "capitalize" }}>
+            Create new Task
+          </Typography>
         </Button>
+
         <Box
           display={open ? "flex" : "none"}
           flexDirection={"column"}
+          minWidth="315px"
+          maxWidth="460px"
           sx={{
             position: "absolute",
-            top: "85%",
-            
+            top: "80%",
+            left: "-25%",
             zIndex: 1,
             alignItems: "center",
+            backgroundColor: "white",
+            borderRadius: "10px",
+            border: 1,
           }}
+          justifyContent="center"
         >
+          <TextField
+            label="Name here:"
+            variant="filled"
+            onChange={handleOnChangeName}
+            sx={{ marginTop: "25px", minWidth: "290px" }}
+          />
           <Box
-            sx={{
-              minWidth: 300,
-              maxWidth: 315,
-              backgroundColor: "white",
-              borderRadius: "10px",
-              alignItems: "center",
-              border: 2,
-            }}
-            justifyContent="center"
-            padding={1}
-            display="flex"
-            flexDirection={"column"}
+            display={requestNewTask === false && alertName === true   ? "flex" : "none"}
+            justifyContent={"center"}
+            margin={1}
           >
-            <TextField
-              label="Name here..."
-              variant="standard"
-              onChange={handleOnChangeName}
-              required
-              sx={{ minWidth: "250px" }}
-            />
-            <Box
-              display={alertName  && requestNewTask === false ? "flex" : "none"}
-              justifyContent={"center"}
-              margin={2}
-            >
-              <Alert severity="error">Este nombre ya existe.</Alert>
-            </Box>
-            <br />
+            <Alert severity="error">This name already exists</Alert>
+          </Box>
+          <br />
 
-            <TextField
-              label="Expiration Date:"
-              type="datetime-local"
-              variant="standard"
-              sx={{ minWidth: "250px" }}
-              onChange={handleOnChangeDate}
-              value={valueDataTime?.split(".")[0]}
-              required
-            />
-            <ClickAwayListener
-              onClickAway={() => {
-                setOpenAssingTo(false);
+          <TextField
+            label="Expiration Date:"
+            type="datetime-local"
+            variant="filled"
+            sx={{ minWidth: "290px" }}
+            onChange={handleOnChangeDate}
+            value={valueDataTime?.split(".")[0]}
+          />
+          <ClickAwayListener
+            onClickAway={() => {
+              setOpenAssingTo(false);
+            }}
+          >
+            <Box
+              borderRadius="10px"
+              minWidth={"290px"}
+              sx={{
+                zIndex: 2,
+                display: "flex",
+                margin: 3,
+                alignContent: "center",
+                flexDirection: "column",
               }}
             >
-              <Box
-                borderRadius="10px"
+              <Typography fontSize={13}>{"Assing to: "}</Typography>
+              <Button
+                onClick={handleClickAssingTo}
+                variant="outlined"
                 sx={{
-                  zIndex: 2,
-                  display: "flex",
-
-                  marginTop: 1,
-                  justifyContent: "center",
-                  flexDirection: "column",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
                 }}
               >
-                Assing To: *
-                <Button
-                  onClick={handleClickAssingTo}
-                  sx={{
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-                    justifyContent: "space-between",
+                
+                <Typography
+                  style={{
+                    textTransform: "capitalize",
+                    color: "black",
+                    fontSize: "13px",
                   }}
                 >
                   {primaryAssing}
-                  <Typography
-                    sx={{ fontSize: 20, color: "#1976d2", alignSelf: "center" }}
-                  >
-                    {openAssingTo ? "  *⬆" : "  *⬇"}
-                  </Typography>
-                </Button>
-                <Box
-                  display={openAssingTo ? "flex" : "none"}
-                  position={"absolute"}
-                  flexDirection={"column"}
-                  overflow={"scroll"}
-                  sx={{
-                    top: "35%",
-                    left: "2%",
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-                    border:2,
-                
-                    maxWidth: "285px",
-                    
-                    maxHeight: "240px",
-                    zIndex: 1,
-                    justifyContent: "center",
+                </Typography>
+              </Button>
+              <Box
+                display={openAssingTo ? "flex" : "none"}
+                position={"absolute"}
+                flexDirection={"column"}
+                overflow={"scroll"}
+                justifyContent={"center"}
+                sx={{
+                  top: "43%",
+                  left: "5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  border: 2,
+                  zIndex: 1,
+                  paddingTop: 1,
+                }}
+              >
+                {allUsers.map((option, i) => {
+                  return (
+                    <Box
+                      key={i}
+                      sx={{
+                        borderBottom: 1,
 
-                    paddingTop: 1,
-                  }}
-                >
-                  {allUsers.map((option, i) => {
-                    return (
-                      <Box
-                        key={i}
-                        sx={{
-                          
-                          borderBottom: 1,
-                          paddingTop: 5,
-                          display:
-                            option.name === primaryAssing ? "none" : "flex",
-                          direction: "colum",
-                          justifyContent: "center",
-                          cursor: "pointer", // Para que parezca un botón
-                          borderRadius: "10px",
-                        }}
-                        onClick={() => {
-                          setPrimaryAssing(option.name);
-
-                          setOpenAssingTo(!openAssingTo);
+                        display:
+                          option.name === primaryAssing ? "none" : "flex",
+                        direction: "colum",
+                        justifyContent: "center",
+                        borderRadius: "18px",
+                      }}
+                      minWidth={"290px"}
+                      onClick={() => {
+                        setPrimaryAssing(option.name);
+                        setOpenAssingTo(!openAssingTo);
+                      }}
+                    >
+                      <Typography
+                        style={{
+                          textTransform: "capitalize",
+                          fontSize: "13px",
                         }}
                       >
                         {option.name}
-                      </Box>
-                    );
-                  })}
-                </Box>
-              </Box>
-            </ClickAwayListener>
-
-            <Box
-              padding={1}
-              borderRadius="10px"
-              sx={{
-                backgroundColor: "#1976d2",
-                marginTop: 2,
-                marginBottom: 2,
-              }}
-            >
-              <Typography
-                sx={{ backgroundColor: "#1976d2" }}
-                align="left"
-                color="white"
-                margin={1}
-                fontSize={12}
-              >
-                Priority...
-              </Typography>
-
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  backgroundColor: "#00ACC1",
-                  borderRadius: "15px",
-                }}
-              >
-                <Button
-                  sx={{ borderRadius: 10 }}
-                  variant={priorityCreate === "high" ? "contained" : "text"}
-                  onClick={() => {
-                    handleClickPriority("high");
-                  }}
-                >
-                  HIGH
-                </Button>
-                <Button
-                  sx={{ borderRadius: 10 }}
-                  variant={priorityCreate === "medium" ? "contained" : "text"}
-                  onClick={() => {
-                    handleClickPriority("medium");
-                  }}
-                >
-                  MEDIUM
-                </Button>
-                <Button
-                  sx={{ borderRadius: 10 }}
-                  variant={priorityCreate === "low" ? "contained" : "text"}
-                  onClick={() => {
-                    handleClickPriority("low");
-                  }}
-                >
-                  LOW
-                </Button>
+                      </Typography>
+                    </Box>
+                  );
+                })}
               </Box>
             </Box>
+          </ClickAwayListener>
 
-            <TextField
-              required
-              label="Description..."
-              multiline={true}
-              maxRows={6}
-              sx={{ minWidth: "220px" }}
-              onChange={handleOnChangeDescription}
-              value={descriptionTask}
-              minRows={6}
-            />
-            <Box
-              display={alert ? "flex" : "none"}
-              justifyContent={"center"}
-              margin={2}
-            >
-              <Alert severity="error">Todos los campos son obligatorios.</Alert>
-            </Box>
-            <Box
-              display={requestNewTask ? "flex" : "none"}
-              justifyContent={"center"}
-              margin={2}
-            >
-              <Alert severity="success">This is success task created.</Alert>
-            </Box>
+          <Typography align="left" fontSize={13}>Priority:</Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+
+              padding: 1,
+              marginBottom: 2,
+              minWidth: "290px",
+            }}
+          >
             <Button
-              key={"butonCreate"}
-              size="large"
-              variant="contained"
-              sx={{
-                marginY: 2,
-                display: !alert ? "" : "none",
-                zIndex: 1,
-                justifyContent: "space-between",
-                width: "160px",
-              }}
+              sx={{ borderRadius: 1 }}
+              variant={priorityCreate === "high" ? "contained" : "text"}
               onClick={() => {
-                fxVlidate();
+                handleClickPriority("high");
               }}
             >
-              Crear <Assignment sx={{ fontSize: 20, zIndex: 0 }} />
+              HIGH
+            </Button>
+            <Button
+              sx={{ borderRadius: 1 }}
+              variant={priorityCreate === "medium" ? "contained" : "text"}
+              onClick={() => {
+                handleClickPriority("medium");
+              }}
+            >
+              MEDIUM
+            </Button>
+            <Button
+              sx={{ borderRadius: 1 }}
+              variant={priorityCreate === "low" ? "contained" : "text"}
+              onClick={() => {
+                handleClickPriority("low");
+              }}
+            >
+              LOW
             </Button>
           </Box>
+
+          <TextField
+            required
+            label="Description..."
+            multiline={true}
+            maxRows={6}
+            sx={{ minWidth: "290px" }}
+            onChange={handleOnChangeDescription}
+            value={descriptionTask}
+            minRows={6}
+          />
+          <Box
+            display={alert ? "flex" : "none"}
+            justifyContent={"center"}
+            margin={2}
+          >
+            <Alert severity="error">Todos los campos son obligatorios.</Alert>
+          </Box>
+          <Box
+            display={requestNewTask ? "flex" : "none"}
+            justifyContent={"center"}
+            margin={2}
+          >
+            <Alert severity="success">This is success task created.</Alert>
+          </Box>
+          <Button
+            key={"butonCreate"}
+            size="large"
+            variant="contained"
+            sx={{
+              marginY: 2,
+              display: !alert ? "" : "none",
+              zIndex: 1,
+              justifyContent: "center",
+              width: "120px",
+            }}
+            onClick={() => {
+              fxVlidate();
+            }}
+          >  Crear
+            {/* <Assignment sx={{ fontSize: 20, zIndex: 0 }} /> Crear */}
+          </Button>
         </Box>
       </List>
     </ClickAwayListener>

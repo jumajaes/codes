@@ -27,7 +27,7 @@ export const LoginButton = () => {
 
   return (
     <Button
-        
+        sx={{backgroundColor:"#59c7ff"}}
       >
         <Link to="/user-task" style={{textDecoration:"none"}}><Typography color="white">START</Typography></Link>
       </Button>

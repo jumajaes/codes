@@ -4,21 +4,19 @@ import Toolbar from "@mui/material/Toolbar";
 import { LoginButton } from "./headComponents/LoginButton.tsx";
 import React from "react";
 import { TaskAlt } from "@mui/icons-material";
-import { Typography } from "@mui/material";
+
 
 export default function HeadApp() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-around", backgroundColor:"#ffff" }}>
 
-          <Box display="flex" alignItems="center">
-            <TaskAlt />
-
-            <Typography textAlign={"center"} paddingLeft={1}>
-              TASK MANAGEMENT
-            </Typography>
+          <Box sx={{color:"#59c7ff", fontSize:"30px" }} justifyContent={"center"}>
+          <TaskAlt sx={{color:"#59c7ff", marginRight:"10px", fontSize:"30px"}}/> TASK MANAGEMENT
           </Box>
+
+          
 
           <LoginButton />
           

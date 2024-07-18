@@ -18,7 +18,7 @@ export const useCreateTask = () => {
   );
   const [descriptionTask, setDescriptionTask] = useState<string>("");
   const [primaryAssing, setPrimaryAssing] = useState<string>(
-    "Seleccione un usuario"
+    "Select to an User"
   );
 
   const [openAssingTo, setOpenAssingTo] = useState<boolean>(false);
@@ -40,11 +40,12 @@ export const useCreateTask = () => {
     priorityCreate.length !== 0 &&
     descriptionTask.length !== 0 &&
     primaryAssing.length !== 0 &&
-    primaryAssing !== "Seleccione un usuario"
+    primaryAssing !== "Select to an User"
       ? createTask()
       : (() => {
           console.log("alert todos los datos con obligatorios.");
           setRequestNewTask(false);
+          setAlertName(false);
           setAlert(true);
         })();
   };
