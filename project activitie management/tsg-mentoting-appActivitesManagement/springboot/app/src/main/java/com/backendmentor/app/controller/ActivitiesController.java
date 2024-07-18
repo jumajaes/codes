@@ -42,21 +42,32 @@ public class ActivitiesController {
     @PostMapping("/newActivitie")
     public boolean SetNewUser(@RequestBody Activities newActivite) {
         try {
-            System.out.println(newActivite.getExpirationdate());            
+            System.out.println(newActivite.getExpirationdate());
             activitiesRepository.save(newActivite);
             return true;
         } catch (Exception e) {
             System.out.println(newActivite.getExpirationdate());
-            return false;    
+            return false;
         }
     }
 
     @PutMapping("/updateActivitie/{id} ")
-    public String updateUser(@PathVariable Integer id, @RequestBody Activities activitieToUpdate) {
-        Activities update = activitiesRepository.findById(id).get();
-        update.setName(activitieToUpdate.getName());
-        activitiesRepository.save(update);
-        return "User Updated";
+    public boolean updateUser(@PathVariable Integer id, @RequestBody Activities activitieToUpdate) {
+        try {
+            Activities update = activitiesRepository.findById(id).get();
+            update.setName(activitieToUpdate.getName());
+            update.setDescription(activitieToUpdate.getDescription());
+            update.setExpirationdate(activitieToUpdate.getExpirationdate());
+            update.setPriority(activitieToUpdate.getPriority());
+            update.setState(activitieToUpdate.getState());
+            update.setAssignedto(activitieToUpdate.getAssignedto());
+            
+            activitiesRepository.save(update);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
     @DeleteMapping("/deleteActivitie/{id}")

@@ -13,5 +13,5 @@ services:
 
 volumes:
   bdactivitie:
-    external: false
+    external: true
   

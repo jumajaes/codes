@@ -81,7 +81,7 @@ export const CreateTask = () => {
               sx={{ minWidth: "250px" }}
             />
             <Box
-              display={alertName  ? "flex" : "none"}
+              display={alertName  && requestNewTask === false ? "flex" : "none"}
               justifyContent={"center"}
               margin={2}
             >
@@ -274,7 +274,6 @@ export const CreateTask = () => {
               }}
               onClick={() => {
                 fxVlidate();
-                
               }}
             >
               Crear <Assignment sx={{ fontSize: 20, zIndex: 0 }} />

@@ -25,7 +25,6 @@ export const useCreateTask = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [alert, setAlert] = useState<boolean>(false);
   const [alertName, setAlertName] = useState<boolean>(false);
-  const [successNewTask, setSuccessNewTask] = useState<boolean>(false);
 
   const Users = async () => {
     try {
@@ -57,7 +56,7 @@ export const useCreateTask = () => {
 
   const handleOnChangeDescription = (event) => {
     setDescriptionTask(event.target.value);
-    setSuccessNewTask(false);
+    
     setAlertName(false);
     setAlert(false);
     setRequestNewTask(false);
@@ -124,13 +123,13 @@ export const useCreateTask = () => {
     requestNewTask
       ? (() => {
           console.log("se guardo");
-          
-          setSuccessNewTask(true);
+          setAlertName(false);
         })()
       : (() => {
           console.log("no se guardo");
           setOpen(true);
           setAlertName(true);
+         
         })();
   };
 
@@ -167,8 +166,6 @@ export const useCreateTask = () => {
     handleClickAway,
     alertName,
     setAlertName,
-    
-    setSuccessNewTask,
     allUsers,
     setRequestNewTask,
   };

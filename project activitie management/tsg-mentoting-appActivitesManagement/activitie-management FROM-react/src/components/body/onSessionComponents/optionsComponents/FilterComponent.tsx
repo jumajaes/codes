@@ -24,20 +24,21 @@ export const FilterComponent = () => {
           <FilterList />
           Filter
         </Button>
-        <Box display={openFilter ? 'flex' : "none"} sx={{ alignItems:"center", position:"absolute", top:"120%", left:"10%", zIndex:1, backgroundColor:"white", border:1, borderRadius:5, flexDirection:'column', minWidth:"140px" }}>
+        <Box display={openFilter ? 'flex' : "none"} sx={{ justifyContent:"center", position:"absolute", top:"110%", zIndex:1, backgroundColor:"white", border:1, borderRadius:5, flexDirection:'column', minWidth:"190px" }}>
 
-          <Button>
+          <Button
+          sx={{display:"flex", justifyContent:"space-between", maxWidth:"100px"}}>
             <CalendarMonth />
             Date
           </Button>
 
-          <Button >
+          <Button  sx={{display:"flex", justifyContent:"space-between"}} >
            
             <IndeterminateCheckBox />
              State
           </Button>
 
-          <Button >
+          <Button  sx={{display:"flex", justifyContent:"space-between"}} >
             
             <PriorityHigh />
             Priority
