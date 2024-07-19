@@ -2,10 +2,10 @@ interface iTask {
     id: number;
     name: string,
     expirationdate: string,
-    priority: "medium" | "low" | "high" | "",
+    priority: string,
     description:  string,
     assignedto: string,
-    state: "canceled" | "completed" | "expirated" | "active" | ""
+    state: string
 }
 
 const task:iTask = {

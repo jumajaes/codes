@@ -19,15 +19,13 @@ export const useCardTask = ({
   const [titleTask, setTitle] = useState<string>(name);
   const [descriptionTaskCard, setDescriptionCard] = useState<string>(description);
   const [expirationDateTask, setExpirationDate] = useState(expirationdate);
-  const [priorityCardTask, setPriorityCardTask] = useState<"medium" | "low" | "high" | "">(priority);
-  const [stateTask, setState] = useState<"canceled" | "completed" | "expirated" | "active" | "">(state);
+  const [priorityCardTask, setPriorityCardTask] =useState(priority);
+  const [stateTask, setState] = useState(state);
   const [assignToTask, setAssignTo] = useState<string>(assignedto);
   const [idTask, setIdTask] = useState<number>(id);
   
   const [openCardTask, setOpenCardTask] = useState<boolean>(false);
-  const [colorState, setColorState] = useState<
-    "primary" | "success" | "error" | "secondary" | "info" | "warning"
-  >("primary");
+  const [colorState, setColorState] = useState("primary");
   const [colorFondo, setColorFondo] = useState<string>("#e1e7f8");
   const [backGroundColor, setBackGroundColor] = useState<string>("#2196f3");
   const [iconState, setIconState] = useState<any>();

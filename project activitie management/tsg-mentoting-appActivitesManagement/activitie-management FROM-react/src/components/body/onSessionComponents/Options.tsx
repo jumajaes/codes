@@ -21,7 +21,7 @@ export const Options = () => {
     <Grid container  rowGap={2} columnGap={2} justifyContent='center' >
       {options.map((option, id) => {
         return (
-          <Box key={id} sx={{maxWidth:250, minWidth:230}}>
+          <Box key={id} display={"flex"} justifyContent='center'  sx={{maxWidth:250, minWidth:230}}>
             {option.component}
           </Box>
         );

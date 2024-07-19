@@ -8,18 +8,15 @@ export const useCreateTask = () => {
   const [allUsers, setAllUsers] = useState<(typeof task)[]>([]);
   const { sendRequestNewTask, requestNewTask, setRequestNewTask } = useStore();
 
+  const [stateCreate, setStateCreate] = useState("");
   const [editId, setEditId] = useState<number>(0);
-  const [priorityCreate, setPriorityCreate] = useState<
-    "medium" | "low" | "high" | ""
-  >("medium");
-  const [taskName, setTaskName] = useState<string>("");
+  const [priorityCreate, setPriorityCreate] = useState("medium");
+  const [taskName, setTaskName] = useState<string>("Name here");
   const [valueDataTime, setvalueDataTime] = useState<string>(
     new Date().toISOString().split(".")[0]
   );
   const [descriptionTask, setDescriptionTask] = useState<string>("");
-  const [primaryAssing, setPrimaryAssing] = useState<string>(
-    "Select to an User"
-  );
+  const [primaryAssing, setPrimaryAssing] = useState<string>("Select to an User");
 
   const [openAssingTo, setOpenAssingTo] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
@@ -28,7 +25,7 @@ export const useCreateTask = () => {
 
   const Users = async () => {
     try {
-      const response = await fetch("http://localhost:4000/allUsers"); //"http://192.168.1.38:4000/allUsers"
+      const response = await fetch("http://10.99.77.147:4000/allUsers"); //"http://192.168.1.38:4000/allUsers"
       setAllUsers(await response.json());
     } catch (error) {
       setAllUsers([]);
@@ -43,7 +40,7 @@ export const useCreateTask = () => {
     primaryAssing !== "Select to an User"
       ? createTask()
       : (() => {
-          console.log("alert todos los datos con obligatorios.");
+          
           setRequestNewTask(false);
           setAlertName(false);
           setAlert(true);
@@ -95,7 +92,6 @@ export const useCreateTask = () => {
 
   const handleClickAway = (event) => {
     setRequestNewTask(false);
-    console.log("se debio borrar la alerta de se agrego correctamente");
     event.target.outerHTML ===
       '<path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path>' ||
     event.target.outerHTML ===
@@ -119,15 +115,15 @@ export const useCreateTask = () => {
 
     sendRequestNewTask(newTask);
 
-    console.log(requestNewTask, "create task");
+   
 
     requestNewTask
       ? (() => {
-          console.log("se guardo");
+          
           setAlertName(false);
         })()
       : (() => {
-          console.log("no se guardo");
+          
           setOpen(true);
           setAlertName(true);
          
@@ -137,18 +133,25 @@ export const useCreateTask = () => {
   return {
     backGroundColor,
     setBackGroundColor,
+
     priorityCreate,
+    taskName,
+    valueDataTime,
+    descriptionTask,
+    primaryAssing,
+    editId,
+    
     setPriorityCreate,
     handleClickPriority,
-    taskName,
+    
     setTaskName,
-    valueDataTime,
+    
     setvalueDataTime,
-    descriptionTask,
+    
     setDescriptionTask,
-    primaryAssing,
+    
     setPrimaryAssing,
-    editId,
+    
     setEditId,
     open,
     setOpen,
@@ -169,6 +172,7 @@ export const useCreateTask = () => {
     setAlertName,
     allUsers,
     setRequestNewTask,
+    stateCreate, setStateCreate
   };
 };
 

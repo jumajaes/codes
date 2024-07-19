@@ -29,7 +29,7 @@ export const LoginButton = () => {
     <Button
         sx={{backgroundColor:"#59c7ff"}}
       >
-        <Link to="/user-task" style={{textDecoration:"none"}}><Typography color="white">START</Typography></Link>
+        <Link to="/user-task" style={{textDecoration:"none"}}><Typography color="black">START</Typography></Link>
       </Button>
 
     

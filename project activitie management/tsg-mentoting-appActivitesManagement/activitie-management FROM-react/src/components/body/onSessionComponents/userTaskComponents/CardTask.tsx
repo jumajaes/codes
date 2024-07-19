@@ -28,7 +28,7 @@ export const CardTask = ({
   expirationdate,
   priority,
   state,
-  assignedto
+  assignedto,
 }) => {
   const {
     titleTask,
@@ -38,7 +38,7 @@ export const CardTask = ({
     stateTask,
     setState,
     assignToTask,
-    idTask, 
+    idTask,
     openCardTask,
     setOpenCardTask,
     colorState,
@@ -50,7 +50,12 @@ export const CardTask = ({
     iconState,
     setIconState,
     handleClickAway,
-    setTitle, setExpirationDate, setPriorityCardTask, setAssignTo,setDescriptionCard,setIdTask
+    setTitle,
+    setExpirationDate,
+    setPriorityCardTask,
+    setAssignTo,
+    setDescriptionCard,
+    setIdTask,
   } = useCardTask({
     id,
     name,
@@ -58,19 +63,35 @@ export const CardTask = ({
     expirationdate,
     priority,
     state,
-    assignedto
+    assignedto,
   });
 
-  const {  setOpen, setTaskName, setvalueDataTime, setDescriptionTask, setPrimaryAssing, setEditId, setPriority, priorityCreate,taskName,valueDataTime,descriptionTask,primaryAssing,editId } = useCreateTask();
+  const {
+    setOpen,
+    setPriorityCreate,
+    setTaskName,
+    setvalueDataTime,
+    setPrimaryAssing,
+    setEditId,
+    setDescriptionTask,
+    setAlertName,
+    setStateCreate,
+    primaryAssing,
+    editId,
+    priorityCreate,
+    taskName,
+    valueDataTime,
+    descriptionTask,
+  } = useCreateTask();
 
   useEffect(() => {
-
-    setTitle(name)
-     setExpirationDate(expirationdate) 
-     setPriorityCardTask(priority)
-      setAssignTo(assignedto)
-      setDescriptionCard(description) 
-      setIdTask(id)
+    setTitle(name);
+    setExpirationDate(expirationdate);
+    setPriorityCardTask(priority);
+    setAssignTo(assignedto);
+    setDescriptionCard(description);
+    setIdTask(id);
+    setStateCreate(state);
 
     stateTask === "active" &&
       new Date(expirationDateTask.split(".")[0]) < new Date() &&
@@ -85,7 +106,7 @@ export const CardTask = ({
     stateTask === "completed" &&
       (() => {
         setColorState("success");
-        setColorFondo("#dce9db");
+        setColorFondo("#AADDA5");
         setIconState(<TaskAlt />);
       })();
     stateTask === "canceled" &&
@@ -104,9 +125,32 @@ export const CardTask = ({
     priorityCardTask === "medium"
       ? setBackGroundColor("#2196f3")
       : priorityCardTask === "high"
-        ? setBackGroundColor("#ffc107")
-        : setBackGroundColor("#9E9E9E");
-  }, [assignedto, description, expirationDateTask, expirationdate, id, name, priority, priorityCardTask, setAssignTo, setBackGroundColor, setColorFondo, setColorState, setDescriptionCard, setExpirationDate, setIconState, setIdTask, setPriorityCardTask, setState, setTitle, stateTask]);
+      ? setBackGroundColor("#ffc107")
+      : setBackGroundColor("#9E9E9E");
+  }, [
+    assignedto,
+    description,
+    expirationDateTask,
+    expirationdate,
+    id,
+    name,
+    priority,
+    priorityCardTask,
+    setAssignTo,
+    setBackGroundColor,
+    setColorFondo,
+    setColorState,
+    setDescriptionCard,
+    setExpirationDate,
+    setIconState,
+    setIdTask,
+    setPriorityCardTask,
+    setState,
+    setStateCreate,
+    setTitle,
+    state,
+    stateTask,
+  ]);
 
   return (
     <Card
@@ -131,8 +175,8 @@ export const CardTask = ({
               children={
                 <Button
                   variant={openCardTask ? "text" : "contained"}
-                  color={colorState}
                   sx={{
+                    color: colorState,
                     borderRadius: "10px",
                     padding: "5px",
                     margin: "10px",
@@ -219,34 +263,37 @@ export const CardTask = ({
               id="edit"
               title="Edit Task"
               arrow
-              children={<Button 
-               
-                aria-label="EDIT"
-                color="secondary"
-                id="edit"
-                onClick={() => {
-                  setOpen(true)
-                  setEditId(id)
-                  setPriority(priority)
-                  setTaskName(name)
-                  setvalueDataTime(expirationdate)
-                  setDescriptionTask(description)
-                  setPrimaryAssing(assignedto)
-                  
-                  console.log( id,
-                    name,
-                    description,
-                    expirationdate,
-                    priority,
-                    state,
-                    assignedto, "//////////", priorityCreate,taskName,valueDataTime,descriptionTask,primaryAssing,editId)
-                }}
-              >
-                <Box  id="edit" display="flex" padding={1}>
-                  <BorderColor  sx={{zIndex:0}}  id="edit" />
-                </Box>
-              </Button>
+              children={
+                <Button
+                  sx={{ zIndex: 1 }}
+                  aria-label="EDIT"
+                  color="secondary"
+                  id="edit"
+                  onClick={() => {
+                    console.log(
+                      primaryAssing,
+                      editId,
+                      priorityCreate,
+                      taskName,
+                      valueDataTime,
+                      descriptionTask
+                    );
 
+                    setEditId(id);
+                    setPriorityCreate(priority);
+                    setTaskName(name);
+                    setvalueDataTime(expirationdate);
+                    setDescriptionTask(description);
+                    setPrimaryAssing(assignedto);
+                    setStateCreate(stateTask);
+                    setOpen(true);
+                    setAlertName(false);
+                  }}
+                >
+                  <Box id="edit" display="flex" padding={1}>
+                    <BorderColor sx={{ zIndex: 0 }} id="edit" />
+                  </Box>
+                </Button>
               }
             />
 
@@ -257,7 +304,7 @@ export const CardTask = ({
                 <Button
                   aria-label="Delete task"
                   color="warning"
-                  onClick={() => { }}
+                  onClick={() => {}}
                 >
                   <Box display="flex" padding={1}>
                     <DeleteForever />
@@ -282,7 +329,6 @@ export const CardTask = ({
 
         <Box
           sx={{
-            backgroundColor: colorFondo,
             borderRadius: "10px",
             padding: 1,
             marginBottom: 2,
@@ -295,11 +341,16 @@ export const CardTask = ({
           <TextField
             label="Expiration Date:"
             type="datetime-local"
-            sx={{ minWidth: "250px", maxWidth: "250px", zIndex: 0 }}
+            sx={{
+              minWidth: "250px",
+              maxWidth: "250px",
+              zIndex: 0,
+              backgroundColor: colorFondo,
+            }}
             value={expirationDateTask.split(".")[0]}
             disabled
           />
-          <Typography fontSize={10} color={"black"} borderBottom={2} margin={1} maxWidth="75px">
+          <Typography fontSize={10} color={"black"} margin={1} maxWidth="75px">
             ASSINGNED TO:
           </Typography>
           <Typography fontSize={15} align="center" color={"black"} margin={1}>

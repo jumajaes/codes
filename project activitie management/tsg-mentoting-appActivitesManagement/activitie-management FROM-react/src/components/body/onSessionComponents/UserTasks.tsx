@@ -10,7 +10,7 @@ export const UserTasks = () =>{
   const { requestNewTask } = useStore();
   const tasks = async () => {
     try {
-      const response = await fetch("http://localhost:4000/allActivities");//http://localhos:4000/allActivities
+      const response = await fetch("http://10.99.77.147:4000/allActivities");//http://localhos:4000/allActivities
       const data = await response.json();
       setAllTasks(data);
     } catch (error) {
@@ -28,7 +28,6 @@ export const UserTasks = () =>{
   return (
     <Box padding={1} alignItems={"center"} >
       <Options />
-      <hr />
       <Typography
         marginTop={3}
         variant="h3"

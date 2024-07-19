@@ -10,17 +10,30 @@ import {
   Typography,
 } from "@mui/material";
 import { useCreateTask } from "./hooks/useCreateTask.ts";
+// useEffect(()=>{
+    
+//   setEditId(0)
+//   setPriorityCreate(priorityCreate)
+//   setTaskName(taskName)
+//   setvalueDataTime(valueDataTime)
+//   setDescriptionTask(descriptionTask)
+//   setPrimaryAssing(primaryAssing)
+//   setStateCreate(stateCreate)
+//   console.log(primaryAssing,priorityCreate,taskName,valueDataTime,descriptionTask," useeffect")
+// }, [descriptionTask, primaryAssing, priorityCreate, setDescriptionTask, setEditId, setPrimaryAssing, setPriorityCreate, setStateCreate, setTaskName, setvalueDataTime, stateCreate, taskName, valueDataTime])
 
 export const CreateTask = () => {
   const {
     requestNewTask,
+
+    taskName,
     priorityCreate,
-    handleClickPriority,
     valueDataTime,
     descriptionTask,
     primaryAssing,
+    
+    handleClickPriority,
     setPrimaryAssing,
-
     open,
     openAssingTo,
     setOpenAssingTo,
@@ -34,18 +47,33 @@ export const CreateTask = () => {
     handleClickAway,
     allUsers,
     alertName,
+    
+    
+     //setEditId,
+    // setPriorityCreate,
+    // setTaskName,
+   
+    // setvalueDataTime,
+    // stateCreate,
+    // setDescriptionTask,
+  
+    
+    // setStateCreate
+
+    
   } = useCreateTask();
 
+  
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       <List component="nav">
         <Button
           variant={open ? "text" : "outlined"}
-          sx={{ zIndex: 1, fontSize: 20, justifyContent: "center" }}
+          sx={{ zIndex: 2, fontSize: 20, justifyContent: "center", color: "#59c7ff" }}
           onClick={handleClick}
         >
           <TaskAlt />
-          <Typography style={{ textTransform: "capitalize" }}>
+          <Typography style={{ textTransform: "capitalize", color:"black" }}>
             Create new Task
           </Typography>
         </Button>
@@ -58,8 +86,8 @@ export const CreateTask = () => {
           sx={{
             position: "absolute",
             top: "80%",
-            left: "-25%",
-            zIndex: 1,
+            left: "-50%",
+            zIndex: 2,
             alignItems: "center",
             backgroundColor: "white",
             borderRadius: "10px",
@@ -68,7 +96,7 @@ export const CreateTask = () => {
           justifyContent="center"
         >
           <TextField
-            label="Name here:"
+            label={taskName}
             variant="filled"
             onChange={handleOnChangeName}
             sx={{ marginTop: "25px", minWidth: "290px" }}
