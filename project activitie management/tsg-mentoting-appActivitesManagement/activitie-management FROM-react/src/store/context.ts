@@ -12,6 +12,7 @@ type typeStore = {
   setRequestNewTask: (state: boolean) => void;
 };
 
+
 export const useStore = create<typeStore>()((set) => ({
   requestNewTask: false,
   requestUserstoAssing: {},
@@ -27,7 +28,7 @@ export const useStore = create<typeStore>()((set) => ({
 
   tasks: async () => {
     try {
-      const response = await fetch("http://10.99.77.147:4000/allActivities"); //http://192.168.1.38:4000/allActivities
+      const response = await fetch("http://192.168.1.38:4000/allActivities"); //http://192.168.1.38:4000/allActivities
       set({ requestUserstoAssing: response.json() });
     } catch (error) {
       console.error("Error al obtener usuarios:", error);
@@ -46,10 +47,8 @@ export const useStore = create<typeStore>()((set) => ({
       .then(async (response) => {
         if (response.ok) {
           set({ requestNewTask: await response.json() });
-
         } else {
           set({ requestNewTask: false });
-          throw new Error("Something went wrong.");
         }
       })
         .catch((error) => { 

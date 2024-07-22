@@ -25,7 +25,7 @@ export const useCardTask = ({
   const [idTask, setIdTask] = useState<number>(id);
   
   const [openCardTask, setOpenCardTask] = useState<boolean>(false);
-  const [colorState, setColorState] = useState("primary");
+  const [colorState, setColorState] = useState<"primary" |"success"| "warning"| "error" >("primary");
   const [colorFondo, setColorFondo] = useState<string>("#e1e7f8");
   const [backGroundColor, setBackGroundColor] = useState<string>("#2196f3");
   const [iconState, setIconState] = useState<any>();

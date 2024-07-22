@@ -29,8 +29,8 @@ public class ActivitiesController {
         try {
             return activitiesRepository.findAll();
         } catch (Exception e) {
-            java.util.List<Activities> error = new ArrayList<>();
-            return error;
+           
+            return new ArrayList<>();
         }
     }
 

@@ -1,5 +1,7 @@
 interface iTask {
-    id: number;
+
+    constructor(),
+    id: number,
     name: string,
     expirationdate: string,
     priority: string,
@@ -9,6 +11,10 @@ interface iTask {
 }
 
 const task:iTask = {
+
+    constructor(){
+        console.log("hola edit")
+    },
     name: "",
     expirationdate: "",
     priority: "",

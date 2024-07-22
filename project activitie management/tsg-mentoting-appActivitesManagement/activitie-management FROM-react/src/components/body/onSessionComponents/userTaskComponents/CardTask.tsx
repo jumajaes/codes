@@ -20,6 +20,7 @@ import {
 import React, { useEffect } from "react";
 import { useCardTask } from "./hooks/useCardTask.ts";
 import useCreateTask from "../optionsComponents/hooks/useCreateTask.ts";
+import task from "../../../../store/task.ts";
 
 export const CardTask = ({
   id,
@@ -68,20 +69,22 @@ export const CardTask = ({
 
   const {
     setOpen,
-    setPriorityCreate,
+    setStateCreate,
     setTaskName,
     setvalueDataTime,
     setPrimaryAssing,
     setEditId,
     setDescriptionTask,
-    setAlertName,
-    setStateCreate,
+    handleClickPriority,
+
     primaryAssing,
     editId,
     priorityCreate,
     taskName,
     valueDataTime,
     descriptionTask,
+    setTaskToEdit,
+    setEdit
   } = useCreateTask();
 
   useEffect(() => {
@@ -125,8 +128,8 @@ export const CardTask = ({
     priorityCardTask === "medium"
       ? setBackGroundColor("#2196f3")
       : priorityCardTask === "high"
-      ? setBackGroundColor("#ffc107")
-      : setBackGroundColor("#9E9E9E");
+        ? setBackGroundColor("#ffc107")
+        : setBackGroundColor("#9E9E9E");
   }, [
     assignedto,
     description,
@@ -162,7 +165,7 @@ export const CardTask = ({
         padding: 2,
       }}
     >
-      <Box display={"flex"} justifyContent="center" maxWidth={"315px"}>
+      <Box display={"flex"} justifyContent="center" >
         <ClickAwayListener onClickAway={handleClickAway}>
           <Box display={"flex"} justifyContent="space-between">
             <Tooltip
@@ -174,14 +177,14 @@ export const CardTask = ({
               arrow
               children={
                 <Button
-                  variant={openCardTask ? "text" : "contained"}
+                  color={colorState}
                   sx={{
-                    color: colorState,
                     borderRadius: "10px",
                     padding: "5px",
                     margin: "10px",
                     minWidth: "120px",
                   }}
+                  variant={openCardTask ? "text" : "contained"}
                   onClick={() => {
                     setOpenCardTask(true);
                   }}
@@ -198,10 +201,10 @@ export const CardTask = ({
               maxWidth={255}
               sx={{
                 backgroundColor: "white",
-                zIndex: 1,
+                zIndex: 3,
                 border: 1,
                 borderRadius: "10px",
-                justifyContent: "space-around",
+                justifyContent: "space-between",
               }}
             >
               <IconButton
@@ -270,24 +273,18 @@ export const CardTask = ({
                   color="secondary"
                   id="edit"
                   onClick={() => {
-                    console.log(
-                      primaryAssing,
-                      editId,
-                      priorityCreate,
-                      taskName,
-                      valueDataTime,
-                      descriptionTask
-                    );
 
-                    setEditId(id);
-                    setPriorityCreate(priority);
-                    setTaskName(name);
-                    setvalueDataTime(expirationdate);
-                    setDescriptionTask(description);
-                    setPrimaryAssing(assignedto);
-                    setStateCreate(stateTask);
-                    setOpen(true);
-                    setAlertName(false);
+                    const newTask: typeof task = task
+                    newTask.name = name
+                    newTask.id = id
+                    newTask.description = description;
+                    newTask.expirationdate = expirationdate;
+                    newTask.priority = priority
+                    newTask.assignedto = assignedto
+                    newTask.state = "active"
+                    setEdit(true)
+                    setTaskToEdit(newTask)
+                    setOpen(true)
                   }}
                 >
                   <Box id="edit" display="flex" padding={1}>
@@ -297,7 +294,7 @@ export const CardTask = ({
               }
             />
 
-            <Tooltip
+            {/* <Tooltip
               title="Delete task"
               arrow
               children={
@@ -311,10 +308,10 @@ export const CardTask = ({
                   </Box>
                 </Button>
               }
-            />
+            /> */}
           </Box>
         </ClickAwayListener>
-      </Box>
+      </Box >
       <hr />
       {
         //------------------------------------------------------------------------------------------------------------------
@@ -399,6 +396,6 @@ export const CardTask = ({
           }}
         />
       </Box>
-    </Card>
+    </Card >
   );
 };
