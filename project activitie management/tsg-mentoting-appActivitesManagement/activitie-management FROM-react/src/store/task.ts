@@ -7,7 +7,8 @@ interface iTask {
     priority: string,
     description:  string,
     assignedto: string,
-    state: string
+    state: string,
+    isEdit: boolean
 }
 
 const task:iTask = {
@@ -22,6 +23,7 @@ const task:iTask = {
     assignedto: "",
     state: "",
     id: 0,
+    isEdit: false
 }
 
 export default task;

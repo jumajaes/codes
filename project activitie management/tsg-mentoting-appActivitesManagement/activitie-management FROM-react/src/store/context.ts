@@ -28,7 +28,7 @@ export const useStore = create<typeStore>()((set) => ({
 
   tasks: async () => {
     try {
-      const response = await fetch("http://192.168.1.38:4000/allActivities"); //http://192.168.1.38:4000/allActivities
+      const response = await fetch("http://localhost/allActivities"); //http://192.168.1.38:4000/allActivities
       set({ requestUserstoAssing: response.json() });
     } catch (error) {
       console.error("Error al obtener usuarios:", error);

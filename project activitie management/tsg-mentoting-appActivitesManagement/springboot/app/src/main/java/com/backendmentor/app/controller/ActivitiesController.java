@@ -43,7 +43,7 @@ public class ActivitiesController {
     public boolean SetNewActivitie(@RequestBody Activities newActivite) {
         try {
             System.out.println(newActivite.getExpirationdate());
-            activitiesRepository.save(newActivite);
+            activitiesRepository.save(newActivite);     
             return true;
         } catch (Exception e) {
             System.out.println(newActivite.getExpirationdate());

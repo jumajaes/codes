@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import List from "@mui/material/List";
 import { TaskAlt } from "@mui/icons-material";
@@ -11,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useCreateTask } from "./hooks/useCreateTask.ts";
+
 
 export const CreateTask = () => {
   const {
@@ -35,7 +37,7 @@ export const CreateTask = () => {
     alertName,
     handleClick,
     handleClickAway,
-    editId,
+    setEdit,
     edit,
     setEditId,
     setTaskName,
@@ -49,12 +51,10 @@ export const CreateTask = () => {
   } = useCreateTask();
 
   useEffect(() => {
-   
-    setTimeout(() => {
-      console.log("esperando")
+      
       console.log(edit)
-      console.log(taskToEdit)
-      taskToEdit && (() => {
+
+      taskToEdit.isEdit  && (() => {
         setEditId(taskToEdit.id);
         handleClickPriority(taskToEdit.priority);
         setTaskName(taskToEdit.name);
@@ -62,10 +62,10 @@ export const CreateTask = () => {
         setDescriptionTask(taskToEdit.description);
         setPrimaryAssing(taskToEdit.assignedto);
         setStateCreate(taskToEdit.state);
+        taskToEdit.isEdit = false
       })()
-    }, 5000)
-
-  }, [edit])
+      
+    }, [taskToEdit])
 
   return (
     <List component="nav">

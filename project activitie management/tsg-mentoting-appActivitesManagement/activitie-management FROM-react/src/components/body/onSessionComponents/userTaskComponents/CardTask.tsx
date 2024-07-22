@@ -3,7 +3,7 @@ import {
   TaskAlt,
   Cancel,
   BorderColor,
-  DeleteForever,
+  
   Task,
   PriorityHigh,
 } from "@mui/icons-material";
@@ -68,21 +68,7 @@ export const CardTask = ({
   });
 
   const {
-    setOpen,
     setStateCreate,
-    setTaskName,
-    setvalueDataTime,
-    setPrimaryAssing,
-    setEditId,
-    setDescriptionTask,
-    handleClickPriority,
-    edit,
-    primaryAssing,
-    editId,
-    priorityCreate,
-    taskName,
-    valueDataTime,
-    descriptionTask,
     setTaskToEdit,
     setEdit
   } = useCreateTask();
@@ -274,7 +260,6 @@ export const CardTask = ({
                   id="edit"
                   onClick={() => {
                     setEdit(true)
-                    console.log(edit)
                     const newTask: typeof task = task
                     newTask.name = name
                     newTask.id = id
@@ -283,8 +268,8 @@ export const CardTask = ({
                     newTask.priority = priority
                     newTask.assignedto = assignedto
                     newTask.state = state
-                    
-                    //console.log(newTask)
+                    newTask.isEdit = true
+                    console.log(newTask)
                     setTaskToEdit(newTask)
                   }}
                 >

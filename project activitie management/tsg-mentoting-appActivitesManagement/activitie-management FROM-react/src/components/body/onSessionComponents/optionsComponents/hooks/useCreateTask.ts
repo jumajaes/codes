@@ -24,7 +24,7 @@ export const useCreateTask = () => {
   const [allUsers, setAllUsers] = useState<(typeof task)[]>([]);
   const Users = async () => {
     try {
-      const response = await fetch("http://192.168.1.38:4000/allUsers");
+      const response = await fetch("http://localhost:4000/allUsers");
       setAllUsers(await response.json());
     } catch (error) {
       setAllUsers([]);
