@@ -8,13 +8,13 @@ export const useCreateTask = () => {
 
   const { sendRequestNewTask, requestNewTask, setRequestNewTask } = useStore();
   const [ edit, setEdit ]= useState(false);
-  const [taskToEdit, setTaskToEdit] = useState<typeof task | any>({});
-  const [editId, setEditId] = useState(0);
-  const [taskName, setTaskName] = useState<string>("");
-  const [stateCreate, setStateCreate] = useState("");
-  const [priorityCreate, setPriorityCreate] = useState("medium");
-  const [valueDataTime, setvalueDataTime] = useState<string>(new Date().toISOString().split(".")[0]);
-  const [descriptionTask, setDescriptionTask] = useState<string>("");
+  const [taskToEdit, setTaskToEdit] = useState<typeof task >(task);
+  const [editId, setEditId] = useState(taskToEdit.id);
+  const [taskName, setTaskName] = useState<string>(taskToEdit.name);
+  const [stateCreate, setStateCreate] = useState(taskToEdit.state);
+  const [priorityCreate, setPriorityCreate] = useState(taskToEdit.priority);
+  const [valueDataTime, setvalueDataTime] = useState<string>(taskToEdit.expirationdate.split(".")[0]);
+  const [descriptionTask, setDescriptionTask] = useState<string>(taskToEdit.description);
   const [primaryAssing, setPrimaryAssing] = useState<string>("Select to an User");
 
   const [openAssingTo, setOpenAssingTo] = useState<boolean>(false);
@@ -77,6 +77,7 @@ export const useCreateTask = () => {
   };
   const handleClickAway = (event) => {
     setRequestNewTask(false);
+   
     event.target.outerHTML ===
       '<path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path>' ||
       event.target.outerHTML ===

@@ -16,7 +16,7 @@ const task:iTask = {
         console.log("hola edit")
     },
     name: "",
-    expirationdate: "",
+    expirationdate: new Date().toISOString().split(".")[0],
     priority: "",
     description: "",
     assignedto: "",

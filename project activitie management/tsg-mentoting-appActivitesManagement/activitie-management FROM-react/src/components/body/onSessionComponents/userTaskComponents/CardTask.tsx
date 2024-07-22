@@ -76,7 +76,7 @@ export const CardTask = ({
     setEditId,
     setDescriptionTask,
     handleClickPriority,
-
+    edit,
     primaryAssing,
     editId,
     priorityCreate,
@@ -273,7 +273,8 @@ export const CardTask = ({
                   color="secondary"
                   id="edit"
                   onClick={() => {
-
+                    setEdit(true)
+                    console.log(edit)
                     const newTask: typeof task = task
                     newTask.name = name
                     newTask.id = id
@@ -281,10 +282,10 @@ export const CardTask = ({
                     newTask.expirationdate = expirationdate;
                     newTask.priority = priority
                     newTask.assignedto = assignedto
-                    newTask.state = "active"
-                    setEdit(true)
+                    newTask.state = state
+                    
+                    //console.log(newTask)
                     setTaskToEdit(newTask)
-                    setOpen(true)
                   }}
                 >
                   <Box id="edit" display="flex" padding={1}>
