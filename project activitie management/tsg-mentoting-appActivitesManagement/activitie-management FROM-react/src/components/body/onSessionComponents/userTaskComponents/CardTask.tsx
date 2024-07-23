@@ -70,7 +70,8 @@ export const CardTask = ({
   const {
     setStateCreate,
     setTaskToEdit,
-    setEdit
+    setEdit,
+    setAlertName
   } = useCreateTask();
 
   useEffect(() => {
@@ -140,6 +141,8 @@ export const CardTask = ({
     state,
     stateTask,
   ]);
+
+  
 
   return (
     <Card
@@ -263,14 +266,15 @@ export const CardTask = ({
                     const newTask: typeof task = task
                     newTask.name = name
                     newTask.id = id
-                    newTask.description = description;
-                    newTask.expirationdate = expirationdate;
+                    newTask.description = description
+                    newTask.expirationdate = expirationdate
                     newTask.priority = priority
                     newTask.assignedto = assignedto
-                    newTask.state = state
+                    newTask.state = stateTask
                     newTask.isEdit = true
                     console.log(newTask)
                     setTaskToEdit(newTask)
+                    setAlertName(false)
                   }}
                 >
                   <Box id="edit" display="flex" padding={1}>

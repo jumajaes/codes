@@ -37,35 +37,34 @@ export const CreateTask = () => {
     alertName,
     handleClick,
     handleClickAway,
-    setEdit,
-    edit,
+    setAlertName,
     setEditId,
     setTaskName,
     setvalueDataTime,
     setDescriptionTask,
     setStateCreate,
     taskToEdit,
-    setAlertName,
     setRequestNewTask,
     setOpen
   } = useCreateTask();
 
   useEffect(() => {
-      
-      console.log(edit)
 
-      taskToEdit.isEdit  && (() => {
-        setEditId(taskToEdit.id);
-        handleClickPriority(taskToEdit.priority);
-        setTaskName(taskToEdit.name);
-        setvalueDataTime(taskToEdit.expirationdate);
-        setDescriptionTask(taskToEdit.description);
-        setPrimaryAssing(taskToEdit.assignedto);
-        setStateCreate(taskToEdit.state);
-        taskToEdit.isEdit = false
-      })()
-      
-    }, [taskToEdit])
+    console.log(taskToEdit.isEdit)
+    if (taskToEdit.isEdit) {
+      setEditId(taskToEdit.id)
+      handleClickPriority(taskToEdit.priority)
+      setTaskName(taskToEdit.name)
+      setvalueDataTime(taskToEdit.expirationdate)
+      setDescriptionTask(taskToEdit.description)
+      setPrimaryAssing(taskToEdit.assignedto)
+      setStateCreate(taskToEdit.state)
+      taskToEdit.isEdit = false
+    }
+
+      setAlertName(false)
+
+    }, [taskToEdit, taskToEdit.id, taskToEdit.state, setAlertName])
 
   return (
     <List component="nav">
@@ -83,19 +82,28 @@ export const CreateTask = () => {
         <ClickAwayListener onClickAway={() => {
           setRequestNewTask(false)
           setOpen(false)
+          setEditId(0)
+          handleClickPriority("")
+          setTaskName("")
+          setvalueDataTime(new Date().toISOString().split(".")[0])
+          setDescriptionTask("")
+          setPrimaryAssing("Select an User")
+          setStateCreate("")
+          taskToEdit.id = 0
+          taskToEdit.isEdit = false
         }}>
           <Alert
             sx={{
+              fontSize: "20px",
               position: "absolute",
-              opacity: 0.5,
               top: "110%",
-              left: "-50%",
+              left: "-45%",
               zIndex: 3,
               alignItems: "center",
               minWidth: "350px"
             }} severity="success"
           >
-            ¡It's gread!, this is success task created.
+            ¡It's gread!, this is success.
           </Alert>
         </ClickAwayListener>
         :
@@ -103,11 +111,12 @@ export const CreateTask = () => {
 
           sx={{
             width: "2400px",
+            height: "1000px",
             position: "absolute",
             left: "-690%",
             zIndex: 5,
             justifyContent: "center",
-            backgroundColor: "rgba(89, 199, 255, 0.75)",
+            backgroundColor: "rgba(0, 0, 0, 0.75)",
 
           }}
           justifyContent="center"

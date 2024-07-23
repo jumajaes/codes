@@ -7,8 +7,8 @@ export const useCreateTask = () => {
   const [backGroundColor, setBackGroundColor] = useState("#2196f3");
 
   const { sendRequestNewTask, requestNewTask, setRequestNewTask } = useStore();
-  const [ edit, setEdit ]= useState(false);
-  const [taskToEdit, setTaskToEdit] = useState<typeof task >(task);
+  const [edit, setEdit] = useState(false);
+  const [taskToEdit, setTaskToEdit] = useState<typeof task>(task);
   const [editId, setEditId] = useState(taskToEdit.id);
   const [taskName, setTaskName] = useState<string>(taskToEdit.name);
   const [stateCreate, setStateCreate] = useState(taskToEdit.state);
@@ -56,6 +56,15 @@ export const useCreateTask = () => {
     setAlert(false)
   };
   const handleClick = async () => {
+    setEditId(0)
+    handleClickPriority("")
+    setTaskName("")
+    setvalueDataTime(new Date().toISOString().split(".")[0])
+    setDescriptionTask("")
+    setPrimaryAssing("Select an User")
+    setStateCreate("")
+    taskToEdit.id = 0
+    taskToEdit.isEdit = false
     await Users();
     setAlertName(false);
     setAlert(false);
@@ -77,7 +86,7 @@ export const useCreateTask = () => {
   };
   const handleClickAway = (event) => {
     setRequestNewTask(false);
-   
+
     event.target.outerHTML ===
       '<path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path>' ||
       event.target.outerHTML ===
@@ -86,8 +95,9 @@ export const useCreateTask = () => {
       '<div class="MuiBox-root css-1ckupud" id="edit"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1fxs7k2-MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BorderColorIcon" id="edit"><path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path></svg></div>' ||
       event.target.outerHTML ===
       '<button class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSecondary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorSecondary MuiButton-root MuiButton-text MuiButton-textSecondary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorSecondary css-1d3f8j8-MuiButtonBase-root-MuiButton-root" tabindex="0" type="button" aria-label="EDIT" id="edit" data-mui-internal-clone-element="true"><div class="MuiBox-root css-1ckupud" id="edit"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1fxs7k2-MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BorderColorIcon" id="edit"><path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path></svg></div><span class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"><span class="css-y4cjyz-MuiTouchRipple-ripple MuiTouchRipple-ripple MuiTouchRipple-rippleVisible" style="width: 154.932px; height: 154.932px; top: -70.4661px; left: -72.4661px;"><span class="MuiTouchRipple-child MuiTouchRipple-childLeaving"></span></span></span></button>'
-      ? setOpen(true)
+      ? setOpen(true) 
       : setOpen(false);
+
   };
   const createTask = async () => {
     const newTask: typeof task = task;
@@ -96,14 +106,16 @@ export const useCreateTask = () => {
     newTask.expirationdate = valueDataTime;
     newTask.priority = priorityCreate;
     newTask.assignedto = primaryAssing;
-    newTask.state = "active";
+    newTask.state = stateCreate;
+    console.log(newTask.state)
     await sendRequestNewTask(newTask);
     setTimeout(() => {
-      !requestNewTask && (() => {
+       !requestNewTask && (() => {
         setOpen(true);
         setAlertName(true);
       })();
     }, 2000)
+    setEditId(0)
   }
   return {
     backGroundColor,

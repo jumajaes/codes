@@ -21,9 +21,9 @@ const task:iTask = {
     priority: "",
     description: "",
     assignedto: "",
-    state: "",
+    state: "active",
     id: 0,
-    isEdit: false
+    isEdit: true
 }
 
 export default task;

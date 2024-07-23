@@ -55,13 +55,7 @@ public class ActivitiesController {
     public boolean updateActivite(@PathVariable Integer id, @RequestBody Activities activitieToUpdate) {
         try {
             Activities update = activitiesRepository.findById(id).get();
-            update.setName(activitieToUpdate.getName());
-            update.setDescription(activitieToUpdate.getDescription());
-            update.setExpirationdate(activitieToUpdate.getExpirationdate());
-            update.setPriority(activitieToUpdate.getPriority());
             update.setState(activitieToUpdate.getState());
-            update.setAssignedto(activitieToUpdate.getAssignedto());
-            
             activitiesRepository.save(update);
             return true;
         } catch (Exception e) {
