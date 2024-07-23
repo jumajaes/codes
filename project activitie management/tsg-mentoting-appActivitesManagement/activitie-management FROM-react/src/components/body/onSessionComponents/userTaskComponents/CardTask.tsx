@@ -71,7 +71,8 @@ export const CardTask = ({
     setStateCreate,
     setTaskToEdit,
     setEdit,
-    setAlertName
+    setAlertName,
+    taskToEdit
   } = useCreateTask();
 
   useEffect(() => {
@@ -87,7 +88,7 @@ export const CardTask = ({
       new Date(expirationDateTask.split(".")[0]) < new Date() &&
       setState("expirated");
 
-    stateTask === "active" &&
+    (stateTask === "active" || stateTask === "" )&&
       (() => {
         setColorState("primary");
         setColorFondo("#e1e7f8");
@@ -202,6 +203,7 @@ export const CardTask = ({
                 onClick={() => {
                   setOpenCardTask(!openCardTask);
                   setState("active");
+                  taskToEdit.state = "active"
                 }}
               >
                 <Box
@@ -220,6 +222,7 @@ export const CardTask = ({
                 onClick={() => {
                   setOpenCardTask(!openCardTask);
                   setState("completed");
+                  taskToEdit.state = "completed"
                 }}
               >
                 <Box
@@ -238,6 +241,7 @@ export const CardTask = ({
                 onClick={() => {
                   setOpenCardTask(!openCardTask);
                   setState("canceled");
+                  taskToEdit.state = "canceled"
                 }}
               >
                 <Box

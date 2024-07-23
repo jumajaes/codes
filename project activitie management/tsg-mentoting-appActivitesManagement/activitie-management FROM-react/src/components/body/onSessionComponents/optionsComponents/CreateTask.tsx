@@ -148,7 +148,7 @@ export const CreateTask = () => {
                   sx={{ marginTop: "25px", minWidth: "290px" }}
                 />
                 <Box
-                  display={requestNewTask === false && alertName === true ? "flex" : "none"}
+                  display={alertName === true ? "flex" : "none"}
                   justifyContent={"center"}
                   margin={1}
                 >

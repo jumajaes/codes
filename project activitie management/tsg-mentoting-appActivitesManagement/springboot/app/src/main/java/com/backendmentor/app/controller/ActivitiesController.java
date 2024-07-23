@@ -42,7 +42,9 @@ public class ActivitiesController {
     @PostMapping("/newActivitie")
     public boolean SetNewActivitie(@RequestBody Activities newActivite) {
         try {
-            System.out.println(newActivite.getExpirationdate());
+            if (newActivite.getState() == ""){
+                newActivite.setState("active");
+            }
             activitiesRepository.save(newActivite);     
             return true;
         } catch (Exception e) {
