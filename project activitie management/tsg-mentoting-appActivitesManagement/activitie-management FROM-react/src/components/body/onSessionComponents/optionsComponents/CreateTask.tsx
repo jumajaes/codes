@@ -7,12 +7,10 @@ import {
   Box,
   Button,
   ClickAwayListener,
-
   TextField,
   Typography,
 } from "@mui/material";
 import { useCreateTask } from "./hooks/useCreateTask.ts";
-
 
 export const CreateTask = () => {
   const {
@@ -45,32 +43,36 @@ export const CreateTask = () => {
     setStateCreate,
     taskToEdit,
     setRequestNewTask,
-    setOpen
+    setOpen,
+    setAlert,
   } = useCreateTask();
 
   useEffect(() => {
-
-    console.log(taskToEdit.isEdit)
+    console.log(taskToEdit.isEdit);
     if (taskToEdit.isEdit) {
-      setEditId(taskToEdit.id)
-      handleClickPriority(taskToEdit.priority)
-      setTaskName(taskToEdit.name)
-      setvalueDataTime(taskToEdit.expirationdate)
-      setDescriptionTask(taskToEdit.description)
-      setPrimaryAssing(taskToEdit.assignedto)
-      setStateCreate(taskToEdit.state)
-      taskToEdit.isEdit = false
+      setEditId(taskToEdit.id);
+      handleClickPriority(taskToEdit.priority);
+      setTaskName(taskToEdit.name);
+      setvalueDataTime(taskToEdit.expirationdate);
+      setDescriptionTask(taskToEdit.description);
+      setPrimaryAssing(taskToEdit.assignedto);
+      setStateCreate(taskToEdit.state);
+      taskToEdit.isEdit = false;
     }
 
-      setAlertName(false)
-
-    }, [taskToEdit, taskToEdit.id, taskToEdit.state, setAlertName])
+    setAlertName(false);
+  }, [taskToEdit, taskToEdit.id, taskToEdit.state, setAlertName]);
 
   return (
     <List component="nav">
       <Button
         variant={open ? "text" : "outlined"}
-        sx={{ zIndex: 2, fontSize: 20, justifyContent: "center", color: "#59c7ff" }}
+        sx={{
+          zIndex: 2,
+          fontSize: 20,
+          justifyContent: "center",
+          color: "#59c7ff",
+        }}
         onClick={handleClick}
       >
         <TaskAlt />
@@ -78,20 +80,22 @@ export const CreateTask = () => {
           Create new Task
         </Typography>
       </Button>
-      {requestNewTask ?
-        <ClickAwayListener onClickAway={() => {
-          setRequestNewTask(false)
-          setOpen(false)
-          setEditId(0)
-          handleClickPriority("")
-          setTaskName("")
-          setvalueDataTime(new Date().toISOString().split(".")[0])
-          setDescriptionTask("")
-          setPrimaryAssing("Select an User")
-          setStateCreate("")
-          taskToEdit.id = 0
-          taskToEdit.isEdit = false
-        }}>
+      {requestNewTask ? (
+        <ClickAwayListener
+          onClickAway={() => {
+            setRequestNewTask(false);
+            setOpen(false);
+            setEditId(0);
+            handleClickPriority("");
+            setTaskName("");
+            setvalueDataTime(new Date().toISOString().split(".")[0]);
+            setDescriptionTask("");
+            setPrimaryAssing("Select an User");
+            setStateCreate("");
+            taskToEdit.id = 0;
+            taskToEdit.isEdit = false;
+          }}
+        >
           <Alert
             sx={{
               fontSize: "20px",
@@ -100,91 +104,101 @@ export const CreateTask = () => {
               left: "-45%",
               zIndex: 3,
               alignItems: "center",
-              minWidth: "350px"
-            }} severity="success"
+              minWidth: "350px",
+            }}
+            severity="success"
           >
             ¡It's gread!, this is success.
           </Alert>
         </ClickAwayListener>
-        :
-        <Box display={open ? "flex" : "none"}
-
+      ) : (
+        <Box
+          display={open ? "flex" : "none"}
           sx={{
-            width: "2400px",
-            height: "1000px",
-            position: "absolute",
-            left: "-690%",
-            zIndex: 5,
-            justifyContent: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.75)",
-
+            width: "1800px",
+            zIndex: 3,
+            backgroundColor: "rgba(0, 0, 0, 0.60)",
           }}
           justifyContent="center"
         >
           <ClickAwayListener onClickAway={handleClickAway}>
-            <Box sx={{ opacity: 1 }}>
+            <Box
+              display={open ? "flex" : "none"}
+              flexDirection={"column"}
+              padding="15px"
+              // overflow={"scroll"}
+              boxShadow={10}
+              sx={{
+                zIndex: 6,
+                alignItems: "center",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                border: 1,
+
+                maxHeight: { xs: "650px", md: "max-content" },
+                maxWidth: { xs: "520px", md: "700px" },
+              }}
+            >
               <Box
-                display={open ? "flex" : "none"}
-                flexDirection={"column"}
-                minWidth="315px"
-                maxWidth="460px"
-                maxHeight="640px"
-
-                sx={{
-                  zIndex: 6,
-                  alignItems: "center",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  border: 1,
-
-                }}
-                justifyContent="center"
+                display="flex"
+                justifyContent={"space-between"}
+                padding={1}
+                sx={{ flexDirection: { xs: "column", md: "row" } }}
               >
                 <TextField
-                  label={"Name here"}
+                  label={"Name:"}
                   value={taskName}
                   variant="filled"
                   onChange={handleOnChangeName}
-                  sx={{ marginTop: "25px", minWidth: "290px" }}
+                  sx={{ margin: "5px", minWidth: "290px" }}
                 />
-                <Box
-                  display={alertName === true ? "flex" : "none"}
-                  justifyContent={"center"}
-                  margin={1}
-                >
-                  <Alert severity="error">This name already exists</Alert>
-                </Box>
-                <br />
 
                 <TextField
                   label="Expiration Date:"
                   type="datetime-local"
                   variant="filled"
-                  sx={{ minWidth: "290px" }}
+                  sx={{ margin: "5px", minWidth: "290px" }}
                   onChange={handleOnChangeDate}
                   value={valueDataTime.split(".")[0]}
                 />
+              </Box>
+              <Box
+                display={alertName === true ? "flex" : "none"}
+                justifyContent={"center"}
+                margin={1}
+              >
+                <Alert severity="error">This name already exists</Alert>
+              </Box>
+              <Box
+                display="flex"
+                justifyContent={"center"}
+                sx={{ flexDirection: { xs: "column", md: "row" } }}
+              >
                 <ClickAwayListener
                   onClickAway={() => {
                     setOpenAssingTo(false);
                   }}
                 >
                   <Box
-                    borderRadius="10px"
-                    minWidth={"290px"}
+                    minWidth={"250px"}
                     sx={{
-                      zIndex: 7,
+                      zIndex: 10,
                       display: "flex",
-                      margin: 3,
-                      alignContent: "center",
+                      padding: 1,
+                      margin: 1,
+                      border: 1,
+                      borderRadius: "10px",
                       flexDirection: "column",
                     }}
                   >
-                    <Typography fontSize={13}>{"Assing to: "}</Typography>
+                    <Typography fontSize={13} align="center">
+                      Assing to:
+                    </Typography>
                     <Button
                       onClick={handleClickAssingTo}
                       variant="outlined"
                       sx={{
+                        color: "black",
                         backgroundColor: "white",
                         borderRadius: "10px",
                       }}
@@ -194,6 +208,7 @@ export const CreateTask = () => {
                           textTransform: "capitalize",
                           color: "black",
                           fontSize: "13px",
+                          minWidth: "240px",
                         }}
                       >
                         {primaryAssing}
@@ -203,15 +218,14 @@ export const CreateTask = () => {
                       display={openAssingTo ? "flex" : "none"}
                       position={"absolute"}
                       flexDirection={"column"}
-                      overflow={"scroll"}
+                      overflow={"auto"}
                       justifyContent={"center"}
                       sx={{
-
                         backgroundColor: "white",
                         borderRadius: "10px",
                         border: 2,
                         zIndex: 7,
-                        paddingTop: 1,
+                        padding: 1,
                       }}
                     >
                       {allUsers.map((option, i) => {
@@ -220,14 +234,14 @@ export const CreateTask = () => {
                             key={i}
                             sx={{
                               borderBottom: 1,
+                              padding: 1,
 
                               display:
                                 option.name === primaryAssing ? "none" : "flex",
                               direction: "colum",
                               justifyContent: "center",
-                              borderRadius: "18px",
                             }}
-                            minWidth={"290px"}
+                            minWidth={"250px"}
                             onClick={() => {
                               setPrimaryAssing(option.name);
                               setOpenAssingTo(!openAssingTo);
@@ -247,84 +261,92 @@ export const CreateTask = () => {
                     </Box>
                   </Box>
                 </ClickAwayListener>
-                <Typography align="left" fontSize={13}>Priority:</Typography>
+
                 <Box
                   sx={{
                     display: "flex",
-                    justifyContent: "space-between",
+                    flexDirection: "column",
+                    border: 1,
                     padding: 1,
-                    marginBottom: 2,
+                    margin: 1,
+                    borderRadius: "10px",
                     minWidth: "290px",
                   }}
                 >
-                  <Button
-                    sx={{ borderRadius: 1 }}
-                    variant={priorityCreate === "high" ? "contained" : "text"}
-                    onClick={() => {
-                      handleClickPriority("high");
-                    }}
-                  >
-                    HIGH
-                  </Button>
-                  <Button
-                    sx={{ borderRadius: 1 }}
-                    variant={priorityCreate === "medium" ? "contained" : "text"}
-                    onClick={() => {
-                      handleClickPriority("medium");
-                    }}
-                  >
-                    MEDIUM
-                  </Button>
-                  <Button
-                    sx={{ borderRadius: 1 }}
-                    variant={priorityCreate === "low" ? "contained" : "text"}
-                    onClick={() => {
-                      handleClickPriority("low");
-                    }}
-                  >
-                    LOW
-                  </Button>
+                  <Typography align="center" fontSize={13}>
+                    Priority:
+                  </Typography>
+                  <Box display="flex" justifyContent="center">
+                    <Button
+                      sx={{ borderRadius: 1 }}
+                      variant={priorityCreate === "high" ? "contained" : "text"}
+                      onClick={() => {
+                        handleClickPriority("high");
+                      }}
+                    >
+                      HIGH
+                    </Button>
+                    <Button
+                      sx={{ borderRadius: 1 }}
+                      variant={
+                        priorityCreate === "medium" ? "contained" : "text"
+                      }
+                      onClick={() => {
+                        handleClickPriority("medium");
+                      }}
+                    >
+                      MEDIUM
+                    </Button>
+                    <Button
+                      sx={{ borderRadius: 1 }}
+                      variant={priorityCreate === "low" ? "contained" : "text"}
+                      onClick={() => {
+                        handleClickPriority("low");
+                      }}
+                    >
+                      LOW
+                    </Button>
+                  </Box>
                 </Box>
-                <TextField
-                  required
-                  label="Description..."
-                  multiline={true}
-                  maxRows={6}
-                  sx={{ minWidth: "290px" }}
-                  onChange={handleOnChangeDescription}
-                  value={descriptionTask}
-                  minRows={6}
-                />
-                <Box
-                  display={alert ? "flex" : "none"}
-                  justifyContent={"center"}
-                  margin={2}
-                >
-                  <Alert severity="error">Todos los campos son obligatorios.</Alert>
-                </Box>
-                <Button
-                  key={"butonCreate"}
-                  size="large"
-                  variant="contained"
-                  sx={{
-                    marginY: 2,
-                    display: !alert ? "" : "none",
-                    zIndex: 7,
-                    justifyContent: "center",
-                    width: "120px",
-                  }}
-                  onClick={() => {
-                    fxVlidate();
-                    setAlertName(false);
-                  }}
-                >
-                  Crear
-                </Button>
               </Box>
+              <TextField
+                label="Description:"
+                multiline={true}
+                maxRows={3}
+                sx={{ minWidth: { md: "95%", xs: "290px" }, marginTop: 2 }}
+                onChange={handleOnChangeDescription}
+                value={descriptionTask}
+                minRows={3}
+              />
+              <Box
+                display={alert ? "flex" : "none"}
+                justifyContent={"center"}
+                margin={2}
+              >
+                <Alert severity="error">All data are required</Alert>
+              </Box>
+              <Button
+                key={"butonCreate"}
+                size="large"
+                variant="contained"
+                sx={{
+                  marginY: 2,
+                  display: alert === false || alertName === false ? "" : "none",
+                  justifyContent: "center",
+                  width: "120px",
+                }}
+                onClick={() => {
+                  setAlert(false);
+                  fxVlidate();
+                  setAlertName(false);
+                }}
+              >
+                Save
+              </Button>
             </Box>
           </ClickAwayListener>
         </Box>
-      }
+      )}
     </List>
   );
 };

@@ -150,7 +150,7 @@ export const CardTask = ({
       sx={{
         maxWidth: 500,
         minWidth: 310,
-        boxShadow: 20,
+        boxShadow: 5,
         borderRadius: "10px",
         padding: 2,
       }}
@@ -282,7 +282,7 @@ export const CardTask = ({
                   }}
                 >
                   <Box id="edit" display="flex" padding={1}>
-                    <BorderColor sx={{ zIndex: 0 }} id="edit" />
+                    <BorderColor sx={{ zIndex: 0}} color="primary" />
                   </Box>
                 </Button>
               }
@@ -312,7 +312,7 @@ export const CardTask = ({
       }
       <Box sx={{ maxWidth: "265px", minWidth: "265px" }}>
         <Typography variant="h6" align="left" fontSize={13}>
-          Name...
+          Name:
         </Typography>
         <Typography variant="h5" maxWidth={290} marginBottom={2}>
           {titleTask}
@@ -327,7 +327,7 @@ export const CardTask = ({
         >
           <hr />
           <Typography variant="h6" fontSize={14} margin={1}>
-            ID TASK: {idTask}
+            ID Task: {idTask}
           </Typography>
           <TextField
             label="Expiration Date:"
@@ -342,7 +342,7 @@ export const CardTask = ({
             disabled
           />
           <Typography fontSize={10} color={"black"} margin={1} maxWidth="75px">
-            ASSINGNED TO:
+            Assingned to:
           </Typography>
           <Typography fontSize={15} align="center" color={"black"} margin={1}>
             {assignToTask}
@@ -358,7 +358,7 @@ export const CardTask = ({
         width="270px"
       >
         <Typography variant="h6" align="left" fontSize={15}>
-          Priority...
+          Priority:
         </Typography>
 
         <Typography
@@ -380,7 +380,6 @@ export const CardTask = ({
           maxRows={5}
           minRows={5}
           value={descriptionTaskCard}
-          // onChange={handleOnChangeDescription}
           sx={{
             margin: "1px",
             maxWidth: "270px",

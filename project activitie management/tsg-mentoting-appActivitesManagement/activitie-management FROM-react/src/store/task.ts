@@ -18,7 +18,7 @@ const task:iTask = {
     },
     name: "",
     expirationdate: new Date().toISOString().split(".")[0],
-    priority: "",
+    priority: "medium",
     description: "",
     assignedto: "",
     state: "active",
