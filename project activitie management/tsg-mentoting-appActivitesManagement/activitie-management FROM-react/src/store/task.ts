@@ -23,7 +23,7 @@ const task:iTask = {
     assignedto: "",
     state: "active",
     id: 0,
-    isEdit: true
+    isEdit: false
 }
 
 export default task;

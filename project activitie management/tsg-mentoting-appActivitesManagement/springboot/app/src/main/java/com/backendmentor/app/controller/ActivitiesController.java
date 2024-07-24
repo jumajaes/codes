@@ -3,6 +3,7 @@ package com.backendmentor.app.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,7 +30,7 @@ public class ActivitiesController {
         try {
             return activitiesRepository.findAll();
         } catch (Exception e) {
-           
+
             return new ArrayList<>();
         }
     }
@@ -42,10 +43,10 @@ public class ActivitiesController {
     @PostMapping("/newActivitie")
     public boolean SetNewActivitie(@RequestBody Activities newActivite) {
         try {
-            if (newActivite.getState() == ""){
+            if (newActivite.getState() == "") {
                 newActivite.setState("active");
             }
-            activitiesRepository.save(newActivite);     
+            activitiesRepository.save(newActivite);
             return true;
         } catch (Exception e) {
             System.out.println(newActivite.getExpirationdate());
@@ -53,36 +54,23 @@ public class ActivitiesController {
         }
     }
 
-    @PutMapping("/updateActivitie/{id} ")
-    public boolean updateActivite(@PathVariable Integer id, @RequestBody Activities activitieToUpdate) {
-        try {
-            Activities update = activitiesRepository.findById(id).get();
-            update.setState(activitieToUpdate.getState());
-            activitiesRepository.save(update);
-            return true;
-        } catch (Exception e) {
+    @PutMapping("/updateStateActivitie/{id}")
+    public boolean updateActivite(@PathVariable Integer id, @RequestBody String updateState) {
+        Optional<Activities> updateOp = activitiesRepository.findById(id);
+        if (updateOp.isPresent()) {
+            try {
+                Activities update = updateOp.get();
+                update.setState(updateState);
+                activitiesRepository.save(update);
+                return true;
+            } catch (Exception e) {
+                System.out.println("Ocurrió un error al actualizar la actividad: " + e.getMessage());
+                return false;
+            }
+        } else {
+            System.out.println("No se encontró la actividad con id " + id + ".");
             return false;
         }
-
-    }
-
-    @PutMapping("/updateStateActivitie/{id} ")
-    public boolean updateStateUser(@PathVariable Integer id, @RequestBody Activities activitieToUpdate) {
-        try {
-            Activities update = activitiesRepository.findById(id).get();
-            update.setName(activitieToUpdate.getName());
-            update.setDescription(activitieToUpdate.getDescription());
-            update.setExpirationdate(activitieToUpdate.getExpirationdate());
-            update.setPriority(activitieToUpdate.getPriority());
-            update.setState(activitieToUpdate.getState());
-            update.setAssignedto(activitieToUpdate.getAssignedto());
-            
-            activitiesRepository.save(update);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-
     }
 
     @DeleteMapping("/deleteActivitie/{id}")

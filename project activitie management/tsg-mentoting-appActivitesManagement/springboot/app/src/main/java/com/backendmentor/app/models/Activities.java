@@ -96,6 +96,4 @@ public class Activities {
         this.assignedto = assignedto;
     }
 
-    //--------------------------------
-       
 }

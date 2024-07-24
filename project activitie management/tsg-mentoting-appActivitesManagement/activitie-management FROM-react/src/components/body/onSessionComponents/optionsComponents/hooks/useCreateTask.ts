@@ -31,11 +31,11 @@ export const useCreateTask = () => {
     }
   };
   const fxVlidate = () => {
-    taskName.length !== 0 &&
+    taskName.trim().length !== 0 &&
       priorityCreate.length !== 0 &&
-      descriptionTask.length !== 0 &&
+      descriptionTask.trim().length !== 0 &&
       primaryAssing.length !== 0 &&
-      primaryAssing !== "Select to an User"
+      primaryAssing !== "Select an User"
       ? (() => {
         setAlertName(false);
         createTask()
@@ -111,7 +111,6 @@ export const useCreateTask = () => {
     await sendRequestNewTask(newTask);
     setTimeout(() => {
        !requestNewTask && (() => {
-        setOpen(true);
         setAlertName(true);
       })();
     }, 2000)

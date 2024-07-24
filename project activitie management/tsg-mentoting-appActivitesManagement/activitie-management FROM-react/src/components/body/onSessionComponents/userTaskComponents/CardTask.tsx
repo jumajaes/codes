@@ -3,7 +3,6 @@ import {
   TaskAlt,
   Cancel,
   BorderColor,
-  
   Task,
   PriorityHigh,
 } from "@mui/icons-material";
@@ -21,6 +20,7 @@ import React, { useEffect } from "react";
 import { useCardTask } from "./hooks/useCardTask.ts";
 import useCreateTask from "../optionsComponents/hooks/useCreateTask.ts";
 import task from "../../../../store/task.ts";
+import { useStore } from "../../../../store/context.ts";
 
 export const CardTask = ({
   id,
@@ -67,13 +67,10 @@ export const CardTask = ({
     assignedto,
   });
 
-  const {
-    setStateCreate,
-    setTaskToEdit,
-    setEdit,
-    setAlertName,
-    taskToEdit
-  } = useCreateTask();
+  const { setStateCreate, setTaskToEdit, setEdit, setAlertName, setOpen } =
+    useCreateTask();
+
+  const { sendNewState, editStore } = useStore();
 
   useEffect(() => {
     setTitle(name);
@@ -88,7 +85,7 @@ export const CardTask = ({
       new Date(expirationDateTask.split(".")[0]) < new Date() &&
       setState("expirated");
 
-    (stateTask === "active" || stateTask === "" )&&
+    (stateTask === "active" || stateTask === "") &&
       (() => {
         setColorState("primary");
         setColorFondo("#e1e7f8");
@@ -116,8 +113,8 @@ export const CardTask = ({
     priorityCardTask === "medium"
       ? setBackGroundColor("#2196f3")
       : priorityCardTask === "high"
-        ? setBackGroundColor("#ffc107")
-        : setBackGroundColor("#9E9E9E");
+      ? setBackGroundColor("#ffc107")
+      : setBackGroundColor("#9E9E9E");
   }, [
     assignedto,
     description,
@@ -141,23 +138,25 @@ export const CardTask = ({
     setTitle,
     state,
     stateTask,
+    sendNewState,
+    setEdit,
+    editStore,
   ]);
-
-  
 
   return (
     <Card
       sx={{
         maxWidth: 500,
         minWidth: 310,
+        maxHeight: 625,
         boxShadow: 5,
         borderRadius: "10px",
         padding: 2,
       }}
     >
-      <Box display={"flex"} justifyContent="center" >
+      <Box display={"flex"} justifyContent="center">
         <ClickAwayListener onClickAway={handleClickAway}>
-          <Box display={"flex"} justifyContent="space-between">
+          <Box display={"flex"} justifyContent="flex-start">
             <Tooltip
               title={
                 stateTask === "expirated"
@@ -170,9 +169,11 @@ export const CardTask = ({
                   color={colorState}
                   sx={{
                     borderRadius: "10px",
-                    padding: "5px",
+                    padding: "1px",
                     margin: "10px",
-                    minWidth: "120px",
+                    minWidth: "100px",
+                    textTransform: "capitalize",
+                    fontSize: "15px",
                   }}
                   variant={openCardTask ? "text" : "contained"}
                   onClick={() => {
@@ -180,18 +181,18 @@ export const CardTask = ({
                   }}
                 >
                   {stateTask}
-                  {iconState}
                 </Button>
               }
             />
             <Box
-              display={openCardTask ? "flex-box" : "none"}
+              display={openCardTask ? "flex" : "none"}
               position={"absolute"}
-              minWidth={250}
-              maxWidth={255}
+              minWidth={100}
               sx={{
+                flexDirection: "column",
+                top: "45%",
                 backgroundColor: "white",
-                zIndex: 3,
+                zIndex: 2,
                 border: 1,
                 borderRadius: "10px",
                 justifyContent: "space-between",
@@ -203,7 +204,8 @@ export const CardTask = ({
                 onClick={() => {
                   setOpenCardTask(!openCardTask);
                   setState("active");
-                  taskToEdit.state = "active"
+                  // taskToEdit.state = "active"
+                  sendNewState(id, "active");
                 }}
               >
                 <Box
@@ -211,9 +213,13 @@ export const CardTask = ({
                   borderRadius={"10px"}
                   display="flex"
                   padding={1}
+                  minWidth={"60px"}
                 >
-                  <Typography>active</Typography>
-                  <Task />
+                  <Typography
+                    sx={{ textTransform: "capitalize", fontSize: "15px" }}
+                  >
+                    active
+                  </Typography>
                 </Box>
               </IconButton>
               <IconButton
@@ -222,7 +228,8 @@ export const CardTask = ({
                 onClick={() => {
                   setOpenCardTask(!openCardTask);
                   setState("completed");
-                  taskToEdit.state = "completed"
+                  // taskToEdit.state = "completed"
+                  sendNewState(id, "completed");
                 }}
               >
                 <Box
@@ -231,8 +238,12 @@ export const CardTask = ({
                   display="flex"
                   padding={1}
                 >
-                  <Typography>completed</Typography>
-                  <TaskAlt />
+                  <Typography
+                    sx={{ textTransform: "capitalize", fontSize: "15px" }}
+                  >
+                    completed
+                  </Typography>
+                  
                 </Box>
               </IconButton>
               <IconButton
@@ -241,7 +252,8 @@ export const CardTask = ({
                 onClick={() => {
                   setOpenCardTask(!openCardTask);
                   setState("canceled");
-                  taskToEdit.state = "canceled"
+                  // taskToEdit.state = "canceled"
+                  sendNewState(id, "canceled");
                 }}
               >
                 <Box
@@ -250,8 +262,12 @@ export const CardTask = ({
                   display="flex"
                   padding={1}
                 >
-                  <Typography>canceled</Typography>
-                  <Cancel />
+                  <Typography
+                    sx={{ textTransform: "capitalize", fontSize: "15px"}}
+                  >
+                    canceled
+                  </Typography>
+                  
                 </Box>
               </IconButton>
             </Box>
@@ -266,23 +282,26 @@ export const CardTask = ({
                   color="secondary"
                   id="edit"
                   onClick={() => {
-                    setEdit(true)
-                    const newTask: typeof task = task
-                    newTask.name = name
-                    newTask.id = id
-                    newTask.description = description
-                    newTask.expirationdate = expirationdate
-                    newTask.priority = priority
-                    newTask.assignedto = assignedto
-                    newTask.state = stateTask
-                    newTask.isEdit = true
-                    console.log(newTask)
-                    setTaskToEdit(newTask)
-                    setAlertName(false)
+                    setEdit(true);
+                    setAlertName(false);
+                    setOpen(true);
+                    const newTask: typeof task = task;
+                    newTask.name = name;
+                    newTask.id = id;
+                    newTask.description = description;
+                    newTask.expirationdate = expirationdate;
+                    newTask.priority = priority;
+                    newTask.assignedto = assignedto;
+                    newTask.state = stateTask;
+                    newTask.isEdit = true;
+                    console.log(newTask);
+                    setTaskToEdit(newTask);
+
+                    //setOpen(true)
                   }}
                 >
                   <Box id="edit" display="flex" padding={1}>
-                    <BorderColor sx={{ zIndex: 0}} color="primary" />
+                    <BorderColor sx={{ zIndex: 0 }} color="primary" />
                   </Box>
                 </Button>
               }
@@ -305,49 +324,64 @@ export const CardTask = ({
             /> */}
           </Box>
         </ClickAwayListener>
-      </Box >
-      <hr />
+      </Box>
+
       {
         //------------------------------------------------------------------------------------------------------------------
       }
       <Box sx={{ maxWidth: "265px", minWidth: "265px" }}>
+        <hr />
         <Typography variant="h6" align="left" fontSize={13}>
           Name:
         </Typography>
-        <Typography variant="h5" maxWidth={290} marginBottom={2}>
+        <Typography
+          overflow={"auto"}
+          align="center"
+          maxWidth={290}
+          height={30}
+          fontSize={13}
+        >
           {titleTask}
         </Typography>
 
         <Box
           sx={{
             borderRadius: "10px",
-            padding: 1,
             marginBottom: 2,
           }}
         >
           <hr />
-          <Typography variant="h6" fontSize={14} margin={1}>
+          <Typography variant="h6" fontSize={13}>
             ID Task: {idTask}
           </Typography>
+          <Typography variant="h6" align="left" fontSize={13}>
+            Expiration Date:
+          </Typography>
           <TextField
-            label="Expiration Date:"
             type="datetime-local"
             sx={{
+              fontSize: 13,
               minWidth: "250px",
-              maxWidth: "250px",
               zIndex: 0,
               backgroundColor: colorFondo,
             }}
             value={expirationDateTask.split(".")[0]}
             disabled
           />
-          <Typography fontSize={10} color={"black"} margin={1} maxWidth="75px">
+          <Typography variant="h6" align="left" marginTop={1} fontSize={13}>
             Assingned to:
           </Typography>
-          <Typography fontSize={15} align="center" color={"black"} margin={1}>
+          <Typography
+            fontSize={13}
+            overflow={"auto"}
+            align="center"
+            color={"black"}
+            sx={{ textTransform: "capitalize" }}
+            height={40}
+          >
             {assignToTask}
           </Typography>
-          <hr />
+          <hr style={{ margin: 0 }} />
         </Box>
       </Box>
       <Box
@@ -357,7 +391,7 @@ export const CardTask = ({
         justifyItems={"center"}
         width="270px"
       >
-        <Typography variant="h6" align="left" fontSize={15}>
+        <Typography variant="h6" align="left" fontSize={13}>
           Priority:
         </Typography>
 
@@ -365,17 +399,22 @@ export const CardTask = ({
           variant="h6"
           align="center"
           color="white"
-          fontSize={20}
+          fontSize={13}
           borderRadius={"10px"}
-          sx={{ backgroundColor: backGroundColor }}
+          sx={{
+            backgroundColor: backGroundColor,
+            textTransform: "capitalize",
+            fontSize: "15px",
+          }}
         >
           {priorityCardTask}
         </Typography>
         <hr />
-
+        <Typography variant="h6" align="left" fontSize={13}>
+          Description:
+        </Typography>
         <TextField
           disabled
-          label="Description..."
           multiline={true}
           maxRows={5}
           minRows={5}
@@ -389,6 +428,6 @@ export const CardTask = ({
           }}
         />
       </Box>
-    </Card >
+    </Card>
   );
 };

@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useCreateTask } from "./hooks/useCreateTask.ts";
+import { useStore } from "../../../../store/context.ts";
 
 export const CreateTask = () => {
   const {
@@ -45,9 +46,13 @@ export const CreateTask = () => {
     setRequestNewTask,
     setOpen,
     setAlert,
+    Users
   } = useCreateTask();
 
+  const {editStore} = useStore()
+
   useEffect(() => {
+    Users()
     console.log(taskToEdit.isEdit);
     if (taskToEdit.isEdit) {
       setEditId(taskToEdit.id);
@@ -55,13 +60,14 @@ export const CreateTask = () => {
       setTaskName(taskToEdit.name);
       setvalueDataTime(taskToEdit.expirationdate);
       setDescriptionTask(taskToEdit.description);
-      setPrimaryAssing(taskToEdit.assignedto);
+      //setPrimaryAssing(taskToEdit.assignedto);
       setStateCreate(taskToEdit.state);
       taskToEdit.isEdit = false;
+      setOpen(true)
     }
 
     setAlertName(false);
-  }, [taskToEdit, taskToEdit.id, taskToEdit.state, setAlertName]);
+  }, [taskToEdit, taskToEdit.id, taskToEdit.state, editStore, taskToEdit.isEdit]);
 
   return (
     <List component="nav">
@@ -85,6 +91,7 @@ export const CreateTask = () => {
           onClickAway={() => {
             setRequestNewTask(false);
             setOpen(false);
+            setAlertName(false)
             setEditId(0);
             handleClickPriority("");
             setTaskName("");
@@ -112,15 +119,19 @@ export const CreateTask = () => {
           </Alert>
         </ClickAwayListener>
       ) : (
-        <Box
-          display={open ? "flex" : "none"}
-          sx={{
-            width: "1800px",
-            zIndex: 3,
-            backgroundColor: "rgba(0, 0, 0, 0.60)",
-          }}
-          justifyContent="center"
-        >
+        <Box display={open ? "flex" : "none"}
+
+        sx={{
+          width: "2400px",
+          position: "absolute",
+          left: "-690%",
+          zIndex: 5,
+          justifyContent: "center",
+          backgroundColor: "rgba(0, 0, 0, 0.75)",
+
+        }}
+        justifyContent="center"
+      >
           <ClickAwayListener onClickAway={handleClickAway}>
             <Box
               display={open ? "flex" : "none"}
@@ -135,7 +146,7 @@ export const CreateTask = () => {
                 borderRadius: "10px",
                 border: 1,
 
-                maxHeight: { xs: "650px", md: "max-content" },
+                maxHeight: { xs: "650px", md: "400px" },
                 maxWidth: { xs: "520px", md: "700px" },
               }}
             >

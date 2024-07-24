@@ -5,12 +5,11 @@ import React, { useEffect, useState } from "react";
 import task from "../../../store/task";
 import { useStore } from "../../../store/context.ts";
 
-export const UserTasks = () =>{
-
+export const UserTasks = () => {
   const { requestNewTask } = useStore();
   const tasks = async () => {
     try {
-      const response = await fetch("http://10.99.77.147:4000/allActivities");//http://localhos:4000/allActivities
+      const response = await fetch("http://10.99.77.147:4000/allActivities"); //http://localhos:4000/allActivities
       const data = await response.json();
       setAllTasks(data.reverse());
     } catch (error) {
@@ -26,7 +25,7 @@ export const UserTasks = () =>{
     //console.log(requestNewTask.status)
   }, [requestNewTask]);
   return (
-    <Box padding={1} alignItems={"center"} >
+    <Box padding={1} alignItems={"center"}>
       <Options />
       <Typography
         marginTop={3}
@@ -39,11 +38,10 @@ export const UserTasks = () =>{
         Me tasks:
       </Typography>
       <Grid container columnGap={5} rowGap={5} justifyContent="center">
-     
-        {allTasks.map((taskElement: typeof task, i) => {
+        {allTasks.map((taskElement: typeof task) => {
           return (
             <CardTask
-              key={i + taskElement.id}
+              key={taskElement.id}
               id={taskElement.id}
               name={taskElement.name}
               assignedto={taskElement.assignedto}
@@ -57,4 +55,4 @@ export const UserTasks = () =>{
       </Grid>
     </Box>
   );
-}
+};
