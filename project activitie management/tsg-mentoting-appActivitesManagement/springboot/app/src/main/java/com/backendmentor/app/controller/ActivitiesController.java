@@ -52,12 +52,35 @@ public class ActivitiesController {
     }
 
     @PutMapping("/updateStateActivitie/{id}")
-    public boolean updateActivite(@PathVariable Integer id, @RequestBody String updateState) {
+    public boolean updateStateActivitie(@PathVariable Integer id, @RequestBody String updateState) {
         Optional<Activities> updateOp = activitiesRepository.findById(id);
         if (updateOp.isPresent()) {
             try {
                 Activities update = updateOp.get();
                 update.setState(updateState);
+                activitiesRepository.save(update);
+                return true;
+            } catch (Exception e) {
+                System.out.println("Ocurrió un error al actualizar la actividad: " + e.getMessage());
+                return false;
+            }
+        } else {
+            System.out.println("No se encontró la actividad con id " + id + ".");
+            return false;
+        }
+    }
+
+    @PutMapping("/updateActivitie/{id}")
+    public boolean updateActivite(@PathVariable Integer id, @RequestBody Activities upActivite) {
+        Optional<Activities> updateOp = activitiesRepository.findById(id);
+        if (updateOp.isPresent()) {
+            try {
+                Activities update = updateOp.get();
+                update.setName(upActivite.getName());
+                update.setExpirationdate(upActivite.getExpirationdate());
+                update.setAssignedto(upActivite.getAssignedto());
+                update.setPriority(upActivite.getPriority());
+                update.setDescription(upActivite.getDescription());
                 activitiesRepository.save(update);
                 return true;
             } catch (Exception e) {

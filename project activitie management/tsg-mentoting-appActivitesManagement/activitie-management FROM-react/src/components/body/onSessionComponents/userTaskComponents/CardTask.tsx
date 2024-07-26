@@ -48,7 +48,7 @@ export const CardTask = ({
     setColorFondo,
     backGroundColor,
     setBackGroundColor,
-    iconState,
+
     setIconState,
     handleClickAway,
     setTitle,
@@ -67,7 +67,7 @@ export const CardTask = ({
     assignedto,
   });
 
-  const { setStateCreate, setTaskToEdit, setEdit, setAlertName, setOpen } =
+  const { setStateCreate, setTaskToEdit, setEdit, setOpen, open } =
     useCreateTask();
 
   const { sendNewState, editStore } = useStore();
@@ -243,7 +243,6 @@ export const CardTask = ({
                   >
                     completed
                   </Typography>
-                  
                 </Box>
               </IconButton>
               <IconButton
@@ -263,11 +262,10 @@ export const CardTask = ({
                   padding={1}
                 >
                   <Typography
-                    sx={{ textTransform: "capitalize", fontSize: "15px"}}
+                    sx={{ textTransform: "capitalize", fontSize: "15px" }}
                   >
                     canceled
                   </Typography>
-                  
                 </Box>
               </IconButton>
             </Box>
@@ -292,14 +290,14 @@ export const CardTask = ({
                     newTask.assignedto = assignedto;
                     newTask.state = stateTask;
                     newTask.isEdit = true;
-                    console.log(newTask);
+                    // console.log(newTask);
+                    setEdit(true);
                     setTaskToEdit(newTask);
-
+                    console.log(open);
+                    
                   }}
                 >
-                  <Box id="edit" display="flex" padding={1}>
-                    <BorderColor sx={{ zIndex: 0 }} color="primary" />
-                  </Box>
+                  <BorderColor color="primary" />
                 </Button>
               }
             />

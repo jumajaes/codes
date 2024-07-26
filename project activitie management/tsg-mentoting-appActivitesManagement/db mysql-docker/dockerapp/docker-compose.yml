@@ -1,7 +1,22 @@
 #version: '3' (es opcional segun la documentacion. funciona ok sin especificar la version, al subirla decia version 3 is obsolete)
+# services:
+#   db:
+#     container_name : container
+#     image: mysql:latest
+#     ports:
+#       - "3307:3306"
+#     volumes:
+#       - bdactivitie:/var/lib/mysql
+#     environment:
+#       MYSQL_ROOT_PASSWORD: secret
+#       MYSQL_CHARACTER_SET_SERVER: utf8
+
+# volumes:
+#   bdactivitie:
+#     external: false
 services:
   db:
-    container_name : container
+    container_name: container
     image: mysql:latest
     ports:
       - "3307:3306"
@@ -11,7 +26,39 @@ services:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_CHARACTER_SET_SERVER: utf8
 
+  sonar:
+    image: sonarqube:latest
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      SONARQUBE_JDBC_URL: jdbc:mysql://db:3306/sonar
+      SONARQUBE_JDBC_USERNAME: root
+      SONARQUBE_JDBC_PASSWORD: secret
+    depends_on:
+      - db
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+
+  nexus:
+    image: sonatype/nexus3:latest
+    container_name: nexus
+    ports:
+      - "8081:8081"
+    volumes:
+      - nexus-data:/nexus-data
+
 volumes:
   bdactivitie:
     external: false
-  
+  sonarqube_conf:
+  sonarqube_extensions:
+  sonarqube_bundled-plugins:
+  sonarqube_data:
+  sonarqube_logs:
+  nexus-data:
+    external: false

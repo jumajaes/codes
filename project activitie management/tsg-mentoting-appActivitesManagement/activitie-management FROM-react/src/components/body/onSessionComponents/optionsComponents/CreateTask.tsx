@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
-import List from "@mui/material/List";
 import { TaskAlt } from "@mui/icons-material";
 import {
   Alert,
@@ -34,10 +33,10 @@ export const CreateTask = () => {
     handleOnChangeDate,
     open,
     allUsers,
-
+    setPriorityCreate,
     handleClick,
     handleClickAway,
-    setTaskToEdit
+    setTaskToEdit,
     setEditId,
     setTaskName,
     setvalueDataTime,
@@ -47,24 +46,28 @@ export const CreateTask = () => {
     setRequestNewTask,
     setOpen,
     setAlert,
-    Users
+    Users,
   } = useCreateTask();
 
-  const { alertName, setAlertName } = useStore()
+  const { alertName, setAlertName, editStore } = useStore();
 
   useEffect(() => {
-    Users()
-    setTaskName("")
-    setDescriptionTask("")
-    setPrimaryAssing("Seleccione Un Usuario")
-    setTaskToEdit.isEdit && (()=>{
-      
-    })()
+    Users();
 
-  }, [requestNewTask, setTaskToEdit]);
+    console.log(taskToEdit.isEdit);
+    if (taskToEdit.isEdit) {
+      setOpen(true)
+      setTaskName(taskToEdit.name);
+      setDescriptionTask(taskToEdit.description);
+      setPrimaryAssing(taskToEdit.assignedto);
+      setEditId(taskToEdit.id);
+      setvalueDataTime(taskToEdit.expirationdate);
+      setPriorityCreate(taskToEdit.priority);
+    }
+  }, [requestNewTask, taskToEdit, taskToEdit.isEdit, open, editStore]);
 
   return (
-    <Box >
+    <Box>
       <Button
         variant={open ? "text" : "outlined"}
         sx={{
@@ -74,9 +77,8 @@ export const CreateTask = () => {
           color: "#59c7ff",
         }}
         onClick={() => {
-          setOpen(true)
-          setAlertName(false)
-
+          setOpen(true);
+          setAlertName(false);
         }}
       >
         <TaskAlt />
@@ -87,22 +89,26 @@ export const CreateTask = () => {
       <Modal
         open={open}
         onClose={() => {
-          setOpen(false)
+          taskToEdit.isEdit = false;
+          setTaskName("");
+          setDescriptionTask("");
+          setPrimaryAssing("Seleccione Un Usuario");
         }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={{
-          position: 'absolute' as 'absolute',
-          top: '40%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          bgcolor: 'background.paper',
-          border: '2px solid #000',
-          boxShadow: 24,
-          p: 4,
-        }}>
-
+        <Box
+          sx={{
+            position: "absolute" as "absolute",
+            top: "40%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
           <Box
             display="flex"
             flexDirection={"column"}
@@ -254,9 +260,7 @@ export const CreateTask = () => {
                   </Button>
                   <Button
                     sx={{ borderRadius: 1 }}
-                    variant={
-                      priorityCreate === "medium" ? "contained" : "text"
-                    }
+                    variant={priorityCreate === "medium" ? "contained" : "text"}
                     onClick={() => {
                       handleClickPriority("medium");
                     }}
@@ -284,95 +288,76 @@ export const CreateTask = () => {
               value={descriptionTask}
               minRows={3}
             />
-            <ClickAwayListener
-              onClickAway={() => {
 
-              }}
-            >
-              <Box margin={1}>
-                <Alert sx={{ display: requestNewTask ? "flex" : "none" }} severity="success">!Genial!, se Guardó correctamente.</Alert>
-                <Alert sx={{ display: alert ? "flex" : "none" }} severity="error">Todos los datos son requeridos.</Alert>
-                <Alert sx={{ display: alertName ? "flex" : "none" }} severity="error">Este nombre ya existe</Alert>
-              </Box>
-            </ClickAwayListener>
-            <Button
-              key={"butonCreate"}
-              size="large"
-              variant="contained"
-              sx={{
-                marginY: 2,
-                display: alert === false && alertName === false ? "" : "none",
-                justifyContent: "center",
-                width: "120px",
-              }}
-              onClick={() => {
-                fxVlidate();
-                console.log(requestNewTask)
-                setTimeout(() => {
-                  setAlert(false);
-                  setAlertName(false);
-                  setRequestNewTask(false)
-                }, 5000)
+            <Box margin={1}>
+              <Alert
+                sx={{ display: requestNewTask ? "flex" : "none" }}
+                severity="success"
+              >
+                !Genial!, se Guardó correctamente.
+              </Alert>
+              <Alert sx={{ display: alert ? "flex" : "none" }} severity="error">
+                Todos los datos son requeridos.
+              </Alert>
+              <Alert
+                sx={{ display: alertName ? "flex" : "none" }}
+                severity="error"
+              >
+                Este nombre ya existe
+              </Alert>
+            </Box>
 
-              }}
-            >
-              Guardar
-            </Button>
+            <Box display={"flex"} justifyContent={"space-between"}>
+              <Button
+                key={"butonCreate"}
+                size="large"
+                variant="contained"
+                sx={{
+                  margin: 2,
+                  display: alert === false && alertName === false ? "" : "none",
+                  justifyContent: "center",
+                  width: "120px",
+                }}
+                onClick={() => {
+                  fxVlidate();
+                  setTimeout(() => {
+                    setAlert(false);
+                    setAlertName(false);
+                    setRequestNewTask(false);
+                    taskToEdit.isEdit = false;
+                    setTaskName("");
+                    setDescriptionTask("");
+                    setPrimaryAssing("Seleccione Un Usuario");
+                    taskToEdit.isEdit = false;
+                  }, 5000);
+                }}
+              >
+                Guardar
+              </Button>
+
+              <Button
+                key={"butonCancel"}
+                size="large"
+                variant="contained"
+                sx={{
+                  margin: 2,
+                  justifyContent: "center",
+                  width: "120px",
+                }}
+                onClick={() => {
+                  setOpen(false);
+                  setTaskName("");
+                  setDescriptionTask("");
+                  setPrimaryAssing("Seleccione Un Usuario");
+                  taskToEdit.isEdit = false;
+                }}
+              >
+                Cancelar
+              </Button>
+            </Box>
           </Box>
-
         </Box>
       </Modal>
-      {/* {requestNewTask ? (
-        <ClickAwayListener
-          onClickAway={() => {
-            setRequestNewTask(false);
-            setOpen(false);
-            setAlertName(false)
-            setEditId(0);
-            handleClickPriority("");
-            setTaskName("");
-            setvalueDataTime(new Date().toISOString().split(".")[0]);
-            setDescriptionTask("");
-            setPrimaryAssing("Select an User");
-            setStateCreate("");
-            taskToEdit.id = 0;
-            taskToEdit.isEdit = false;
-          }}
-        >
-          <Alert
-            sx={{
-              fontSize: "20px",
-              position: "absolute",
-              top: "110%",
-              left: "-45%",
-              zIndex: 3,
-              alignItems: "center",
-              minWidth: "350px",
-            }}
-            severity="success"
-          >
-            ¡It's gread!, this is success.
-          </Alert>
-        </ClickAwayListener>
-      ) : (
-        <Box display={open ? "flex" : "none"}
-
-        sx={{
-          width: "2400px",
-          position: "absolute",
-          left: "-690%",
-          zIndex: 5,
-          justifyContent: "center",
-          backgroundColor: "rgba(0, 0, 0, 0.75)",
-
-        }}
-        justifyContent="center"
-      >
-          <ClickAwayListener onClickAway={handleClickAway}>
-            
-          </ClickAwayListener>
-        </Box>
-      )} */}
     </Box>
   );
 };
