@@ -8,7 +8,8 @@ interface iTask {
     description:  string,
     assignedto: string,
     state: string,
-    isEdit: boolean
+    isEdit: boolean,
+    isCreate: boolean
 }
 
 const task:iTask = {
@@ -23,7 +24,8 @@ const task:iTask = {
     assignedto: "",
     state: "active",
     id: 0,
-    isEdit: false
+    isEdit: false,
+    isCreate:false
 }
 
 export default task;

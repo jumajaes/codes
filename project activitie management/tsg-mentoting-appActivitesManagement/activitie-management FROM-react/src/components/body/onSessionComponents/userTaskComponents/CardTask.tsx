@@ -282,8 +282,6 @@ export const CardTask = ({
                   color="secondary"
                   id="edit"
                   onClick={() => {
-                    setEdit(true);
-                    setAlertName(false);
                     setOpen(true);
                     const newTask: typeof task = task;
                     newTask.name = name;
@@ -297,7 +295,6 @@ export const CardTask = ({
                     console.log(newTask);
                     setTaskToEdit(newTask);
 
-                    //setOpen(true)
                   }}
                 >
                   <Box id="edit" display="flex" padding={1}>

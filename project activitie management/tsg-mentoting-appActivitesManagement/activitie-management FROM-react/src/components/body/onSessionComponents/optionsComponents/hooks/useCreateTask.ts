@@ -15,7 +15,7 @@ export const useCreateTask = () => {
   const [priorityCreate, setPriorityCreate] = useState(taskToEdit.priority);
   const [valueDataTime, setvalueDataTime] = useState<string>(taskToEdit.expirationdate.split(".")[0]);
   const [descriptionTask, setDescriptionTask] = useState<string>(taskToEdit.description);
-  const [primaryAssing, setPrimaryAssing] = useState<string>("Select to an User");
+  const [primaryAssing, setPrimaryAssing] = useState<string>("Seleccione Un Usuario");
 
   const [openAssingTo, setOpenAssingTo] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
@@ -24,7 +24,7 @@ export const useCreateTask = () => {
   const [allUsers, setAllUsers] = useState<(typeof task)[]>([]);
   const Users = async () => {
     try {
-      const response = await fetch("http://10.99.77.147:4000/allUsers");
+      const response = await fetch("http://localhost:4000/allUsers");
       setAllUsers(await response.json());
     } catch (error) {
       setAllUsers([]);
@@ -35,25 +35,20 @@ export const useCreateTask = () => {
       priorityCreate.length !== 0 &&
       descriptionTask.trim().length !== 0 &&
       primaryAssing.length !== 0 &&
-      primaryAssing !== "Select an User"
-      ? (() => {
-        setAlertName(false);
-        createTask()
-      })()
+      primaryAssing !== "Seleccione Un Usuario"
+      ?
+      createTask()
       :
-      (() => {
-        setRequestNewTask(false);
-        setAlertName(false);
-        setAlert(true);
-      })();
+      setAlert(true);
+
   };
   const handleClickPriority = (typePriority: string) => {
     setPriorityCreate(typePriority);
-    setAlert(false)
+
   };
   const handleOnChangeDescription = (event) => {
     setDescriptionTask(event.target.value);
-    setAlert(false)
+
   };
   const handleClick = async () => {
     setEditId(0)
@@ -66,26 +61,21 @@ export const useCreateTask = () => {
     taskToEdit.id = 0
     taskToEdit.isEdit = false
     await Users();
-    setAlertName(false);
-    setAlert(false);
-    setOpen(!open);
-    setRequestNewTask(false);
+
   };
   const handleClickAssingTo = () => {
     setOpenAssingTo(!openAssingTo);
-    setAlert(false)
+
   };
   const handleOnChangeName = (event) => {
     setTaskName(event.target.value);
-    setAlertName(false)
-    setAlert(false)
+
   };
   const handleOnChangeDate = (event) => {
     setvalueDataTime(event.target.value);
-    setAlert(false)
+
   };
   const handleClickAway = (event) => {
-    setRequestNewTask(false);
 
     event.target.outerHTML ===
       '<path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path>' ||
@@ -95,7 +85,7 @@ export const useCreateTask = () => {
       '<div class="MuiBox-root css-1ckupud" id="edit"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1fxs7k2-MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BorderColorIcon" id="edit"><path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path></svg></div>' ||
       event.target.outerHTML ===
       '<button class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSecondary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorSecondary MuiButton-root MuiButton-text MuiButton-textSecondary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorSecondary css-1d3f8j8-MuiButtonBase-root-MuiButton-root" tabindex="0" type="button" aria-label="EDIT" id="edit" data-mui-internal-clone-element="true"><div class="MuiBox-root css-1ckupud" id="edit"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1fxs7k2-MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BorderColorIcon" id="edit"><path d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68-3.75-3.75 1.83-1.83c.39-.39 1.02-.39 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"></path></svg></div><span class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"><span class="css-y4cjyz-MuiTouchRipple-ripple MuiTouchRipple-ripple MuiTouchRipple-rippleVisible" style="width: 154.932px; height: 154.932px; top: -70.4661px; left: -72.4661px;"><span class="MuiTouchRipple-child MuiTouchRipple-childLeaving"></span></span></span></button>'
-      ? setOpen(true) 
+      ? setOpen(true)
       : setOpen(false);
 
   };
@@ -107,14 +97,7 @@ export const useCreateTask = () => {
     newTask.priority = priorityCreate;
     newTask.assignedto = primaryAssing;
     newTask.state = stateCreate;
-    console.log(newTask.state)
     await sendRequestNewTask(newTask);
-    setTimeout(() => {
-       !requestNewTask && (() => {
-        setAlertName(true);
-      })();
-    }, 2000)
-    setEditId(0)
   }
   return {
     backGroundColor,

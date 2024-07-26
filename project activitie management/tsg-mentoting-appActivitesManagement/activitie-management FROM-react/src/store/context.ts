@@ -2,7 +2,11 @@ import { create } from "zustand";
 import apiUrls from "./apiUrls.ts";
 import task from "./task.ts";
 
+
 type typeStore = {
+
+  setAlertName:(state: boolean) => void;
+  alertName: boolean;
   requestUserstoAssing: any;
   requestNewTask: boolean;
   editStore: boolean;
@@ -14,6 +18,11 @@ type typeStore = {
 };
 
 export const useStore = create<typeStore>()((set) => ({
+  alertName: true,
+ 
+  setAlertName: (state: boolean) => {
+    set({ alertName: state });
+  },
   requestNewTask: false,
   requestUserstoAssing: {},
   editStore: false,
@@ -28,7 +37,7 @@ export const useStore = create<typeStore>()((set) => ({
 
   tasks: async () => {
     try {
-      const response = await fetch("http://10.99.77.147:4000/allActivities"); //http://192.168.1.38:4000/allActivities
+      const response = await fetch("http://localhost:4000/allActivities"); //http://192.168.1.38:4000/allActivities
       set({ requestUserstoAssing: response.json() });
     } catch (error) {
       console.error("Error al obtener usuarios:", error);
@@ -47,18 +56,19 @@ export const useStore = create<typeStore>()((set) => ({
       body: JSON.stringify(newTask),
     })
       .then(async (response) => {
+        console.log(response.ok)
         if (response.ok) {
           set({ requestNewTask: await response.json() });
           set({ editStore: false });
         } else {
-          set({ requestNewTask: false });
+          set({ alertName: true });
         }
       })
       .catch((error) => {});
   },
 
   sendNewState: async (id, state) => {
-    fetch(`http://10.99.77.147:4000/updateStateActivitie/${id}`, {
+    fetch(`http://localhost:4000/updateStateActivitie/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -73,5 +83,5 @@ export const useStore = create<typeStore>()((set) => ({
         }
       })
       .catch((error) => { console.log(error)});
-  },
+  }
 }));
