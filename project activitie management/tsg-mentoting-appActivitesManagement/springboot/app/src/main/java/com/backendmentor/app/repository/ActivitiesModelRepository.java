@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.backendmentor.app.models.Activities;
 
 @Repository
-public interface ActivitiesModelRepository extends JpaRepository<Activities, Integer>{}
+public interface ActivitiesModelRepository extends JpaRepository<Activities, Integer>{
+    
+}

@@ -1,0 +1,5 @@
+- Como nombrar los servicios (url api)
+- No pueden describir acciones eso lo define el metodo
+- leer estandar restFull
+- capa de servios (logica de negocio)
+- manejo de errores

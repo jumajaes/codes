@@ -1,11 +1,10 @@
 package com.backendmentor.app.controller;
 
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,42 +12,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import com.backendmentor.app.models.Activities;
-
 import com.backendmentor.app.repository.ActivitiesModelRepository;
+import com.backendmentor.app.services.ActivitiesService;
 
 @CrossOrigin(origins = "*")
-@RestController
+@RestController("")
 public class ActivitiesController {
 
     @Autowired
     private ActivitiesModelRepository activitiesRepository;
 
-    @GetMapping("/allActivities")
-    public java.util.List<Activities> getAllActivities() {
-        try {
-            return activitiesRepository.findAll();
-        } catch (Exception e) {
+    @Autowired
+    private ActivitiesService activitieService;
 
-            return new ArrayList<>();
-        }
+    @GetMapping("/activities")
+    public ResponseEntity<java.util.List<Activities>> getAllActivities() {
+        return ResponseEntity.ok(activitieService.getActivities());
     }
 
-    @GetMapping("/activitieById/{id}")
+    @GetMapping("/activities/{id}")
     public Activities getActivitieById(@PathVariable Integer id) {
         return activitiesRepository.findById(id).get();
     }
 
-    @PostMapping("/newActivitie")
-    public boolean SetNewActivitie(@RequestBody Activities newActivite) {
-
-        if (newActivite.getState() == "") {
-            newActivite.setState("active");
+    @PostMapping("/activities")
+    public void createActivitie(@RequestBody Activities newActivite) {
+        try {
+            activitieService.createActivitie(newActivite);
+        } catch (Exception error) {
+            throw error;
         }
-        activitiesRepository.save(newActivite);
-        return true;
-
     }
 
     @PutMapping("/updateStateActivitie/{id}")

@@ -1,6 +1,5 @@
 interface iTask {
 
-    constructor(),
     id: number,
     name: string,
     expirationdate: string,
@@ -14,9 +13,7 @@ interface iTask {
 
 const task:iTask = {
 
-    constructor(){
-        console.log("hola edit")
-    },
+ 
     name: "",
     expirationdate: new Date().toISOString().split(".")[0],
     priority: "medium",
