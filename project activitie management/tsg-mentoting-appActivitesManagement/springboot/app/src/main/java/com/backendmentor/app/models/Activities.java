@@ -1,9 +1,8 @@
 package com.backendmentor.app.models;
 
 import java.sql.Timestamp;
-
 import org.springframework.stereotype.Component;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,9 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
-/**
- * model
- */
 @Entity
 @Table //(schema = "userstoassign") ---- no lo especifico por que en aplication propertis ya estoy hubicando el esquema /activitiemanagement o bd spring.datasource.url=jdbc:mysql://localhost:3307/activitiemanagement?useSSL=false
 @Component
@@ -34,6 +30,7 @@ public class Activities {
     private String priority;
 
     @Column(nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Timestamp expirationDate;
 
     @Column(nullable = false, columnDefinition = "TEXT")
@@ -72,11 +69,11 @@ public class Activities {
         this.priority = priority;
     }
 
-    public Timestamp getExpirationdate() {
+    public Timestamp  getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationdate(Timestamp expirationdate) {
+    public void setExpirationDate(Timestamp  expirationdate) {
         this.expirationDate = expirationdate;
     }
 
