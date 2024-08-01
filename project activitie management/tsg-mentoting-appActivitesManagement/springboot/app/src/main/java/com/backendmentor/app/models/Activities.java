@@ -1,6 +1,9 @@
 package com.backendmentor.app.models;
 
 import java.sql.Timestamp;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
@@ -8,11 +11,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table //(schema = "userstoassign") ---- no lo especifico por que en aplication propertis ya estoy hubicando el esquema /activitiemanagement o bd spring.datasource.url=jdbc:mysql://localhost:3307/activitiemanagement?useSSL=false
+@Table //( ---- no lo especifico por que en aplication propertis ya estoy hubicando el esquema /activitiemanagement o bd spring.datasource.url=jdbc:mysql://localhost:3307/activitiemanagement?useSSL=false
 @Component
 public class Activities {
 
@@ -20,26 +25,45 @@ public class Activities {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(unique = true, nullable = false)
+    @NotBlank(message = "Entrada nula o vacia no permitida.")
+    @Column(unique = true)
     private String name;
 
-    @Column(nullable = false)
+    @Pattern(regexp = "^(activa|completa|cancelada|expirada)$", message = "Estado no valido.")
+    @NotBlank(message = "Entrada nula o vacia no permitida.")
+    @Column
     private String state;
 
-    @Column(nullable = false)
+    @Pattern(regexp = "^(media|alta|baja)$")
+    @NotBlank(message = "Entrada nula o vacia no permitida.")
+    @Column
     private String priority;
 
     @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Timestamp expirationDate;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @Column(nullable = false)
+    private Timestamp createdDate;
+
+    @NotBlank(message = "Entrada nula o vacia no permitida.")
+    @Column(columnDefinition = "TEXT")
     @Lob
     private String description; 
 
-    @Column(nullable = false)
-    private String assignedto;
+    @ManyToOne
+    @JoinColumn(name = "idToAssigned", referencedColumnName = "id")
+    private Userstoassign idToAssigned;
 
+
+    public Userstoassign getIdToAssigned() {
+        return idToAssigned;
+    }
+
+    public void setIdToAssigned(Userstoassign idToAssigned) {
+        this.idToAssigned = idToAssigned;
+    }
 
     public Integer getId() {
         return id;
@@ -85,12 +109,12 @@ public class Activities {
         this.description = description;
     }
 
-    public String getAssignedto() {
-        return assignedto;
+    public Timestamp getCreatedDate() {
+        return createdDate;
     }
 
-    public void setAssignedto(String assignedto) {
-        this.assignedto = assignedto;
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
     }
 
 }

@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,7 +30,7 @@ public class ActivitiesController {
     }
 
     @PostMapping
-    public void createActivitie(@RequestBody Activities newActivity) {
+    public void createActivitie(@Valid @RequestBody Activities newActivity) {
         ResponseEntity.ok(activitiesService.createActivitie(newActivity));
     }
 }

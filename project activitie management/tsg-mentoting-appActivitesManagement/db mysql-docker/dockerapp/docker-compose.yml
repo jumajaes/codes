@@ -1,8 +1,8 @@
 #version: '3' (es opcional segun la documentacion. funciona ok sin especificar la version, al subirla decia version 3 is obsolete)
 services:
-  db:
-    container_name : container
-    image: mysql:latest
+  db_activitie:
+    container_name : container_Simple
+    image: mysql:oraclelinux9
     ports:
       - "3307:3306"
     volumes:
