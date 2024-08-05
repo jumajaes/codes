@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -20,25 +19,13 @@ public class GlobalExceptionHandler {
                         exception.getMessage(),
                         new Timestamp(System.currentTimeMillis())));
     }
-
-    // @ExceptionHandler({ RuntimeException.class })
-    // public ResponseEntity<LogicExceptionEntity> handleRuntimeException(RuntimeException exception) {
-    //     return ResponseEntity
-    //             .status(HttpStatus.INTERNAL_SERVER_ERROR)
-    //             .body(new LogicExceptionEntity(
-    //                     HttpStatus.INTERNAL_SERVER_ERROR.value(),
-    //                     "Error interno, servidor base de datos no responde, su ruta cambio o se encuentra desactivada.",
-    //                     new Timestamp(System.currentTimeMillis())));
-    // }
-
-    @ExceptionHandler({ MethodArgumentNotValidException.class })
-    public ResponseEntity<LogicExceptionEntity> handleRuntimeException(MethodArgumentNotValidException exception) {
+  @ExceptionHandler({ RuntimeException.class })
+    public ResponseEntity<LogicExceptionEntity> handleRuntimeException(RuntimeException exception) {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new LogicExceptionEntity(
                         HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                        exception.getMessage(),
+                        "Error interno, servidor base de datos no responde, su ruta cambio o se encuentra desactivada.",
                         new Timestamp(System.currentTimeMillis())));
     }
-
 }
