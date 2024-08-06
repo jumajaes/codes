@@ -15,7 +15,7 @@ public class modelId {
         if(id instanceof Integer){
             this.id = id;
         }else{
-            throw new BusinessLogicException("Id debe ser un numero entero.");
+            throw new BusinessLogicException("Id debe ser un numero entero positivo.");
         }
     }
     

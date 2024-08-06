@@ -1,9 +1,8 @@
 package com.backendmentor.app.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,8 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.backendmentor.app.controller.dto.ActivitieDTO;
 import com.backendmentor.app.models.Activities;
 import com.backendmentor.app.services.ActivitiesService;
+
+import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -28,7 +31,7 @@ public class ActivitiesController {
     }
 
     @PostMapping
-    public void createActivitie(@RequestBody Activities newActivity) {
-        ResponseEntity.ok(activitiesService.createActivitie(newActivity));
+    public ResponseEntity<Activities> createActivitie(@Valid @RequestBody ActivitieDTO newActivity) {
+        return ResponseEntity.ok(this.activitiesService.createActivitie(newActivity));
     }
 }

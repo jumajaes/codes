@@ -5,21 +5,19 @@ import java.sql.Timestamp;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table(indexes = {@Index(name = "name",  columnList="name")}) //( ---- no lo especifico por que en aplication propertis ya estoy hubicando el esquema /activitiemanagement o bd spring.datasource.url=jdbc:mysql://localhost:3307/activitiemanagement?useSSL=false
+@Table //( ---- no lo especifico por que en aplication propertis ya estoy hubicando el esquema /activitiemanagement o bd spring.datasource.url=jdbc:mysql://localhost:3307/activitiemanagement?useSSL=false
 @Component
 public class Activities {
 
@@ -27,44 +25,33 @@ public class Activities {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @NotBlank(message = "Entrada nula o vacia no permitida.")
     @Column(unique = true)
     private String name;
 
-    @Pattern(regexp = "^(activa|completa|cancelada|expirada)$", message = "Estado no valido.")
-    @NotBlank(message = "Entrada nula o vacia no permitida.")
-    @Column
     private String state;
 
-    @Pattern(regexp = "^(media|alta|baja)$")
-    @NotBlank(message = "Entrada nula o vacia no permitida.")
-    @Column
     private String priority;
 
-    @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Timestamp expiration_date;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    @Column(nullable = false)
     private Timestamp createdDate;
 
-    @NotBlank(message = "Entrada nula o vacia no permitida.")
+    
     @Column(columnDefinition = "TEXT")
     @Lob
     private String description; 
 
-    @ManyToOne
-    @JoinColumn(name = "idToAssigned", referencedColumnName = "id")
-    private Userstoassign idToAssigned;
+    @ManyToOne(targetEntity = Users.class, cascade = CascadeType.PERSIST)
+    private Users userAssigned;
 
 
-    public Userstoassign getIdToAssigned() {
-        return idToAssigned;
+    public Users getUserAssigned() {
+        return userAssigned;
     }
 
-    public void setIdToAssigned(Userstoassign idToAssigned) {
-        this.idToAssigned = idToAssigned;
+    public void setUserAssigned(Users userAssigned) {
+        this.userAssigned = userAssigned;
     }
 
     public Integer getId() {
