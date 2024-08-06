@@ -1,15 +1,11 @@
 package com.backendmentor.app.controller.dto;
 
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import com.backendmentor.app.models.Users;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ActivitieDTO {
 
     private Integer id;
@@ -24,6 +20,7 @@ public class ActivitieDTO {
     private String priority;
 
     @NotBlank(message = "La fecha de expedicion es obligatoria.")
+    @NotNull(message = "La fecha de expedicion no puede ser nula.")
     private String expiration_date;
 
     @NotBlank(message = "La descripcion no puede estar vacia.")

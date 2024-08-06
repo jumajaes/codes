@@ -13,12 +13,10 @@ public class validateUser {
 
     public validateUser(Users user) {
         
-        if(user == null){
-            throw new BusinessLogicException("El usuario a asignar no puede ser nulo.");
-        }
         if(!(user.getId() instanceof Integer)){
-            throw new BusinessLogicException("El id del usuario a asignar debe ser un entero positivo.");
+            throw new BusinessLogicException("Id usuario no valido.");
         }
+
         this.isUser = true;
     }
 

@@ -5,26 +5,27 @@ import java.sql.Timestamp;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table //( ---- no lo especifico por que en aplication propertis ya estoy hubicando el esquema /activitiemanagement o bd spring.datasource.url=jdbc:mysql://localhost:3307/activitiemanagement?useSSL=false
+@Table // ( ---- no lo especifico por que en aplication propertis ya estoy hubicando el
+       // esquema /activitiemanagement o bd
+       // spring.datasource.url=jdbc:mysql://localhost:3307/activitiemanagement?useSSL=false
 @Component
 public class Activities {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Column(unique = true)
     private String name;
 
@@ -37,14 +38,13 @@ public class Activities {
 
     private Timestamp createdDate;
 
-    
     @Column(columnDefinition = "TEXT")
     @Lob
-    private String description; 
+    private String description;
 
-    @ManyToOne(targetEntity = Users.class, cascade = CascadeType.PERSIST)
+    @ManyToOne
+    @JoinColumn(name = "idUser")
     private Users userAssigned;
-
 
     public Users getUserAssigned() {
         return userAssigned;
@@ -82,11 +82,11 @@ public class Activities {
         this.priority = priority;
     }
 
-    public Timestamp  getExpiration_date() {
+    public Timestamp getExpiration_date() {
         return expiration_date;
     }
 
-    public void setExpiration_date(Timestamp  expirationdate) {
+    public void setExpiration_date(Timestamp expirationdate) {
         this.expiration_date = expirationdate;
     }
 

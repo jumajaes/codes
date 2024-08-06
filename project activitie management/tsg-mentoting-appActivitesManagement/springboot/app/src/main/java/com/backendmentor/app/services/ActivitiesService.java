@@ -50,4 +50,23 @@ public class ActivitiesService {
         
     }
 
+    public List<Activities> findByName(String name) {
+        return activitiesRepository.findByName(name);
+    }
+
+    public List<Activities> findByState(String state) {
+        return activitiesRepository.findByState(state);
+    }
+
+    public List<Activities> findByPriority(String priority) {
+        return activitiesRepository.findByPriority(priority);
+    }
+
+    public List<Activities> findByUserAssigned(Users userAssigned) {
+        return activitiesRepository.findByUserAssigned(userAssigned);
+    }
+
+    public List<Activities> findByExpirationDateBetween(Timestamp startDate, Timestamp endDate) {
+        return activitiesRepository.findByExpirationDateBetween(startDate, endDate);
+    }
 }

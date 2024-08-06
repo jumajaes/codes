@@ -19,7 +19,7 @@ public class modelDate {
             LocalDateTime dateTime = LocalDateTime.parse(dateStr, formatter);
             return Timestamp.valueOf(dateTime);
         } catch (DateTimeParseException e) {
-            throw new BusinessLogicException("Fecha no válida. Debe seguir el formato yyyy-MM-dd'T'HH:mm:ss");
+            throw new BusinessLogicException("El error al intentar formatear, fecha de expiracion no válida. Debe seguir el formato yyyy-MM-dd'T'HH:mm:ss");
         }
     }
 
