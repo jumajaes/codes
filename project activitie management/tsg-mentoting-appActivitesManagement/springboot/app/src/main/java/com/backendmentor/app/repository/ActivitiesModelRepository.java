@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.backendmentor.app.models.Activities;
@@ -13,6 +14,7 @@ import com.backendmentor.app.models.Users;
 @Repository
 public interface ActivitiesModelRepository extends JpaRepository<Activities, Integer>{
 
+    @Query("SELECT * FROM activies WHERE  ")
     List<Activities> findByName(String name);
     List<Activities> findByState(String state);
     List<Activities> findByPriority(String priority);

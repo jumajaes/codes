@@ -54,7 +54,7 @@ public class ActivitiesController {
         return activitiesService.findByPriority(priority);
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/userAssigned/{userId}")
     public List<Activities> getByUserAssigned(@PathVariable Integer userId) {
         Users user = new Users();
         user.setId(userId);
