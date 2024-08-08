@@ -29,6 +29,11 @@ public class ActivitiesService {
         return activitiesRepository.findAll();
     };
 
+    public Activities activitie(Integer idActivitie) {
+        return activitiesRepository.findById(idActivitie).get();
+    };
+
+
     public Activities createActivitie(ActivitieDTO newActivitie) {
         System.out.println(newActivitie.getClass().toString());
         modelsStringsActivities validatorStr = new modelsStringsActivities();
@@ -62,11 +67,11 @@ public class ActivitiesService {
         return activitiesRepository.findByPriority(priority);
     }
 
-    public List<Activities> findByUserAssigned(Users userAssigned) {
-        return activitiesRepository.findByUserAssigned(userAssigned);
+    public List<Activities> findByUserAssigned(Integer userId) {
+        return activitiesRepository.findByUserAssigned(userId);
     }
 
-    public List<Activities> findByExpirationDateBetween(Timestamp startDate, Timestamp endDate) {
-        return activitiesRepository.findByExpirationDateBetween(startDate, endDate);
-    }
+    // public List<Activities> findByExpirationDateBetween(Timestamp startDate, Timestamp endDate) {
+    //     return activitiesRepository.findByExpirationDateBetween(startDate, endDate);
+    // }
 }

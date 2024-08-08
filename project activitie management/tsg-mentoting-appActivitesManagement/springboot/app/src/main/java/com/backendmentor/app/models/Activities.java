@@ -16,9 +16,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table // ( ---- no lo especifico por que en aplication propertis ya estoy hubicando el
-       // esquema /activitiemanagement o bd
-       // spring.datasource.url=jdbc:mysql://localhost:3307/activitiemanagement?useSSL=false
+@Table
 @Component
 public class Activities {
 

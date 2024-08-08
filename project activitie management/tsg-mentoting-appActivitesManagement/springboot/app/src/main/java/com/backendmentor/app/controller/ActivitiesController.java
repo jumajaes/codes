@@ -1,6 +1,6 @@
 package com.backendmentor.app.controller;
 
-import java.sql.Timestamp;
+//import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestParam;
 
 import com.backendmentor.app.controller.dto.ActivitieDTO;
 import com.backendmentor.app.models.Activities;
-import com.backendmentor.app.models.Users;
+//import com.backendmentor.app.models.Users;
 import com.backendmentor.app.services.ActivitiesService;
 
 import jakarta.validation.Valid;
@@ -39,6 +39,11 @@ public class ActivitiesController {
         return ResponseEntity.ok(this.activitiesService.createActivitie(newActivity));
     }
 
+    @GetMapping("/{idActivitie}")
+    public ResponseEntity<Activities> activitie(@PathVariable Integer idActivitie) {
+        return ResponseEntity.ok(activitiesService.activitie(idActivitie));
+    }
+
     @GetMapping("/name/{name}")
     public List<Activities> getByName(@PathVariable String name) {
         return activitiesService.findByName(name);
@@ -56,13 +61,11 @@ public class ActivitiesController {
 
     @GetMapping("/userAssigned/{userId}")
     public List<Activities> getByUserAssigned(@PathVariable Integer userId) {
-        Users user = new Users();
-        user.setId(userId);
-        return activitiesService.findByUserAssigned(user);
+        return activitiesService.findByUserAssigned(userId);
     }
 
-    @GetMapping("/date-range")
-    public List<Activities> getByDateRange(@RequestParam Timestamp startDate, @RequestParam Timestamp endDate) {
-        return activitiesService.findByExpirationDateBetween(startDate, endDate);
-    }
+    // @GetMapping("/date-range")
+    // public List<Activities> getByDateRange(@RequestParam Timestamp startDate, @RequestParam Timestamp endDate) {
+    //     return activitiesService.findByExpirationDateBetween(startDate, endDate);
+    // }
 }
