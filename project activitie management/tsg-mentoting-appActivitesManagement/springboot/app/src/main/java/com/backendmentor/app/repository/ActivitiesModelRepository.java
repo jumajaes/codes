@@ -23,7 +23,7 @@ public interface ActivitiesModelRepository extends JpaRepository<Activities, Int
     @Query(value = "SELECT * FROM activities WHERE priority = ?1", nativeQuery = true)
     List<Activities> findByPriority(String priority);
 
-    @Query(value = "SELECT * FROM activities WHERE id_user = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM activities WHERE user_assigned_id_user = ?1", nativeQuery = true)
     List<Activities> findByUserAssigned(Integer userId);
     // List<Activities> findByExpirationDateBetween(Timestamp startDate, Timestamp endDate);
 }
